@@ -72,7 +72,10 @@ class LoginScreen extends StatelessWidget {
                 Get.toNamed(Routes.workOrderScreen);
                }),
       
-               TextButton(onPressed: (){},
+               TextButton(
+                onPressed: (){
+                  Get.toNamed(Routes.forgetPasswordScreen);
+                },
                 child: Text('Forget Password?',
                 style: CustomTextStyle.h3(
                   color: AppColor.btnColor,

@@ -11,31 +11,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColor.bgColor,
-        title: Text(
-          'Work Order Detail',
-          style: CustomTextStyle.h1(color: AppColor.textColorWhite),
-        ),
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: AppColor.textColorWhite,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.menu,
-              color: AppColor.textColorWhite,
-            ),
-          )
-        ],
-      ),
+      appBar: _appbar(),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -229,6 +205,34 @@ class WorkOrderDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  _appbar() {
+    return AppBar(
+      backgroundColor: AppColor.bgColor,
+      title: Text(
+        'Work Order Detail',
+        style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+      ),
+      leading: IconButton(
+        onPressed: () {
+          Get.back();
+        },
+        icon: Icon(
+          Icons.arrow_back,
+          color: AppColor.textColorWhite,
+        ),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.menu,
+            color: AppColor.textColorWhite,
+          ),
+        )
+      ],
     );
   }
 
