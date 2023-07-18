@@ -35,7 +35,7 @@ class CustomTextField extends StatelessWidget {
           hintText: hintText,
           constraints: BoxConstraints(maxHeight: 50.h),
           hintStyle:
-              CustomTextStyle.h4(color: AppColor.textColor.withOpacity(.5)),
+              CustomTextStyle.h4(color: AppColor.deepOrange.withOpacity(.5)),
               border: border(false),
               enabledBorder: border(false),
               focusedBorder: border(true)

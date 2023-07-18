@@ -23,7 +23,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                 height: 40.h,
                 width: 40.w,
                 decoration: BoxDecoration(
-                    color: AppColor.textColor,
+                    color: AppColor.deepOrange,
                     borderRadius: BorderRadius.circular(10.r)),
                 child: Icon(
                   Icons.check,
@@ -32,12 +32,14 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               ),
               title: Text(
                 'Checking',
-                style: CustomTextStyle.h3(),
+                style: CustomTextStyle.h3(
+                  color: AppColor.deepOrange
+                ),
               ),
               subtitle: Text(
                 'Never',
                 style: CustomTextStyle.h4(
-                    color: AppColor.textColor, fontWeight: FontWeight.w400),
+                    color: AppColor.deepOrange.withOpacity(.6), fontWeight: FontWeight.w400),
               ),
               trailing: IconButton(
                   onPressed: () {},
@@ -60,11 +62,13 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                 AppImage.refresh,
                 height: 30.h,
                 width: 30.w,
-                color: AppColor.textColor,
+                color: AppColor.deepOrange,
               ),
               title: Text(
                 'Sync',
-                style: CustomTextStyle.h3(),
+                style: CustomTextStyle.h3(
+                  color: AppColor.deepOrange
+                ),
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,12 +76,12 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                   Text(
                     'Never',
                     style: CustomTextStyle.h4(
-                        color: AppColor.textColor, fontWeight: FontWeight.w400),
+                        color: AppColor.deepOrange.withOpacity(.6), fontWeight: FontWeight.w400),
                   ),
                   Text(
                     '-You must be checked in',
                     style: CustomTextStyle.h4(
-                        color: AppColor.textColor, fontWeight: FontWeight.w400),
+                         color: AppColor.deepOrange.withOpacity(.6), fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -96,7 +100,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               child: Text(
                 'Work Order Info',
                 style: CustomTextStyle.h3(
-                    color: AppColor.textColor, fontWeight: FontWeight.w500),
+                    color: AppColor.deepOrange, fontWeight: FontWeight.w500),
               ),
             ),
             SizedBox(
@@ -170,7 +174,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.only(left: 10.w),
               decoration: BoxDecoration(
-                color: AppColor.blackColor
+                color: AppColor.deepOrange
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -244,12 +248,13 @@ _customText({required String title, required String subtitle}) {
             children: [
               Text(
                 title,
-                style: CustomTextStyle.h3(fontWeight: FontWeight.w500),
+                style: CustomTextStyle.h3(fontWeight: FontWeight.w500,
+                color: AppColor.deepOrange.withOpacity(.9)),
               ),
               Text(
                 subtitle,
                 style: CustomTextStyle.h4(
-                    color: AppColor.textColor, fontWeight: FontWeight.w400),
+                    color: AppColor.deepOrange.withOpacity(.6), fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 height: 5.h,

@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.bgColor,
-        title: Text('PPW Mobile',
+        title: Text('User Login',
         style: CustomTextStyle.h1(
           color: AppColor.textColorWhite
         ),),
@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               Text('Username',
               style: CustomTextStyle.h3(
-                color: AppColor.btnColor
+                color: AppColor.deepOrange
               ),),
               SizedBox(height: 15.h,),
                CustomTextField(
@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: 15.h,),
                Text('Password',
               style: CustomTextStyle.h3(
-                color: AppColor.btnColor
+                color: AppColor.deepOrange
               ),),
               SizedBox(height: 15.h,),
                CustomTextField(
@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(height: 15.h,),
                Text('System ID (Optional)',
               style: CustomTextStyle.h3(
-                color: AppColor.btnColor
+                color: AppColor.deepOrange
               ),),
               SizedBox(height: 15.h,),
                CustomTextField(
@@ -78,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                 },
                 child: Text('Forget Password?',
                 style: CustomTextStyle.h3(
-                  color: AppColor.btnColor,
+                  color: AppColor.deepOrange,
                   fontWeight: FontWeight.w500
                 ),)
                 )

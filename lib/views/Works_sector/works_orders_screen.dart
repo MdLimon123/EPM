@@ -40,15 +40,16 @@ class WorksOrdersScreen extends StatelessWidget {
                 Text('Filtered 6 of 23 results',
               style: CustomTextStyle.h3(
                 fontWeight: FontWeight.w500,
-                color: AppColor.textColor
+                color: AppColor.deepOrange
               ),),
               SizedBox(width: 80.w,),
               Text('DATE DUE',
               style: CustomTextStyle.h2(
-                color: AppColor.bgColor,
+                color: AppColor.deepOrange,
                 fontWeight: FontWeight.w600
               ),),
-              const Icon(Icons.arrow_drop_down)
+               Icon(Icons.arrow_drop_down,
+              color: AppColor.deepOrange,)
               ],
             ) 
           ),
@@ -84,24 +85,24 @@ class WorksOrdersScreen extends StatelessWidget {
                       Text('WO#: 12345',
                       style: CustomTextStyle.h2(
                         fontWeight: FontWeight.w700,
-                        color: AppColor.blackColor
+                        color: AppColor.deepOrange
                       ),),
                          SizedBox(height: 5.h,),
                       Text('Inspection',
                       style: CustomTextStyle.h3(
                         fontWeight: FontWeight.w400,
-                        color: AppColor.blackColor
+                        color: AppColor.deepOrange.withOpacity(.6)
                       ),),
                       SizedBox(height: 5.h,),
                       Row(
                         children: [
                           Icon(Icons.calendar_today,
-                          color: AppColor.textColor,),
+                          color: AppColor.deepOrange,),
                           SizedBox(width: 5.w,),
                           Text('DUE 00/00/0000',
                           style: CustomTextStyle.h2(
                             fontWeight: FontWeight.w600,
-                            color: AppColor.textColor
+                            color: AppColor.deepOrange
                           ),)
                         ],
                       ),
@@ -109,12 +110,12 @@ class WorksOrdersScreen extends StatelessWidget {
                       Text('555 Main St',
                       style: CustomTextStyle.h2(
                          fontWeight: FontWeight.w600,
-                            color: AppColor.textColor
+                            color: AppColor.deepOrange
                       ),),
                           Text('Small Town, CA',
                       style: CustomTextStyle.h2(
                          fontWeight: FontWeight.w600,
-                            color: AppColor.textColor
+                            color: AppColor.deepOrange.withOpacity(.8)
                       ),),
                       SizedBox(height: 15.h,),
                       Row(
@@ -124,7 +125,7 @@ class WorksOrdersScreen extends StatelessWidget {
                             height: 40.h,
                             width: 40.w,
                             decoration: BoxDecoration(
-                              color: AppColor.textColor,
+                              color: AppColor.deepOrange,
                               borderRadius: BorderRadius.circular(10.r)
                             ),
                             child: Icon(Icons.check,
@@ -134,16 +135,16 @@ class WorksOrdersScreen extends StatelessWidget {
                           Image.asset(AppImage.refresh,
                           height: 30.h,
                           width: 30.h,
-                          color: AppColor.textColor,),
+                          color: AppColor.deepOrange,),
                             
                           Row(
                             children: [
                               Icon(Icons.image,
-                               color: AppColor.textColor,),
+                               color: AppColor.deepOrange,),
                               Text('0',
                               style: CustomTextStyle.h3(
                                 fontWeight: FontWeight.w500,
-                                color: AppColor.textColor
+                                color: AppColor.deepOrange
                               ),)
                             ],
                           )

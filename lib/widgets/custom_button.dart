@@ -26,7 +26,7 @@ class PrimaryButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(7.r)),
-              backgroundColor: AppColor.btnColor),
+              backgroundColor: AppColor.deepOrange),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [icon ?? const SizedBox(), Text(title,

@@ -32,7 +32,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           children: [
             Text('Username/E-mail',
             style: CustomTextStyle.h3(
-              color: AppColor.textColor
+              color: AppColor.deepOrange
             ),),
             SizedBox(height: 15.h,),
             const CustomTextField(
