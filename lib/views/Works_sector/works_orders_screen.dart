@@ -1,8 +1,9 @@
+import 'package:epm/Routes/routes.dart';
 import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
 import 'package:epm/utils/text_style.dart';
-import 'package:epm/views/Works_Sector/work_order_details_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -60,7 +61,7 @@ class WorksOrdersScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return    InkWell(
                   onTap: () {
-                    Get.to(WorkOrderDetailsScreen());
+                    Get.toNamed(Routes.workOrderDetailsScreen);
                   },
                   child: Container(
                   width: double.infinity,
