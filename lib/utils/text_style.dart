@@ -32,5 +32,15 @@ class CustomTextStyle{
 
         
   }
+     static TextStyle h4(
+      {Color? color, FontWeight? fontWeight, double? letterSpacing}) {
+    return TextStyle(
+        color: color,
+        fontSize: 16.sp,
+        letterSpacing: letterSpacing,
+        fontWeight: fontWeight ?? FontWeight.w600);
+
+        
+  }
 
 }

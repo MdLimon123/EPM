@@ -49,7 +49,7 @@ class WorksOrdersScreen extends StatelessWidget {
               ),),
               const Icon(Icons.arrow_drop_down)
               ],
-            )
+            ) 
           ),
 
           Expanded(
@@ -120,8 +120,8 @@ class WorksOrdersScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
-                            height: 50.h,
-                            width: 50.w,
+                            height: 40.h,
+                            width: 40.w,
                             decoration: BoxDecoration(
                               color: AppColor.textColor,
                               borderRadius: BorderRadius.circular(10.r)
