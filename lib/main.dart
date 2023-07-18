@@ -1,4 +1,5 @@
-import 'package:epm/views/Works_sector/works_orders_screen.dart';
+import 'package:epm/views/Auth_Sector/login_screen.dart';
+import 'package:epm/views/Works_Sector/works_orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:WorksOrdersScreen() 
+      home:LoginScreen() 
     );
   }
 }

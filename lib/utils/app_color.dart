@@ -7,4 +7,5 @@ class AppColor{
   static Color textColor = const Color(0xFFA0A0A0);
   static Color blackColor = const Color(0xFF0F0F0F);
   static Color checkColor = const Color(0xFFF0F0F0);
+  static Color btnColor = const Color(0xFF848C97);
 }

@@ -1,0 +1,82 @@
+import 'package:epm/utils/app_color.dart';
+import 'package:epm/utils/text_style.dart';
+import 'package:epm/widgets/custom_button.dart';
+import 'package:epm/widgets/text_field.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColor.bgColor,
+        title: Text('PPW Mobile',
+        style: CustomTextStyle.h1(
+          color: AppColor.textColorWhite
+        ),),
+      ),
+      body: Padding(
+        padding:  EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Username',
+            style: CustomTextStyle.h3(
+              color: AppColor.btnColor
+            ),),
+            SizedBox(height: 15.h,),
+             CustomTextField(
+              hintText: 'username',
+              validator: (value) {
+                
+              },
+            ),
+            SizedBox(height: 15.h,),
+             Text('Password',
+            style: CustomTextStyle.h3(
+              color: AppColor.btnColor
+            ),),
+            SizedBox(height: 15.h,),
+             CustomTextField(
+              hintText: 'password',
+              obsecure: true,
+              validator: (value) {
+                
+              },
+            ),
+              SizedBox(height: 15.h,),
+             Text('System ID (Optional)',
+            style: CustomTextStyle.h3(
+              color: AppColor.btnColor
+            ),),
+            SizedBox(height: 15.h,),
+             CustomTextField(
+              hintText: 'id',
+              obsecure: true,
+              validator: (value) {
+                
+              },
+            ),
+
+            SizedBox(height: 25.h,),
+
+            PrimaryButton(title: 'LOGIN',
+             onPressed:(){}),
+
+             TextButton(onPressed: (){},
+              child: Text('Forget Password?',
+              style: CustomTextStyle.h3(
+                color: AppColor.btnColor,
+                fontWeight: FontWeight.w500
+              ),)
+              )
+
+          ],
+        ),
+      ),
+    );
+  }
+}
