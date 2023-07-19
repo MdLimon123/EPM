@@ -1,5 +1,5 @@
 import 'package:epm/Routes/routes.dart';
-import 'package:epm/controller/add_image_controller.dart';
+
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
 import 'package:epm/utils/text_style.dart';
@@ -205,11 +205,16 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500
                   ),),
                      
-                    Text('NOTES',
-                  style: CustomTextStyle.h3(
-                    color: AppColor.textColorWhite,
-                    fontWeight: FontWeight.w500
-                  ),),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(Routes.addWorkOrderScreen);
+                      },
+                      child: Text('NOTES',
+                                      style: CustomTextStyle.h3(
+                      color: AppColor.textColorWhite,
+                      fontWeight: FontWeight.w500
+                                      ),),
+                    ),
                 ],
               ),
             )
