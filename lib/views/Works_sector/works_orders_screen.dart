@@ -13,6 +13,40 @@ class WorksOrdersScreen extends StatelessWidget {
 
   final _workOrderController = Get.put(WorksOrderController());
 
+ final List item = [
+
+  {"title": "WO#: 12345",
+  "subTitle": "Inspection",
+  "due": "Due 00/00/0000",
+  "sector": "555 Main St",
+  "city": "Small Town, CA",
+  "imageCount": "0"
+  },
+    {"title": "WO#: 12345",
+  "subTitle": "Inspection",
+  "due": "Due 00/00/0000",
+  "sector": "555 Main St",
+  "city": "Small Town, CA",
+  "imageCount": "0"
+  },
+    {"title": "WO#: 12345",
+  "subTitle": "Inspection",
+  "due": "Due 00/00/0000",
+  "sector": "555 Main St",
+  "city": "Small Town, CA",
+  "imageCount": "0"
+  },
+    {"title": "WO#: 12345",
+  "subTitle": "Inspection",
+  "due": "Due 00/00/0000",
+  "sector": "555 Main St",
+  "city": "Small Town, CA",
+  "imageCount": "0"
+  }
+
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +92,7 @@ class WorksOrdersScreen extends StatelessWidget {
             child: ListView.builder(
                    
               physics: const BouncingScrollPhysics(),
-              itemCount: 5,
+              itemCount: item.length,
               itemBuilder: (context, index) {
                 return    InkWell(
                   onTap: () {
@@ -82,13 +116,13 @@ class WorksOrdersScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('WO#: 12345',
+                      Text(item[index]['title'],
                       style: CustomTextStyle.h2(
                         fontWeight: FontWeight.w700,
                         color: AppColor.deepOrange
                       ),),
                          SizedBox(height: 5.h,),
-                      Text('Inspection',
+                      Text(item[index]['subTitle'],
                       style: CustomTextStyle.h3(
                         fontWeight: FontWeight.w400,
                         color: AppColor.deepOrange.withOpacity(.6)
@@ -99,7 +133,7 @@ class WorksOrdersScreen extends StatelessWidget {
                           Icon(Icons.calendar_today,
                           color: AppColor.deepOrange,),
                           SizedBox(width: 5.w,),
-                          Text('DUE 00/00/0000',
+                          Text(item[index]['due'],
                           style: CustomTextStyle.h2(
                             fontWeight: FontWeight.w600,
                             color: AppColor.deepOrange
@@ -107,12 +141,12 @@ class WorksOrdersScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 15.h,),
-                      Text('555 Main St',
+                      Text(item[index]['sector'],
                       style: CustomTextStyle.h2(
                          fontWeight: FontWeight.w600,
                             color: AppColor.deepOrange
                       ),),
-                          Text('Small Town, CA',
+                          Text(item[index]['city'],
                       style: CustomTextStyle.h2(
                          fontWeight: FontWeight.w600,
                             color: AppColor.deepOrange.withOpacity(.8)
@@ -141,7 +175,7 @@ class WorksOrdersScreen extends StatelessWidget {
                             children: [
                               Icon(Icons.image,
                                color: AppColor.deepOrange,),
-                              Text('0',
+                              Text(item[index]['imageCount'],
                               style: CustomTextStyle.h3(
                                 fontWeight: FontWeight.w500,
                                 color: AppColor.deepOrange
@@ -193,9 +227,11 @@ class WorksOrdersScreen extends StatelessWidget {
             child: TextFormField(
               controller: _workOrderController.searchController,
               style: CustomTextStyle.h2(color: AppColor.textColorWhite),
+       
               decoration: InputDecoration(
                   constraints: BoxConstraints(maxHeight: 60.h),
                   hintText: 'Search',
+                  
                   hintStyle: CustomTextStyle.h2(
                       color: AppColor.textColorWhite,
                       fontWeight: FontWeight.w500),
@@ -203,6 +239,9 @@ class WorksOrdersScreen extends StatelessWidget {
                     Icons.search,
                     color: AppColor.textColorWhite,
                   ),
+                 
+                  
+
                   suffixIcon: IconButton(
                     onPressed: () {
                       _workOrderController.searchController.clear();

@@ -1,3 +1,4 @@
+import 'package:epm/Routes/routes.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
 import 'package:epm/utils/text_style.dart';
@@ -179,11 +180,16 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('PHOTOS',
-                  style: CustomTextStyle.h3(
-                    color: AppColor.textColorWhite,
-                    fontWeight: FontWeight.w500
-                  ),),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.addImageScreen);
+                    },
+                    child: Text('PHOTOS',
+                    style: CustomTextStyle.h3(
+                      color: AppColor.textColorWhite,
+                      fontWeight: FontWeight.w500
+                    ),),
+                  ),
                   
                     Text('BD/COMP',
                   style: CustomTextStyle.h3(

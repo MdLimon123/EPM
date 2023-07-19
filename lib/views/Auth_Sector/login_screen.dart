@@ -18,7 +18,9 @@ class LoginScreen extends StatelessWidget {
         title: Text('User Login',
         style: CustomTextStyle.h1(
           color: AppColor.textColorWhite
-        ),),
+        ),
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
