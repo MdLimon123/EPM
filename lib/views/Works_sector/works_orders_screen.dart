@@ -1,4 +1,5 @@
 import 'package:epm/Routes/routes.dart';
+import 'package:epm/controller/add_image_controller.dart';
 import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
@@ -12,6 +13,7 @@ class WorksOrdersScreen extends StatelessWidget {
   WorksOrdersScreen({super.key});
 
   final _workOrderController = Get.put(WorksOrderController());
+  final _addImageController = Get.put(AddImageController());
 
  final List item = [
 
@@ -175,11 +177,13 @@ class WorksOrdersScreen extends StatelessWidget {
                             children: [
                               Icon(Icons.image,
                                color: AppColor.deepOrange,),
-                              Text(item[index]['imageCount'],
-                              style: CustomTextStyle.h3(
-                                fontWeight: FontWeight.w500,
-                                color: AppColor.deepOrange
-                              ),)
+                              Obx(()=>
+                                 Text("${_addImageController.selectedImage.length}",
+                                style: CustomTextStyle.h3(
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColor.deepOrange
+                                ),),
+                              )
                             ],
                           )
                         ],

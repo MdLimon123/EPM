@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import '../../controller/add_image_controller.dart';
 
 class AddImageScreen extends StatelessWidget {
- AddImageScreen({super.key});
+  AddImageScreen({super.key});
 
   final _addImageController = Get.put(AddImageController());
 
@@ -19,87 +19,106 @@ class AddImageScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
-          onPressed: (){},
-         icon:Icon(Icons.arrow_back,
-         color: AppColor.textColorWhite,)),
-        title: Text('Add Image',
-        style: CustomTextStyle.h1(
-          color: AppColor.textColorWhite
-        ),),
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColor.textColorWhite,
+            )),
+        title: Text(
+          'Add Image',
+          style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+        ),
         centerTitle: true,
         actions: [
-
           IconButton(
-            onPressed: (){
-              showDialog(context: context,
-               builder: (context){
-                return AlertDialog(
-                  title: Text('Add Image',
-                  style: CustomTextStyle.h3(
-                    color: AppColor.blackColor,
-                    
-                  ), textAlign: TextAlign.center,),
-                  content: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start ,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      InkWell(
-                        onTap: () async{
-                          _addImageController.pickImageGallery();
-                          await _addImageController.selectDate();
-                        },
-                        child: Text('Gallery',
-                        style: CustomTextStyle.h4(),),
-                      ),
-                      SizedBox(height: 15.h,),
-                            InkWell(
-                              onTap: () async{
-                                _addImageController.pickImageCamera();
-                               await _addImageController.selectDate();
-                              },
-                              child: Text('Camera',
-                              style: CustomTextStyle.h4(),),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                          'Add Image',
+                          style: CustomTextStyle.h3(
+                            color: AppColor.blackColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+
+                            TextButton(
+                                onPressed: () async {
+                                  _addImageController.pickImageGallery();
+                                  await _addImageController.selectDate();
+                                },
+                                child: Text(
+                                  'Gallery',
+                                  style: CustomTextStyle.h4(),
+                                )),
+                            SizedBox(
+                              height: 15.h,
                             ),
-                    ],
-                  ),
-                  actions: [
-                    TextButton(onPressed: (){
-                     Get.back();
-                    },
-                     child: Text('Cancel',
-                     style: CustomTextStyle.h4(),)),
-                       TextButton(onPressed: (){
-                        Get.back();
-                       },
-                     child: Text('Ok',
-                     style: CustomTextStyle.h4(),))
-                  ],
-                );
-               });
-            },
-           icon: Icon(Icons.adaptive.more,
-           color: AppColor.textColorWhite,))
-       
-        
+                           TextButton(
+                                onPressed: () async {
+                                  _addImageController.pickImageCamera();
+                                  await _addImageController.selectDate();
+                                },
+                                child: Text(
+                                  'Camera',
+                                  style: CustomTextStyle.h4(),
+                                )),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text(
+                                'Cancel',
+                                style: CustomTextStyle.h4(),
+                              )),
+                          TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text(
+                                'Ok',
+                                style: CustomTextStyle.h4(),
+                              ))
+                        ],
+                      );
+                    });
+              },
+              icon: Icon(
+                Icons.adaptive.more,
+                color: AppColor.textColorWhite,
+              ))
         ],
       ),
-      body: Obx(()=>
-         ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: _addImageController.selectedImage.length,
-          itemBuilder: (context, index){
-            final image = _addImageController.selectedImage[index];
-            return ListTile(
-              title: Image.file(File(image.path),
-              fit: BoxFit.cover,),
-              subtitle: Obx(()=>
-               Text(_addImageController.selectedDate.value,
-                style: CustomTextStyle.h4(
-                  color: AppColor.blackColor
-                ),),
-              ),
-            );
-        }),
+      body: Obx(
+        () => ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: _addImageController.selectedImage.length,
+            itemBuilder: (context, index) {
+              final image = _addImageController.selectedImage[index];
+              return ListTile(
+                title: Image.file(
+                  File(image.path),
+                  fit: BoxFit.cover,
+                ),
+                subtitle: Obx(
+                  () => Text(
+                    _addImageController.selectedDate.value,
+                    style: CustomTextStyle.h4(color: AppColor.blackColor),
+                  ),
+                ),
+              );
+            }),
       ),
     );
   }

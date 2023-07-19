@@ -1,4 +1,5 @@
 import 'package:epm/Routes/routes.dart';
+import 'package:epm/controller/add_image_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
 import 'package:epm/utils/text_style.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 
 class WorkOrderDetailsScreen extends StatelessWidget {
   const WorkOrderDetailsScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -260,7 +262,7 @@ _customText({required String title, required String subtitle}) {
               Text(
                 subtitle,
                 style: CustomTextStyle.h4(
-                    color: AppColor.deepOrange.withOpacity(.6), fontWeight: FontWeight.w400),
+                    color: AppColor.deepBlack, fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 height: 5.h,

@@ -9,4 +9,5 @@ class AppColor{
   static Color checkColor = const Color(0xFFF0F0F0);
   static Color btnColor = const Color(0xFF848C97);
   static Color deepOrange = const Color(0xFFEB6626);
+  static Color deepBlack = const Color(0xFF272822);
 }
