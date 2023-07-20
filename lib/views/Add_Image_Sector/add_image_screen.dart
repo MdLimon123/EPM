@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import '../../controller/add_image_controller.dart';
@@ -59,9 +59,7 @@ class AddImageScreen extends StatelessWidget {
                                   'Gallery',
                                   style: CustomTextStyle.h4(),
                                 )),
-                            SizedBox(
-                              height: 15.h,
-                            ),
+                       
                            TextButton(
                                 onPressed: () async {
                                   _addImageController.pickImageCamera();

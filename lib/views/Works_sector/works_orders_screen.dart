@@ -78,7 +78,7 @@ class WorksOrdersScreen extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 color: AppColor.deepOrange
               ),),
-              SizedBox(width: 80.w,),
+              SizedBox(width: 60.w,),
               Text('DATE DUE',
               style: CustomTextStyle.h2(
                 color: AppColor.deepOrange,

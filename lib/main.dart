@@ -1,4 +1,6 @@
+
 import 'package:epm/Routes/routes.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +10,8 @@ import 'package:get/get.dart';
 void main() async{
    await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp( const MyApp(), // Wrap your app
+  );
 }
 
 class MyApp extends StatelessWidget {

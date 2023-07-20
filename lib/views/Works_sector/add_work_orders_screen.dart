@@ -4,6 +4,7 @@ import 'package:epm/widgets/custom_button.dart';
 import 'package:epm/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class AddWorkOrderScreen extends StatelessWidget {
   const AddWorkOrderScreen({super.key});
@@ -13,7 +14,9 @@ class AddWorkOrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){},
+          onPressed: (){
+            Get.back();
+          },
          icon: Icon(Icons.arrow_back,
          color: AppColor.textColorWhite,)),
         backgroundColor: AppColor.bgColor,
@@ -69,13 +72,12 @@ class AddWorkOrderScreen extends StatelessWidget {
               ),
                    SizedBox(height: 15.h,),
               _titleText(
-                'Total Price'
-              ),
+                'Total Price'),
               SizedBox(height: 5.h,),
               const CustomTextField(
                 hintText: 'Total Price',
               ),
-              SizedBox(height: 15.h,),
+              SizedBox(height: 20.h,),
               PrimaryButton(title: 'Save',
                onPressed: (){})
             ],

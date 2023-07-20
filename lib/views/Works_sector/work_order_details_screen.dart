@@ -7,8 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../controller/works_orders_controller.dart';
+
 class WorkOrderDetailsScreen extends StatelessWidget {
-  const WorkOrderDetailsScreen({super.key});
+   WorkOrderDetailsScreen({super.key});
+
+   final _workOderController = Get.put(WorksOrderController());
 
 
   @override
@@ -199,21 +203,25 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500
                   ),),
                      
-                    Text('FORMS',
-                  style: CustomTextStyle.h3(
-                    color: AppColor.textColorWhite,
-                    fontWeight: FontWeight.w500
-                  ),),
+                    
+                       Text('FORMS',
+                                      style: CustomTextStyle.h3(
+                      color:AppColor.textColorWhite,
+                      fontWeight: FontWeight.w500
+                                      ),
+                    ),
                      
                     InkWell(
                       onTap: () {
                         Get.toNamed(Routes.addWorkOrderScreen);
                       },
-                      child: Text('NOTES',
-                                      style: CustomTextStyle.h3(
-                      color: AppColor.textColorWhite,
-                      fontWeight: FontWeight.w500
-                                      ),),
+                      child: 
+                         Text('NOTES',
+                                        style: CustomTextStyle.h3(
+                        color:AppColor.textColorWhite,
+                        fontWeight: FontWeight.w500
+                                        ),
+                      ),
                     ),
                 ],
               ),

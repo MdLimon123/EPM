@@ -7,4 +7,13 @@ class WorksOrderController extends GetxController{
 
   var showCloseIcon = false.obs;
 
+  var isHovering = false.obs;
+
+  void onEnter(){
+    isHovering.value = true;
+  }
+  void onExit(){
+    isHovering.value = false;
+  }
+
 }
