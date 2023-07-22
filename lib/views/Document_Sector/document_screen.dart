@@ -124,6 +124,8 @@ class DocumentScreen extends StatelessWidget {
                   itemBuilder: (context, index){
                     final file = _documentController.fileList[index];
                   return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,7 +149,10 @@ class DocumentScreen extends StatelessWidget {
                         
                         ],
                       ),
+                      
                         Text(file),
+                      
+                        
                     ],
                   );
                 }),

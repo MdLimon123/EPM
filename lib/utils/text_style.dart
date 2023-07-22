@@ -3,19 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextStyle{
   static TextStyle h1(
-      {Color? color, FontWeight? fontWeight, double? letterSpacing}) {
+      {Color? color, FontWeight? fontWeight, double? letterSpacing, double? fontSize}) {
     return TextStyle(
         color: color,
-        fontSize: 24.sp,
+        fontSize:fontSize?? 24.sp,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w600);
   }
 
     static TextStyle h2(
-      {Color? color, FontWeight? fontWeight, double? letterSpacing}) {
+      {Color? color, FontWeight? fontWeight, double? letterSpacing,double? fontSize}) {
     return TextStyle(
         color: color,
-        fontSize: 20.sp,
+        fontSize:fontSize?? 20.sp,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w600);
 
@@ -23,20 +23,20 @@ class CustomTextStyle{
   }
 
     static TextStyle h3(
-      {Color? color, FontWeight? fontWeight, double? letterSpacing}) {
+      {Color? color, FontWeight? fontWeight, double? letterSpacing,double? fontSize}) {
     return TextStyle(
         color: color,
-        fontSize: 18.sp,
+        fontSize:fontSize?? 18.sp,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w600);
 
         
   }
      static TextStyle h4(
-      {Color? color, FontWeight? fontWeight, double? letterSpacing}) {
+      {Color? color, FontWeight? fontWeight, double? letterSpacing,double? fontSize}) {
     return TextStyle(
         color: color,
-        fontSize: 16.sp,
+        fontSize: fontSize ??16.sp,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w600);
 

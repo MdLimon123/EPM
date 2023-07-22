@@ -127,18 +127,20 @@ class WorksOrdersScreen extends StatelessWidget {
                       Text(item[index]['subTitle'],
                       style: CustomTextStyle.h3(
                         fontWeight: FontWeight.w400,
+                        fontSize: 16.sp,
                         color: AppColor.deepOrange.withOpacity(.6)
                       ),),
                       SizedBox(height: 5.h,),
                       Row(
                         children: [
                           Icon(Icons.calendar_today,
-                          color: AppColor.deepOrange,),
+                          color: AppColor.deepBlack,),
                           SizedBox(width: 5.w,),
                           Text(item[index]['due'],
                           style: CustomTextStyle.h2(
                             fontWeight: FontWeight.w600,
-                            color: AppColor.deepOrange
+                            fontSize: 18.sp,
+                            color: AppColor.deepBlack
                           ),)
                         ],
                       ),
@@ -146,13 +148,21 @@ class WorksOrdersScreen extends StatelessWidget {
                       Text(item[index]['sector'],
                       style: CustomTextStyle.h2(
                          fontWeight: FontWeight.w600,
-                            color: AppColor.deepOrange
+                            color: AppColor.deepBlack,
+                            fontSize: 16.sp
                       ),),
-                          Text(item[index]['city'],
+                          Row(
+                            children: [
+                              Icon(Icons.location_on,
+                              color: AppColor.blackColor,),
+                              Text(item[index]['city'],
                       style: CustomTextStyle.h2(
                          fontWeight: FontWeight.w600,
-                            color: AppColor.deepOrange.withOpacity(.8)
+                         fontSize: 16.sp,
+                                color: AppColor.deepBlack.withOpacity(.8)
                       ),),
+                            ],
+                          ),
                       SizedBox(height: 15.h,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
