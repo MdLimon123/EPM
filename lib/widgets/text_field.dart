@@ -11,6 +11,8 @@ class CustomTextField extends StatelessWidget {
       this.hintText,
       this.obsecure,
       this.onTap,
+      this.labelText,
+      this.labelStyle,
       this.readOnly,
       this.validator});
 
@@ -20,6 +22,8 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool? obsecure;
   final String? hintText;
+  final String? labelText;
+  final TextStyle? labelStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,8 @@ class CustomTextField extends StatelessWidget {
           fillColor: AppColor.textColor.withOpacity(.1),
           filled: true,
           hintText: hintText,
+          labelText: labelText,
+          labelStyle: labelStyle,
           constraints: BoxConstraints(maxHeight: 50.h),
           hintStyle:
               CustomTextStyle.h4(color: AppColor.deepOrange.withOpacity(.5)),

@@ -188,35 +188,57 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.addImageScreen);
+                     
                     },
-                    child: Text('PHOTOS',
+                    child: Text('Chat',
                     style: CustomTextStyle.h3(
                       color: AppColor.textColorWhite,
                       fontWeight: FontWeight.w500
                     ),),
                   ),
                   
-                    Text('BD/COMP',
-                  style: CustomTextStyle.h3(
-                    color: AppColor.textColorWhite,
-                    fontWeight: FontWeight.w500
-                  ),),
+                    InkWell(
+                      onTap: () {
+                         Get.toNamed(Routes.addImageScreen);
+                      },
+                      child: Text('Photos',
+                                      style: CustomTextStyle.h3(
+                      color: AppColor.textColorWhite,
+                      fontWeight: FontWeight.w500
+                                      ),),
+                    ),
                      
                     
-                       Text('FORMS',
-                                      style: CustomTextStyle.h3(
-                      color:AppColor.textColorWhite,
-                      fontWeight: FontWeight.w500
-                                      ),
-                    ),
+                       InkWell(
+                        onTap: () {
+                          Get.toNamed(Routes.documentScreen);
+                        },
+                         child: Text('Documents',
+                                        style: CustomTextStyle.h3(
+                                             color:AppColor.textColorWhite,
+                                             fontWeight: FontWeight.w500
+                                        ),
+                                           ),
+                       ),
                      
                     InkWell(
                       onTap: () {
                         Get.toNamed(Routes.addWorkOrderScreen);
                       },
                       child: 
-                         Text('NOTES',
+                         Text('Em.',
+                                        style: CustomTextStyle.h3(
+                        color:AppColor.textColorWhite,
+                        fontWeight: FontWeight.w500
+                                        ),
+                      ),
+                    ),
+                       InkWell(
+                      onTap: () {
+                     
+                      },
+                      child: 
+                         Text('Invoice.',
                                         style: CustomTextStyle.h3(
                         color:AppColor.textColorWhite,
                         fontWeight: FontWeight.w500
