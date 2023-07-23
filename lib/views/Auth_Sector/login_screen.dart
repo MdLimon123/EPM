@@ -1,4 +1,5 @@
 import 'package:epm/Routes/routes.dart';
+import 'package:epm/controller/auth/login_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 import 'package:epm/widgets/custom_button.dart';
@@ -8,7 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+   LoginScreen({super.key});
+
+   final _formKey = GlobalKey<FormState>();
+   final _loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,66 +30,84 @@ class LoginScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Padding(
           padding:  EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Username',
-              style: CustomTextStyle.h3(
-                color: AppColor.deepOrange
-              ),),
-              SizedBox(height: 15.h,),
-               CustomTextField(
-                hintText: 'username',
-                validator: (value) {
-                  
-                },
-              ),
-              SizedBox(height: 15.h,),
-               Text('Password',
-              style: CustomTextStyle.h3(
-                color: AppColor.deepOrange
-              ),),
-              SizedBox(height: 15.h,),
-               CustomTextField(
-                hintText: 'password',
-                obsecure: true,
-                validator: (value) {
-                  
-                },
-              ),
-                SizedBox(height: 15.h,),
-               Text('System ID (Optional)',
-              style: CustomTextStyle.h3(
-                color: AppColor.deepOrange
-              ),),
-              SizedBox(height: 15.h,),
-               CustomTextField(
-                hintText: 'id',
-                obsecure: true,
-                validator: (value) {
-                  
-                },
-              ),
-      
-              SizedBox(height: 25.h,),
-      
-              PrimaryButton(title: 'LOGIN',
-               onPressed:(){
-                Get.toNamed(Routes.workOrderScreen);
-               }),
-      
-               TextButton(
-                onPressed: (){
-                  Get.toNamed(Routes.forgetPasswordScreen);
-                },
-                child: Text('Forget Password?',
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Email',
                 style: CustomTextStyle.h3(
-                  color: AppColor.deepOrange,
-                  fontWeight: FontWeight.w500
-                ),)
-                )
-      
-            ],
+                  color: AppColor.deepOrange
+                ),),
+                SizedBox(height: 15.h,),
+                 CustomTextField(
+                  controller: _loginController.emailController,
+                  hintText: 'email',
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if(value!.isEmpty){
+                      return "Field is Empty";
+                    }else if(value.contains('@') && !value.contains('.')){
+                      return 'Invalid Your Email';
+                    }
+                    return null;
+                    
+                  },
+                ),
+                SizedBox(height: 15.h,),
+                 Text('Password',
+                style: CustomTextStyle.h3(
+                  color: AppColor.deepOrange
+                ),),
+                SizedBox(height: 15.h,),
+                 CustomTextField(
+                  controller: _loginController.passwordController,
+                  hintText: 'password',
+                  obsecure: true,
+                  validator: (value) {
+                    if(value!.isEmpty){
+                      return 'Field is Empty';
+                    }else if(value.length<6){
+                      return 'Password must be 6 character';
+                    }
+                    return null;
+                  },
+                ),
+                  SizedBox(height: 15.h,),
+                 Text('System ID (Optional)',
+                style: CustomTextStyle.h3(
+                  color: AppColor.deepOrange
+                ),),
+                SizedBox(height: 15.h,),
+                 const CustomTextField(
+                  hintText: 'id',
+                  obsecure: true,
+                 
+                ),
+                
+                SizedBox(height: 25.h,),
+                
+                PrimaryButton(title: 'LOGIN',
+                 onPressed:(){
+                  if(_formKey.currentState!.validate()){
+                     Get.toNamed(Routes.workOrderScreen);
+                  }
+                 
+                 }),
+                
+                 TextButton(
+                  onPressed: (){
+                    Get.toNamed(Routes.forgetPasswordScreen);
+                  },
+                  child: Text('Forget Password?',
+                  style: CustomTextStyle.h3(
+                    color: AppColor.deepOrange,
+                    fontWeight: FontWeight.w500
+                  ),)
+                  )
+                
+              ],
+            ),
           ),
         ),
       ),

@@ -50,8 +50,9 @@ class DocumentScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Document add',
+                                'Document Add',
                                 style: CustomTextStyle.h4(),
+                                textAlign: TextAlign.center,
                               ),
                               SizedBox(
                                 height: 15.h,

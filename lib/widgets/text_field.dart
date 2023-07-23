@@ -13,7 +13,8 @@ class CustomTextField extends StatelessWidget {
       this.onTap,
       this.labelText,
       this.labelStyle,
-      this.readOnly,
+      this.readOnly ,
+      this.keyboardType,
       this.validator});
 
   final VoidCallback? onTap;
@@ -24,6 +25,7 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   final String? labelText;
   final TextStyle? labelStyle;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +35,15 @@ class CustomTextField extends StatelessWidget {
       readOnly: readOnly ?? false,
       validator: validator,
       obscureText: obsecure ?? false,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
+
           fillColor: AppColor.textColor.withOpacity(.1),
           filled: true,
           hintText: hintText,
           labelText: labelText,
           labelStyle: labelStyle,
-          constraints: BoxConstraints(maxHeight: 50.h),
+          constraints: BoxConstraints(maxHeight: 70.h),
           hintStyle:
               CustomTextStyle.h4(color: AppColor.deepOrange.withOpacity(.5)),
               border: border(false),

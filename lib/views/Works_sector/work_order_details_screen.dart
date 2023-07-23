@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../controller/works_orders_controller.dart';
+
 
 class WorkOrderDetailsScreen extends StatelessWidget {
-   WorkOrderDetailsScreen({super.key});
+  const WorkOrderDetailsScreen({super.key});
 
-   final _workOderController = Get.put(WorksOrderController());
+   
 
 
   @override
