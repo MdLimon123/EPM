@@ -7,13 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-
-
 class WorkOrderDetailsScreen extends StatelessWidget {
   const WorkOrderDetailsScreen({super.key});
-
-   
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +34,13 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               ),
               title: Text(
                 'Checking',
-                style: CustomTextStyle.h3(
-                  color: AppColor.deepOrange
-                ),
+                style: CustomTextStyle.h3(color: AppColor.deepOrange),
               ),
               subtitle: Text(
                 'Never',
                 style: CustomTextStyle.h4(
-                    color: AppColor.deepOrange.withOpacity(.6), fontWeight: FontWeight.w400),
+                    color: AppColor.deepOrange.withOpacity(.6),
+                    fontWeight: FontWeight.w400),
               ),
               trailing: IconButton(
                   onPressed: () {},
@@ -73,9 +67,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               ),
               title: Text(
                 'Sync',
-                style: CustomTextStyle.h3(
-                  color: AppColor.deepOrange
-                ),
+                style: CustomTextStyle.h3(color: AppColor.deepOrange),
               ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,12 +75,14 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                   Text(
                     'Never',
                     style: CustomTextStyle.h4(
-                        color: AppColor.deepOrange.withOpacity(.6), fontWeight: FontWeight.w400),
+                        color: AppColor.deepOrange.withOpacity(.6),
+                        fontWeight: FontWeight.w400),
                   ),
                   Text(
                     '-You must be checked in',
                     style: CustomTextStyle.h4(
-                         color: AppColor.deepOrange.withOpacity(.6), fontWeight: FontWeight.w400),
+                        color: AppColor.deepOrange.withOpacity(.6),
+                        fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -121,134 +115,102 @@ class WorkOrderDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
+            _customText(title: 'Status', subtitle: 'Unread'),
+            SizedBox(
+              height: 10.h,
+            ),
+            _customText(title: 'WO#', subtitle: '12345'),
+            SizedBox(
+              height: 10.h,
+            ),
+            _customText(title: 'PPW#', subtitle: '5720'),
+            SizedBox(
+              height: 10.h,
+            ),
+            _customText(title: 'Work Type', subtitle: 'Inspection'),
+            SizedBox(
+              height: 10.h,
+            ),
+            _customText(title: 'Address', subtitle: '555 Main St'),
+            SizedBox(
+              height: 10.h,
+            ),
             _customText(
-              title: 'Status',
-              subtitle: 'Unread'
+                title: 'City/State/Zip', subtitle: 'Small Town,CA 12345'),
+            SizedBox(
+              height: 10.h,
             ),
-            SizedBox(height: 10.h,),
-               _customText(
-              title: 'WO#',
-              subtitle: '12345'
+            _customText(title: 'Loan Info', subtitle: '123456789-10'),
+            _customText(title: 'Client Company', subtitle: 'PPW Client'),
+            _customText(title: 'Customer', subtitle: 'Local Credit Union'),
+            _customText(title: 'Date Received', subtitle: '03/21/2018'),
+            _customText(title: 'Date Due', subtitle: '00/00/0000'),
+            _customText(title: 'Missing Info', subtitle: 'No'),
+            SizedBox(
+              height: 15.h,
             ),
-               SizedBox(height: 10.h,),
-               _customText(
-              title: 'PPW#',
-              subtitle: '5720'
-            ),
-                SizedBox(height: 10.h,),
-               _customText(
-              title: 'Work Type',
-              subtitle: 'Inspection'
-            ),
-                SizedBox(height: 10.h,),
-               _customText(
-              title: 'Address',
-              subtitle: '555 Main St'
-            ),
-                  SizedBox(height: 10.h,),
-               _customText(
-              title: 'City/State/Zip',
-              subtitle: 'Small Town,CA 12345'
-            ),
-                  SizedBox(height: 10.h,),
-               _customText(
-              title: 'Loan Info',
-              subtitle: '123456789-10'
-            ),
-              _customText(
-              title: 'Client Company',
-              subtitle: 'PPW Client'
-            ),
-               _customText(
-              title: 'Customer',
-              subtitle: 'Local Credit Union'
-            ),
-               _customText(
-              title: 'Date Received',
-              subtitle: '03/21/2018'
-            ),
-               _customText(
-              title: 'Date Due',
-              subtitle: '00/00/0000'
-            ),
-              _customText(
-              title: 'Missing Info',
-              subtitle: 'No'
-            ),
-            SizedBox(height: 15.h,),
             Container(
               height: 60.h,
               width: double.infinity,
               padding: EdgeInsets.only(left: 10.w),
-              decoration: BoxDecoration(
-                color: AppColor.deepOrange
-              ),
+              decoration: BoxDecoration(color: AppColor.deepOrange),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   InkWell(
-                    onTap: () {
-                     
-                    },
-                    child: Text('Chat',
-                    style: CustomTextStyle.h3(
-                      color: AppColor.textColorWhite,
-                      fontWeight: FontWeight.w500
-                    ),),
+                    onTap: () {},
+                    child: Text(
+                      'Chat',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
-                  
-                    InkWell(
-                      onTap: () {
-                         Get.toNamed(Routes.addImageScreen);
-                      },
-                      child: Text('Photos',
-                                      style: CustomTextStyle.h3(
-                      color: AppColor.textColorWhite,
-                      fontWeight: FontWeight.w500
-                                      ),),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.addImageScreen);
+                    },
+                    child: Text(
+                      'Photos',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
                     ),
-                     
-                    
-                       InkWell(
-                        onTap: () {
-                          Get.toNamed(Routes.documentScreen);
-                        },
-                         child: Text('Documents',
-                                        style: CustomTextStyle.h3(
-                                             color:AppColor.textColorWhite,
-                                             fontWeight: FontWeight.w500
-                                        ),
-                                           ),
-                       ),
-                     
-                    InkWell(
-                      onTap: () {
-                        Get.toNamed(Routes.addWorkOrderScreen);
-                      },
-                      child: 
-                         Text('Em.',
-                                        style: CustomTextStyle.h3(
-                        color:AppColor.textColorWhite,
-                        fontWeight: FontWeight.w500
-                                        ),
-                      ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.documentScreen);
+                    },
+                    child: Text(
+                      'Documents',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
                     ),
-                       InkWell(
-                      onTap: () {
-                     
-                      },
-                      child: 
-                         Text('Invoice.',
-                                        style: CustomTextStyle.h3(
-                        color:AppColor.textColorWhite,
-                        fontWeight: FontWeight.w500
-                                        ),
-                      ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.addWorkOrderScreen);
+                    },
+                    child: Text(
+                      'Em.',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
                     ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      'Invoice.',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
                 ],
               ),
             )
-
           ],
         ),
       ),
@@ -283,32 +245,33 @@ class WorkOrderDetailsScreen extends StatelessWidget {
     );
   }
 
-_customText({required String title, required String subtitle}) {
+  _customText({required String title, required String subtitle}) {
     return Padding(
-          padding: EdgeInsets.only(left: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: CustomTextStyle.h3(fontWeight: FontWeight.w500,
+      padding: EdgeInsets.only(left: 20.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: CustomTextStyle.h3(
+                fontWeight: FontWeight.w500,
                 color: AppColor.deepOrange.withOpacity(.9)),
-              ),
-              Text(
-                subtitle,
-                style: CustomTextStyle.h4(
-                    color: AppColor.deepBlack, fontWeight: FontWeight.w400),
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Divider(
-                color: AppColor.greyColor,
-                height: 2.h,
-                thickness: 2,
-              ),
-            ],
           ),
-        );
+          Text(
+            subtitle,
+            style: CustomTextStyle.h4(
+                color: AppColor.deepBlack, fontWeight: FontWeight.w400),
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          Divider(
+            color: AppColor.greyColor,
+            height: 2.h,
+            thickness: 2,
+          ),
+        ],
+      ),
+    );
   }
 }

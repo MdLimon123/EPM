@@ -28,22 +28,21 @@ class DataController extends GetxController {
       required String usernameD,
       required String bearerTokenD,
       required String profileImageD}) async {
-        id.value = idD;
-        email.value = emailD;
-        password.value = passwordD;
-        username.value = usernameD;
-        bearerToken.value = bearerTokenD;
-        profileImage.value = profileImageD;
+    id.value = idD;
+    email.value = emailD;
+    password.value = passwordD;
+    username.value = usernameD;
+    bearerToken.value = bearerTokenD;
+    profileImage.value = profileImageD;
 
-        preferences = await SharedPreferences.getInstance();
-        preferences.setInt(CommonData.id, idD);
-        preferences.setString(CommonData.email, emailD);
-        preferences.setString(CommonData.password, passwordD);
-        preferences.setString(CommonData.username, usernameD);
-        preferences.setString(CommonData.bearerToken, bearerTokenD);
-        preferences.setString(CommonData.profileImage, profileImageD);
-
-      }
+    preferences = await SharedPreferences.getInstance();
+    preferences.setInt(CommonData.id, idD);
+    preferences.setString(CommonData.email, emailD);
+    preferences.setString(CommonData.password, passwordD);
+    preferences.setString(CommonData.username, usernameD);
+    preferences.setString(CommonData.bearerToken, bearerTokenD);
+    preferences.setString(CommonData.profileImage, profileImageD);
+  }
 }
 
 class CommonData {

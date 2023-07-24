@@ -89,9 +89,11 @@ class LoginScreen extends StatelessWidget {
                 
                 PrimaryButton(title: 'LOGIN',
                  onPressed:(){
-                  if(_formKey.currentState!.validate()){
-                     Get.toNamed(Routes.workOrderScreen);
-                  }
+                  // if(_formKey.currentState!.validate()){
+                  //    Get.toNamed(Routes.workOrderScreen);
+                  // }
+
+                  Get.toNamed(Routes.workOrderScreen);
                  
                  }),
                 

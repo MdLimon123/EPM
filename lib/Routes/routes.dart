@@ -23,7 +23,7 @@ List<GetPage> getPage = [
   GetPage(name: Routes.workOrderDetailsScreen, page: ()=>  const WorkOrderDetailsScreen()),
   GetPage(name: Routes.forgetPasswordScreen, page: ()=> const ForgetPasswordScreen()),
   GetPage(name: Routes.addImageScreen, page: ()=> AddImageScreen()),
-  GetPage(name: Routes.addWorkOrderScreen, page: ()=> const AddWorkOrderScreen()),
+  GetPage(name: Routes.addWorkOrderScreen, page: ()=>  AddWorkOrderScreen()),
   GetPage(name: Routes.documentScreen, page: ()=> DocumentScreen())
   
 ];
