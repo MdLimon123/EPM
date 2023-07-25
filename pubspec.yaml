@@ -44,7 +44,8 @@ dependencies:
   path: ^1.8.3
   pdf: ^3.10.4
   printing: ^5.11.0
- 
+  http: ^1.1.0
+  fluttertoast: ^8.2.2
   
 
 dev_dependencies:
