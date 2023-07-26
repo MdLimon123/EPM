@@ -20,7 +20,7 @@ class Routes{
 List<GetPage> getPage = [
   GetPage(name: Routes.loginScreen, page:()=>  LoginScreen()),
   GetPage(name: Routes.workOrderScreen, page:()=> WorksOrdersScreen()),
-  GetPage(name: Routes.workOrderDetailsScreen, page: ()=>  const WorkOrderDetailsScreen()),
+  GetPage(name: Routes.workOrderDetailsScreen, page: ()=>   WorkOrderDetailsScreen()),
   GetPage(name: Routes.forgetPasswordScreen, page: ()=> const ForgetPasswordScreen()),
   GetPage(name: Routes.addImageScreen, page: ()=> AddImageScreen()),
   GetPage(name: Routes.addWorkOrderScreen, page: ()=>  AddWorkOrderScreen()),

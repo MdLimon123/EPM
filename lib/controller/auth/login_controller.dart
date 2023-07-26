@@ -51,8 +51,16 @@ class LoginController extends GetxController {
 
         await MyPreference.isLoggedSave(
             email: emailController.text, password: passwordController.text);
+            debugPrint(allData.accessToken);
+
         await MyPreference.setToken(allData.accessToken);
+
         Get.offAllNamed(Routes.workOrderScreen);
+
+        _dataController.setData(bearerTokenD: allData.accessToken);
+        await MyPreference.isLoggedSave(email: emailController.text, password: passwordController.text);
+        await MyPreference.setToken(allData.accessToken);
+
         var accessToken = await MyPreference.getToken();
 
         debugPrint("Last token $accessToken");

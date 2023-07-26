@@ -1,19 +1,45 @@
+import 'package:epm/services/api_services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WorksOrderController extends GetxController{
+import '../model/work_order_model.dart';
 
+class WorksOrderController extends GetxController {
   final TextEditingController searchController = TextEditingController();
 
-  var showCloseIcon = false.obs;
+  var isLoading = false.obs;
 
-  var isHovering = false.obs;
+  late WorkOrderModel workOrderModel = WorkOrderModel();
 
-  void onEnter(){
-    isHovering.value = true;
+  @override
+  void onInit() {
+    getDataForWork();
+    super.onInit();
   }
-  void onExit(){
-    isHovering.value = false;
-  }
 
+// user work order data
+  getDataForWork() async {
+    isLoading(true);
+    try {
+      var result = await ApiServices.fetchWorkOrders();
+      if (result.runtimeType == int) {
+        if (kDebugMode) {
+          print('Error $result');
+          print('Error Data');
+        }
+      } else {
+        workOrderModel = result;
+        if (kDebugMode) {
+          print(workOrderModel);
+        }
+      }
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print('Fetch Error $e');
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
 }

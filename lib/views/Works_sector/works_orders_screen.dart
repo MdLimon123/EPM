@@ -1,5 +1,4 @@
-import 'package:epm/Routes/routes.dart';
-import 'package:epm/controller/add_image_controller.dart';
+
 import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
@@ -8,46 +7,17 @@ import 'package:epm/utils/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
+
+import '../../Routes/routes.dart';
 
 class WorksOrdersScreen extends StatelessWidget {
   WorksOrdersScreen({super.key});
 
   final _workOrderController = Get.put(WorksOrderController());
-  final _addImageController = Get.put(AddImageController());
-
- final List item = [
-
-  {"title": "WO#: 12345",
-  "subTitle": "Inspection",
-  "due": "Due 00/00/0000",
-  "sector": "555 Main St",
-  "city": "Small Town, CA",
-  "imageCount": "0"
-  },
-    {"title": "WO#: 12345",
-  "subTitle": "Inspection",
-  "due": "Due 00/00/0000",
-  "sector": "555 Main St",
-  "city": "Small Town, CA",
-  "imageCount": "0"
-  },
-    {"title": "WO#: 12345",
-  "subTitle": "Inspection",
-  "due": "Due 00/00/0000",
-  "sector": "555 Main St",
-  "city": "Small Town, CA",
-  "imageCount": "0"
-  },
-    {"title": "WO#: 12345",
-  "subTitle": "Inspection",
-  "due": "Due 00/00/0000",
-  "sector": "555 Main St",
-  "city": "Small Town, CA",
-  "imageCount": "0"
-  }
 
 
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -91,122 +61,142 @@ class WorksOrdersScreen extends StatelessWidget {
           ),
     
           Expanded(
-            child: ListView.builder(
-                   
-              physics: const BouncingScrollPhysics(),
-              itemCount: item.length,
-              itemBuilder: (context, index) {
-                return    InkWell(
-                  onTap: () {
-                    Get.toNamed(Routes.workOrderDetailsScreen);
-                  },
-                  child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                  margin: EdgeInsets.only(top: 10.h),
-                  decoration: const BoxDecoration(
-                     boxShadow: [
-                    BoxShadow(
-                      color: Colors.white,
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 3)
-                    )
-                   ]
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(item[index]['title'],
-                      style: CustomTextStyle.h2(
-                        fontWeight: FontWeight.w700,
-                        color: AppColor.deepOrange
-                      ),),
-                         SizedBox(height: 5.h,),
-                      Text(item[index]['subTitle'],
-                      style: CustomTextStyle.h3(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16.sp,
-                        color: AppColor.deepOrange.withOpacity(.6)
-                      ),),
-                      SizedBox(height: 5.h,),
-                      Row(
-                        children: [
-                          Icon(Icons.calendar_today,
-                          color: AppColor.deepBlack,),
-                          SizedBox(width: 5.w,),
-                          Text(item[index]['due'],
-                          style: CustomTextStyle.h2(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18.sp,
-                            color: AppColor.deepBlack
-                          ),)
-                        ],
-                      ),
-                      SizedBox(height: 15.h,),
-                      Text(item[index]['sector'],
-                      style: CustomTextStyle.h2(
-                         fontWeight: FontWeight.w600,
-                            color: AppColor.deepBlack,
-                            fontSize: 16.sp
-                      ),),
-                          Row(
-                            children: [
-                              Icon(Icons.location_on,
-                              color: AppColor.blackColor,),
-                              Text(item[index]['city'],
-                      style: CustomTextStyle.h2(
-                         fontWeight: FontWeight.w600,
-                         fontSize: 16.sp,
-                                color: AppColor.deepBlack.withOpacity(.8)
-                      ),),
-                            ],
-                          ),
-                      SizedBox(height: 15.h,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            height: 40.h,
-                            width: 40.w,
-                            decoration: BoxDecoration(
-                              color: AppColor.deepOrange,
-                              borderRadius: BorderRadius.circular(10.r)
-                            ),
-                            child: Icon(Icons.check,
-                            color: AppColor.checkColor,),
-                          ),
-                            
-                          Image.asset(AppImage.refresh,
-                          height: 30.h,
-                          width: 30.h,
-                          color: AppColor.deepOrange,),
-                            
-                          Row(
-                            children: [
-                              Icon(Icons.image,
-                               color: AppColor.deepOrange,),
-                              Obx(()=>
-                                 Text("${_addImageController.selectedImage.length}",
-                                style: CustomTextStyle.h3(
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColor.deepOrange
-                                ),),
-                              )
-                            ],
-                          )
-                        ],
+            child: Obx(()=> _workOrderController.isLoading.value? Center(child: CircularProgressIndicator(
+              color: AppColor.deepOrange,
+            ),)
+              : ListView.builder(
+                     
+                physics: const BouncingScrollPhysics(),
+                itemCount: _workOrderController.workOrderModel.data!.length,
+                itemBuilder: (context, index) {
+                  var item =  _workOrderController.workOrderModel.data![index];
+                   var date = Jiffy.parse('${item.contractorDueDate}').yMMMd;
+                  return    InkWell(
+                    onTap: () {
+
+                     
+                     
+                      Get.toNamed(Routes.workOrderDetailsScreen,
+                      arguments: {
+                      "work_order":  item.workOrder,
+                      "work_type_id": item.workTypeId,
+                      "work_type": item.workType!.name,
+                      "property":item.property!.address,
+                      "property": "${item.property!.city},${item.property!.zip}",
+                    //  "contractor_receive_date":item.contractorReceiveDate,
+                      "contractor_due_date": item.contractorDueDate
+
+                    
+                      });
+                    },
+                    child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                    margin: EdgeInsets.only(top: 10.h),
+                    decoration: const BoxDecoration(
+                       boxShadow: [
+                      BoxShadow(
+                        color: Colors.white,
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: Offset(0, 3)
                       )
-                    ],
-                  ),
+                     ]
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("WO#: ${item.workOrder}",
+                        style: CustomTextStyle.h2(
+                          fontWeight: FontWeight.w700,
+                          color: AppColor.deepOrange
+                        ),),
+                           SizedBox(height: 5.h,),
+                        Text(item.workType!.name.toString(),
+                        style: CustomTextStyle.h3(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.sp,
+                          color: AppColor.deepOrange.withOpacity(.6)
+                        ),),
+                        SizedBox(height: 5.h,),
+                        Row(
+                          children: [
+                            Icon(Icons.calendar_today,
+                            color: AppColor.deepBlack,),
+                            SizedBox(width: 5.w,),
+                            Text("Due: $date",
+                            style: CustomTextStyle.h2(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18.sp,
+                              color: AppColor.deepBlack
+                            ),)
+                          ],
+                        ),
+                        SizedBox(height: 15.h,),
+                        Text("${item.property!.address}, ${item.property!.state}",
+                        style: CustomTextStyle.h2(
+                           fontWeight: FontWeight.w600,
+                              color: AppColor.deepBlack,
+                              fontSize: 16.sp
+                        ),),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on,
+                                color: AppColor.blackColor,),
+                                Text("${item.property!.city}, ${item.property!.zip}",
+                        style: CustomTextStyle.h2(
+                           fontWeight: FontWeight.w600,
+                           fontSize: 16.sp,
+                                  color: AppColor.deepBlack.withOpacity(.8)
+                        ),),
+                              ],
+                            ),
+                        SizedBox(height: 15.h,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 40.h,
+                              width: 40.w,
+                              decoration: BoxDecoration(
+                                color: AppColor.deepOrange,
+                                borderRadius: BorderRadius.circular(10.r)
                               ),
-                );
-                   
-              },
-             
-                   
-                   
+                              child: Icon(Icons.check,
+                              color: AppColor.checkColor,),
+                            ),
+                              
+                            Image.asset(AppImage.refresh,
+                            height: 30.h,
+                            width: 30.h,
+                            color: AppColor.deepOrange,),
+                              
+                            Row(
+                              children: [
+                                Icon(Icons.image,
+                                 color: AppColor.deepOrange,),
+                                
+                                   Text(item.photos!.length.toString(),
+                                  style: CustomTextStyle.h3(
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColor.deepOrange
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                                ),
+                  );
+                     
+                },
+               
+                     
+                     
+              ),
             ),
           )
     

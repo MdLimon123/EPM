@@ -8,10 +8,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class WorkOrderDetailsScreen extends StatelessWidget {
-  const WorkOrderDetailsScreen({super.key});
+  WorkOrderDetailsScreen({super.key});
+
+  final Map data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    String workOrder = data["work_order"];
+    String workTypeId = data["work_type_id"];
+    String workType = data["work_type"];
+    String address = data["property"];
+    String city = data["property"];
+  //  String receiceDate = data["contractor_receive_date"];
+    String dueDate = data["contractor_due_date"];
+    //String workTypeId = data[""];
     return Scaffold(
       appBar: _appbar(),
       body: SingleChildScrollView(
@@ -115,37 +125,39 @@ class WorkOrderDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
+        
+
             _customText(title: 'Status', subtitle: 'Unread'),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'WO#', subtitle: '12345'),
+            _customText(title: 'WO#', subtitle: workOrder),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'PPW#', subtitle: '5720'),
+            _customText(title: 'PPW#', subtitle: workTypeId),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Work Type', subtitle: 'Inspection'),
+            _customText(title: 'Work Type', subtitle: workType),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Address', subtitle: '555 Main St'),
+            _customText(title: 'Address', subtitle: address),
             SizedBox(
               height: 10.h,
             ),
             _customText(
-                title: 'City/State/Zip', subtitle: 'Small Town,CA 12345'),
+                title: 'City/State/Zip', subtitle: city),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Loan Info', subtitle: '123456789-10'),
-            _customText(title: 'Client Company', subtitle: 'PPW Client'),
-            _customText(title: 'Customer', subtitle: 'Local Credit Union'),
-            _customText(title: 'Date Received', subtitle: '03/21/2018'),
-            _customText(title: 'Date Due', subtitle: '00/00/0000'),
-            _customText(title: 'Missing Info', subtitle: 'No'),
+            // _customText(title: 'Loan Info', subtitle: '123456789-10'),
+            // _customText(title: 'Client Company', subtitle: 'PPW Client'),
+            // _customText(title: 'Customer', subtitle: 'Local Credit Union'),
+            //_customText(title: 'Date Received', subtitle:receiceDate.toString()),
+            _customText(title: 'Date Due', subtitle: dueDate.toString()),
+            // _customText(title: 'Missing Info', subtitle: 'No'),
             SizedBox(
               height: 15.h,
             ),
