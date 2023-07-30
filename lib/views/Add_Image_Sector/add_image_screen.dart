@@ -1,17 +1,26 @@
 import 'dart:io';
 
+
+import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
 import '../../controller/add_image_controller.dart';
 
+
 class AddImageScreen extends StatelessWidget {
   AddImageScreen({super.key});
 
   final _addImageController = Get.put(AddImageController());
+
+  final _workOrderController = Get.put(WorksOrderController());
+
+  List imageList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -27,68 +36,101 @@ class AddImageScreen extends StatelessWidget {
               color: AppColor.textColorWhite,
             )),
         title: Text(
-          'Add Image',
+          'All Image',
           style: CustomTextStyle.h1(color: AppColor.textColorWhite),
         ),
         centerTitle: true,
         actions: [
           IconButton(
               onPressed: () {
-                showDialog(
+                showModalBottomSheet(
                     context: context,
+                    isScrollControlled: false,
+                    isDismissible: true,
+                    backgroundColor: const Color(0xFFFFFFFF),
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15.r),
+                            topRight: Radius.circular(15.r))),
                     builder: (context) {
-                      return AlertDialog(
-                        title: Text(
-                          'Add Image',
-                          style: CustomTextStyle.h3(
-                            color: AppColor.blackColor,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        content: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 17.w),
+                        child: Column(
                           mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
                             TextButton(
-                                onPressed: () async {
+                                onPressed: () {
                                   _addImageController.pickImageGallery();
-                                  await _addImageController.selectDate();
                                 },
                                 child: Text(
                                   'Gallery',
-                                  style: CustomTextStyle.h4(),
+                                  style: CustomTextStyle.h3(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColor.deepOrange),
                                 )),
-                       
-                           TextButton(
-                                onPressed: () async {
-                                  _addImageController.pickImageCamera();
-                                  await _addImageController.selectDate();
-                                },
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            TextButton(
+                                onPressed: () {},
                                 child: Text(
                                   'Camera',
-                                  style: CustomTextStyle.h4(),
+                                  style: CustomTextStyle.h3(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColor.deepOrange),
                                 )),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                _addImageController.uploadImage();
+                              },
+                              child: Container(
+                                height: 50.h,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: AppColor.deepOrange,
+                                    borderRadius: BorderRadius.circular(8.r)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Save',
+                                      style: CustomTextStyle.h3(
+                                          color: AppColor.textColorWhite),
+                                    ),
+                                    SizedBox(
+                                      width: _addImageController.isLoading.value
+                                          ? 15.w
+                                          : 0,
+                                    ),
+                                    Obx(() {
+                                      if (_addImageController.isLoading.value) {
+                                        return SizedBox(
+                                          height: 15.sp,
+                                          width: 15.sp,
+                                          child:
+                                              const CircularProgressIndicator(
+                                            color: Colors.white,
+                                            strokeWidth: 3,
+                                          ),
+                                        );
+                                      } else {
+                                        return const SizedBox();
+                                      }
+                                    })
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
                           ],
                         ),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: Text(
-                                'Cancel',
-                                style: CustomTextStyle.h4(),
-                              )),
-                          TextButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: Text(
-                                'Ok',
-                                style: CustomTextStyle.h4(),
-                              ))
-                        ],
                       );
                     });
               },
@@ -98,17 +140,24 @@ class AddImageScreen extends StatelessWidget {
               ))
         ],
       ),
-      body: Obx(
-        () => ListView.builder(
+// https://epm.essential-infotech.com/uploads/work-order-photos/{work_order}/{photo}
+
+      body:ListView.builder(
             physics: const BouncingScrollPhysics(),
-            itemCount: _addImageController.selectedImage.length,
+            itemCount: _workOrderController.workOrderModel.data!.length,
             itemBuilder: (context, index) {
-              final image = _addImageController.selectedImage[index];
+              //var name = _workOrderController.workOrderModel.data.work_order;
+              final image = _workOrderController.workOrderModel.data![index].photos;
+            image!.forEach((element) {
+               element.photo; 
+               print(element.photo);
+               print(element.id);
+               imageList.add("https://epm.essential-infotech.com/uploads/work-order-photos/120/${element.photo}");
+               
+              },);
               return ListTile(
-                title: Image.file(
-                  File(image.path),
-                  fit: BoxFit.cover,
-                ),
+               title: Image(image: NetworkImage(imageList.toString(),
+               scale:1.0 )),
                 subtitle: Obx(
                   () => Text(
                     _addImageController.selectedDate.value,
@@ -117,7 +166,9 @@ class AddImageScreen extends StatelessWidget {
                 ),
               );
             }),
-      ),
+      
+   
+   
     );
   }
 }

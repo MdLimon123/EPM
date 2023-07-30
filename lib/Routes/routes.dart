@@ -1,4 +1,5 @@
 import 'package:epm/views/Add_Image_Sector/add_image_screen.dart';
+
 import 'package:epm/views/Auth_Sector/forget_password_screen.dart';
 import 'package:epm/views/Auth_Sector/login_screen.dart';
 import 'package:epm/views/Document_Sector/document_screen.dart';
@@ -15,6 +16,7 @@ class Routes{
   static String addImageScreen = "/addImageScreen";
   static String addWorkOrderScreen = "/addWorkOrderScreen";
   static String documentScreen = "/documentScreen";
+ 
 }
 
 List<GetPage> getPage = [
@@ -24,6 +26,7 @@ List<GetPage> getPage = [
   GetPage(name: Routes.forgetPasswordScreen, page: ()=> const ForgetPasswordScreen()),
   GetPage(name: Routes.addImageScreen, page: ()=> AddImageScreen()),
   GetPage(name: Routes.addWorkOrderScreen, page: ()=>  AddWorkOrderScreen()),
-  GetPage(name: Routes.documentScreen, page: ()=> DocumentScreen())
+  GetPage(name: Routes.documentScreen, page: ()=> DocumentScreen()),
+
   
 ];

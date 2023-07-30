@@ -1,51 +1,109 @@
+import 'dart:io';
+import 'package:epm/services/api_services.dart';
+import 'package:epm/utils/app_color.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../model/work_order_model.dart';
 
-class AddImageController extends GetxController{
+class AddImageController extends GetxController {
+  final TextEditingController workOrderController = TextEditingController();
+  final TextEditingController workIdController = TextEditingController();
+
+  final _workOrderModel = WorkOrderModel().obs;
+
+
+
+
+  var isLoading = false.obs;
+
+
 
   RxList selectedImage = [].obs;
 
   RxString selectedDate = ''.obs;
+  List<XFile> imagePth = <XFile>[].obs;
 
-  Future<void> pickImageGallery()async{
-    final picker = ImagePicker();
+
+  void addImage(File image) {
+    
+  }
+
+  Future<void> pickImageGallery() async {
+      final picker = ImagePicker();
     List<XFile>? images = await picker.pickMultiImage();
 
-    if(images != null){
-      selectedImage.addAll(images);
+    if (images != null) {
       
+     // uploadImage(images);
+
+     selectedImage.add(images);
+      
+
+      // selectedImage.addAll(imagePth as Iterable);
+      // uploadImage(image.toString())
+      //uploadImage(imagePth);
+    }
+  }
+
+  // void addImageFile(File imageFile){
+  //   image.add(imageFile);
+  // }
+
+  uploadImage() async {
+    try {
+
+
+
+      isLoading(true);
+
   
+      var result = await ApiServices.uploadPhoto(
+        imagePath: _workOrderModel.value.data![1].photos.toString(),
+      workOrderName: _workOrderModel.value.data![1].workOrder.toString(),
+       workOrderId: _workOrderModel.value.data![1].id!.toInt());
+      if (!result) {
+        if (kDebugMode) {
+          debugPrint("$result");
+          Get.snackbar('Error', "Image Upload Faild",
+          backgroundColor: AppColor.deepOrange);
+        }
+      } else {
+        selectedImage.value = imagePth;
+        print(selectedImage);
+        Get.snackbar('success', 'Image Upload seccess',
+        backgroundColor: AppColor.deepOrange);
+      }
+    } on Exception catch (e) {
+      debugPrint('Error $e');
+    } finally {
+      isLoading(false);
     }
   }
 
-  Future<void> pickImageCamera()async{
+  Future<void> pickImageCamera() async {
     final picker = ImagePicker();
-    final images = await picker.pickImage(source:ImageSource.camera );
+    final images = await picker.pickImage(source: ImageSource.camera);
 
-    if(images != null){
-      selectedImage.add(images);
-    
- 
+    if (images != null) {
+      // selectedImage.add(images);
     }
   }
 
-  Future<void> selectDate() async{
+  Future<void> selectDate() async {
     final DateTime? pickedDate = await showDatePicker(
-      context: Get.context!,
-       initialDate: DateTime.now(), 
-       firstDate: DateTime(2000),
+        context: Get.context!,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
         lastDate: DateTime(2050));
 
-        if(pickedDate != null){
-          final formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+    if (pickedDate != null) {
+      final formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
 
-          selectedDate.value = formattedDate;
-        }
-
-
+      selectedDate.value = formattedDate;
+    }
   }
-
 }

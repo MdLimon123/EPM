@@ -9,6 +9,13 @@ class WorkOrderModel {
 
   WorkOrderModel({this.status, this.message, this.data});
 
+
+  // factory WorkOrderModel.fromJson(Map<String, dynamic> json)=> WorkOrderModel(
+  //   status: json['status'],
+  //   message: json['message'],
+  //   data: json['data'],
+  // );
+
   WorkOrderModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
