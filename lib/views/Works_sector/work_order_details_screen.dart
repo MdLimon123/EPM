@@ -1,4 +1,5 @@
 import 'package:epm/Routes/routes.dart';
+import 'package:epm/model/work_order_model.dart';
 
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
@@ -10,17 +11,17 @@ import 'package:get/get.dart';
 class WorkOrderDetailsScreen extends StatelessWidget {
   WorkOrderDetailsScreen({super.key});
 
-  final Map data = Get.arguments;
+   Data data = Get.arguments["data"];
 
   @override
   Widget build(BuildContext context) {
-    String workOrder = data["work_order"];
-    String workTypeId = data["work_type_id"];
-    String workType = data["work_type"];
-    String address = data["property"];
-    String city = data["property"];
+    // String workOrder = data["work_order"];
+    // String workTypeId = data["work_type_id"];
+    // String workType = data["work_type"];
+    // String address = data["property"];
+    // String city = data["property"];
   //  String receiceDate = data["contractor_receive_date"];
-    String dueDate = data["contractor_due_date"];
+   // String dueDate = data["contractor_due_date"];
     //String workTypeId = data[""];
     return Scaffold(
       appBar: _appbar(),
@@ -131,24 +132,24 @@ class WorkOrderDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'WO#', subtitle: workOrder),
+            _customText(title: 'WO#', subtitle: data.workOrder! ),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'PPW#', subtitle: workTypeId),
+            _customText(title: 'PPW#', subtitle:  data.workTypeId!),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Work Type', subtitle: workType),
+            _customText(title: 'Work Type', subtitle:  data.workType!.name!),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Address', subtitle: address),
+            _customText(title: 'Address', subtitle:  data.property!.address!),
             SizedBox(
               height: 10.h,
             ),
             _customText(
-                title: 'City/State/Zip', subtitle: city),
+                title: 'City/State/Zip', subtitle: data.property!.city!),
             SizedBox(
               height: 10.h,
             ),
@@ -156,7 +157,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
             // _customText(title: 'Client Company', subtitle: 'PPW Client'),
             // _customText(title: 'Customer', subtitle: 'Local Credit Union'),
             //_customText(title: 'Date Received', subtitle:receiceDate.toString()),
-            _customText(title: 'Date Due', subtitle: dueDate.toString()),
+            _customText(title: 'Date Due', subtitle: data.property!.createdAt!.toString()),
             // _customText(title: 'Missing Info', subtitle: 'No'),
             SizedBox(
               height: 15.h,
@@ -180,7 +181,10 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.addImageScreen);
+                      Get.toNamed(Routes.addImageScreen,arguments: {
+                        "id":data.id,
+                        "workOrderId":data.workOrder
+                      });
                     },
                     child: Text(
                       'Photos',

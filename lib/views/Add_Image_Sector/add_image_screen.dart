@@ -1,6 +1,5 @@
 import 'dart:io';
 
-
 import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
@@ -12,7 +11,6 @@ import 'package:get/get.dart';
 
 import '../../controller/add_image_controller.dart';
 
-
 class AddImageScreen extends StatelessWidget {
   AddImageScreen({super.key});
 
@@ -21,9 +19,12 @@ class AddImageScreen extends StatelessWidget {
   final _workOrderController = Get.put(WorksOrderController());
 
   List imageList = [];
+  Map<String, dynamic> data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    _addImageController.id = data["id"];
+    _addImageController.workOrder = data["workOrderId"];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.bgColor,
@@ -142,33 +143,33 @@ class AddImageScreen extends StatelessWidget {
       ),
 // https://epm.essential-infotech.com/uploads/work-order-photos/{work_order}/{photo}
 
-      body:ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: _workOrderController.workOrderModel.data!.length,
-            itemBuilder: (context, index) {
-              //var name = _workOrderController.workOrderModel.data.work_order;
-              final image = _workOrderController.workOrderModel.data![index].photos;
-            image!.forEach((element) {
-               element.photo; 
-               print(element.photo);
-               print(element.id);
-               imageList.add("https://epm.essential-infotech.com/uploads/work-order-photos/120/${element.photo}");
-               
-              },);
-              return ListTile(
-               title: Image(image: NetworkImage(imageList.toString(),
-               scale:1.0 )),
-                subtitle: Obx(
-                  () => Text(
-                    _addImageController.selectedDate.value,
-                    style: CustomTextStyle.h4(color: AppColor.blackColor),
-                  ),
+      body: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: _workOrderController.workOrderModel.data!.length,
+          itemBuilder: (context, index) {
+            //var name = _workOrderController.workOrderModel.data.work_order;
+            final image =
+                _workOrderController.workOrderModel.data![index].photos;
+            image!.forEach(
+              (element) {
+                element.photo;
+                print(element.photo);
+                print(element.id);
+                imageList.add(
+                    "https://epm.essential-infotech.com/uploads/work-order-photos/120/${element.photo}");
+              },
+            );
+            return ListTile(
+              title:
+                  Image(image: NetworkImage(imageList.toString(), scale: 1.0)),
+              subtitle: Obx(
+                () => Text(
+                  _addImageController.selectedDate.value,
+                  style: CustomTextStyle.h4(color: AppColor.blackColor),
                 ),
-              );
-            }),
-      
-   
-   
+              ),
+            );
+          }),
     );
   }
 }

@@ -76,10 +76,11 @@ class ApiServices {
 
   // post work order photo
 
-  static uploadPhoto( 
-      {required String imagePath,
-     required String workOrderName,
+  static uploadPhoto(
+      {required List<XFile> imagePath,
+      required String workOrderName,
       required int workOrderId}) async {
+    print(" Image Length : ${imagePath.length}");
     var accessToken = await MyPreference.getToken();
 
     try {
@@ -89,22 +90,24 @@ class ApiServices {
             'XSRF-TOKEN=eyJpdiI6Im94NUhJOG5iOG56UXZsZXdQcldTeGc9PSIsInZhbHVlIjoiZHcxRno2RGZBMlRNbEpZTWZVTFR2Tm9JczV1L0JCMEF0UitMUWNVU2FHQkhBVmE2V05GNWNvMS9tVzdSSXIwdnNWRXBUR2ExTzBHaXU0U3N2TVNSRExkTWpacnZYQUR2QytXVE5UanZjSHJ2WjQvS0tzdVo5ZVdpK0haNEs1a0oiLCJtYWMiOiI3MTYyYmI0NDNkNTk4ODY4ZWJkZTQzNTA4YTllY2E4YzRhN2QxNjk1MDg0NzlmYTIyMzI2YTg1NDY3MDgyNGYyIiwidGFnIjoiIn0%3D; epm_session=eyJpdiI6IllsSlZTaVhGL2dsNkl3TEV6aUMwZ0E9PSIsInZhbHVlIjoidkc4T2QweE1xZ0FMTFFoVkVVNW5GYnV5Q3VYbXFPNnBTazVXQlJHeWRXN3BDMEpFeGtuV1NOVmVpRFVac1VUZmgxdVJzeFZqNnlabklnZWZDUDczR0QxdE8yVkxCaExZbHpjYjlwYkhCRTlTeXlGTEVHTzkrOGFkMGI5TkhXVWYiLCJtYWMiOiJhZWNkZGFhYzBmODg2NjA1MWYyNDNiZmRkNmQxNTUwODhjYTk3Y2M2NzllNzQ1NmJjYmRlNWQ0YjFlNjc5Yjg4IiwidGFnIjoiIn0%3D'
       };
 
-      var request = http.MultipartRequest('POST', Uri.parse('http://epm.essential-infotech.com/api/work-order-photos-store'));
+      var request = http.MultipartRequest(
+          'POST',
+          Uri.parse(
+              'http://epm.essential-infotech.com/api/work-order-photos-store'));
 
-     request.fields.addAll(
-      {
+      request.fields.addAll({
         'work_order_name': workOrderName,
         'work_order_id': workOrderId.toString()
-      }
-     );
+      });
       // request.fields['work_order_name'] = workOrderName.toString();
       // request.fields['work_order_id'] = workOrderId.toString();
-  
- request.files.add(await http.MultipartFile.fromPath('photo[]', imagePath));
-      request.headers.addAll(headers);
-      
+      imagePath.forEach((element)async {
 
-     
+          request.files
+          .add(await http.MultipartFile.fromPath('photo[]',element.path));
+      });
+    
+      request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
 

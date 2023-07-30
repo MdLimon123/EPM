@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/services/api_services.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:flutter/foundation.dart';
@@ -13,35 +14,28 @@ class AddImageController extends GetxController {
   final TextEditingController workOrderController = TextEditingController();
   final TextEditingController workIdController = TextEditingController();
 
-  final _workOrderModel = WorkOrderModel().obs;
-
-
-
+  final workController = Get.find<WorksOrderController>();
 
   var isLoading = false.obs;
-
-
+  String workOrder = "";
+  int id = (-0);
 
   RxList selectedImage = [].obs;
 
   RxString selectedDate = ''.obs;
   List<XFile> imagePth = <XFile>[].obs;
 
-
-  void addImage(File image) {
-    
-  }
+  void addImage(File image) {}
 
   Future<void> pickImageGallery() async {
-      final picker = ImagePicker();
+    final picker = ImagePicker();
     List<XFile>? images = await picker.pickMultiImage();
 
     if (images != null) {
-      
-     // uploadImage(images);
-
-     selectedImage.add(images);
-      
+      // uploadImage(images);
+      imagePth = images;
+      print(" Image Length : ${images.length}");
+      selectedImage.add(images);
 
       // selectedImage.addAll(imagePth as Iterable);
       // uploadImage(image.toString())
@@ -55,27 +49,21 @@ class AddImageController extends GetxController {
 
   uploadImage() async {
     try {
-
-
-
       isLoading(true);
 
-  
       var result = await ApiServices.uploadPhoto(
-        imagePath: _workOrderModel.value.data![1].photos.toString(),
-      workOrderName: _workOrderModel.value.data![1].workOrder.toString(),
-       workOrderId: _workOrderModel.value.data![1].id!.toInt());
+          imagePath: imagePth, workOrderName: workOrder, workOrderId: id);
       if (!result) {
         if (kDebugMode) {
           debugPrint("$result");
           Get.snackbar('Error', "Image Upload Faild",
-          backgroundColor: AppColor.deepOrange);
+              backgroundColor: AppColor.deepOrange);
         }
       } else {
         selectedImage.value = imagePth;
         print(selectedImage);
         Get.snackbar('success', 'Image Upload seccess',
-        backgroundColor: AppColor.deepOrange);
+            backgroundColor: AppColor.deepOrange);
       }
     } on Exception catch (e) {
       debugPrint('Error $e');

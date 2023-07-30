@@ -10,7 +10,7 @@ class WorksOrderController extends GetxController {
 
   var isLoading = false.obs;
 
-  late WorkOrderModel workOrderModel = WorkOrderModel();
+  late WorkOrderModel workOrderModel  ;
 
 
 

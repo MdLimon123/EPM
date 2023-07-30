@@ -78,13 +78,14 @@ class WorksOrdersScreen extends StatelessWidget {
                      
                       Get.toNamed(Routes.workOrderDetailsScreen,
                       arguments: {
-                      "work_order":  item.workOrder,
-                      "work_type_id": item.workTypeId,
-                      "work_type": item.workType!.name,
-                      "property":item.property!.address,
-                      "property": "${item.property!.city},${item.property!.zip}",
-                    //  "contractor_receive_date":item.contractorReceiveDate,
-                      "contractor_due_date": item.contractorDueDate
+                        "data":item 
+                    //   "work_order":  item.workOrder,
+                    //   "work_type_id": item.workTypeId,
+                    //   "work_type": item.workType!.name,
+                    //   "property":item.property!.address,
+                    //   "property": "${item.property!.city},${item.property!.zip}",
+                    // //  "contractor_receive_date":item.contractorReceiveDate,
+                    //   "contractor_due_date": item.contractorDueDate
 
                     
                       });
