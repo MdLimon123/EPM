@@ -1,5 +1,4 @@
-import 'dart:io';
-import 'package:epm/controller/works_orders_controller.dart';
+
 import 'package:epm/services/api_services.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:flutter/foundation.dart';
@@ -8,13 +7,12 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-import '../model/work_order_model.dart';
+
 
 class AddImageController extends GetxController {
-  final TextEditingController workOrderController = TextEditingController();
-  final TextEditingController workIdController = TextEditingController();
 
-  final workController = Get.find<WorksOrderController>();
+
+ // final workController = Get.find<WorksOrderController>();
 
   var isLoading = false.obs;
   String workOrder = "";
@@ -25,27 +23,21 @@ class AddImageController extends GetxController {
   RxString selectedDate = ''.obs;
   List<XFile> imagePth = <XFile>[].obs;
 
-  void addImage(File image) {}
+ 
 
   Future<void> pickImageGallery() async {
     final picker = ImagePicker();
     List<XFile>? images = await picker.pickMultiImage();
-
     if (images != null) {
-      // uploadImage(images);
       imagePth = images;
       print(" Image Length : ${images.length}");
       selectedImage.add(images);
 
-      // selectedImage.addAll(imagePth as Iterable);
-      // uploadImage(image.toString())
-      //uploadImage(imagePth);
+
     }
   }
 
-  // void addImageFile(File imageFile){
-  //   image.add(imageFile);
-  // }
+
 
   uploadImage() async {
     try {
@@ -74,10 +66,11 @@ class AddImageController extends GetxController {
 
   Future<void> pickImageCamera() async {
     final picker = ImagePicker();
-    final images = await picker.pickImage(source: ImageSource.camera);
+  XFile? images = await picker.pickImage(source: ImageSource.camera);
 
     if (images != null) {
-      // selectedImage.add(images);
+     // imagePth = images;
+       selectedImage.add(images);
     }
   }
 

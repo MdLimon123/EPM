@@ -111,8 +111,6 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                     filled: true,
                     hintText: 'comment',
                   
-
-                  
                     hintStyle: CustomTextStyle.h4(
                         color: AppColor.deepOrange.withOpacity(.5)),
                     border: border(false),

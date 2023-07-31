@@ -47,6 +47,7 @@ dependencies:
   http: ^1.1.0
   fluttertoast: ^8.2.2
   jiffy: ^6.2.1
+  path_provider: ^2.0.15
   
 
 dev_dependencies:

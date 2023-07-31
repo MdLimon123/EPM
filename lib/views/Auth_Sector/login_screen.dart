@@ -80,17 +80,7 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 15.h,
                 ),
-                Text(
-                  'System ID (Optional)',
-                  style: CustomTextStyle.h3(color: AppColor.deepOrange),
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                const CustomTextField(
-                  hintText: 'id',
-                  obsecure: true,
-                ),
+            
                 SizedBox(
                   height: 25.h,
                 ),

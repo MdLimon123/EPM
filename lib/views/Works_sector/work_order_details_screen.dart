@@ -1,5 +1,5 @@
 import 'package:epm/Routes/routes.dart';
-import 'package:epm/model/work_order_model.dart';
+
 
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
@@ -7,22 +7,20 @@ import 'package:epm/utils/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
+
+import '../../model/work_order_model.dart';
 
 class WorkOrderDetailsScreen extends StatelessWidget {
   WorkOrderDetailsScreen({super.key});
 
-   Data data = Get.arguments["data"];
+  final Data data = Get.arguments["data"];
+
+
 
   @override
   Widget build(BuildContext context) {
-    // String workOrder = data["work_order"];
-    // String workTypeId = data["work_type_id"];
-    // String workType = data["work_type"];
-    // String address = data["property"];
-    // String city = data["property"];
-  //  String receiceDate = data["contractor_receive_date"];
-   // String dueDate = data["contractor_due_date"];
-    //String workTypeId = data[""];
+ 
     return Scaffold(
       appBar: _appbar(),
       body: SingleChildScrollView(
@@ -132,33 +130,30 @@ class WorkOrderDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'WO#', subtitle: data.workOrder! ),
+            _customText(title: 'WO#', subtitle: data.workOrder ),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'PPW#', subtitle:  data.workTypeId!),
+            _customText(title: 'PPW#', subtitle:  data.workTypeId),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Work Type', subtitle:  data.workType!.name!),
+            _customText(title: 'Work Type', subtitle:  data.workType.name),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Address', subtitle:  data.property!.address!),
+            _customText(title: 'Address', subtitle:  data.property.address),
             SizedBox(
               height: 10.h,
             ),
             _customText(
-                title: 'City/State/Zip', subtitle: data.property!.city!),
+                title: 'City/State/Zip', subtitle: data.property.city),
             SizedBox(
               height: 10.h,
             ),
-            // _customText(title: 'Loan Info', subtitle: '123456789-10'),
-            // _customText(title: 'Client Company', subtitle: 'PPW Client'),
-            // _customText(title: 'Customer', subtitle: 'Local Credit Union'),
-            //_customText(title: 'Date Received', subtitle:receiceDate.toString()),
-            _customText(title: 'Date Due', subtitle: data.property!.createdAt!.toString()),
-            // _customText(title: 'Missing Info', subtitle: 'No'),
+          
+            _customText(title: 'Date Due', subtitle: Jiffy.parse(data.property.createdAt.toString()).yMMMd),
+           
             SizedBox(
               height: 15.h,
             ),
@@ -185,7 +180,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                         "id":data.id,
                         "workOrderId":data.workOrder
                       });
-                    },
+                    },                                                                                                                                                                                                                          
                     child: Text(
                       'Photos',
                       style: CustomTextStyle.h3(
@@ -195,7 +190,10 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.documentScreen);
+                      Get.toNamed(Routes.documentScreen,arguments: {
+                        "id": data.id,
+                        "workOrderId": data.workOrder
+                      });
                     },
                     child: Text(
                       'Documents',

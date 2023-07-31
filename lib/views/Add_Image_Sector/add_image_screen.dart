@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:epm/controller/works_orders_controller.dart';
+import 'package:epm/services/api_component.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 
@@ -10,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../controller/add_image_controller.dart';
+import '../../controller/photo_controller.dart';
 
 class AddImageScreen extends StatelessWidget {
   AddImageScreen({super.key});
@@ -17,14 +19,19 @@ class AddImageScreen extends StatelessWidget {
   final _addImageController = Get.put(AddImageController());
 
   final _workOrderController = Get.put(WorksOrderController());
+  final _photoController = Get.put(PhotoController());
 
-  List imageList = [];
-  Map<String, dynamic> data = Get.arguments;
+  final List<dynamic> imageList = [];
+  final Map<String, dynamic> data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
     _addImageController.id = data["id"];
     _addImageController.workOrder = data["workOrderId"];
+    var workOrderId = _addImageController.workOrder;
+    int id = _addImageController.id;
+    _photoController.getPhoto(id);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.bgColor,
@@ -75,7 +82,9 @@ class AddImageScreen extends StatelessWidget {
                               height: 15.h,
                             ),
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  _addImageController.pickImageCamera();
+                                },
                                 child: Text(
                                   'Camera',
                                   style: CustomTextStyle.h3(
@@ -145,30 +154,37 @@ class AddImageScreen extends StatelessWidget {
 
       body: ListView.builder(
           physics: const BouncingScrollPhysics(),
-          itemCount: _workOrderController.workOrderModel.data!.length,
+          itemCount: _photoController.photoModel.data.length,
           itemBuilder: (context, index) {
-            //var name = _workOrderController.workOrderModel.data.work_order;
-            final image =
-                _workOrderController.workOrderModel.data![index].photos;
-            image!.forEach(
-              (element) {
-                element.photo;
-                print(element.photo);
-                print(element.id);
-                imageList.add(
-                    "https://epm.essential-infotech.com/uploads/work-order-photos/120/${element.photo}");
-              },
-            );
-            return ListTile(
-              title:
-                  Image(image: NetworkImage(imageList.toString(), scale: 1.0)),
-              subtitle: Obx(
-                () => Text(
-                  _addImageController.selectedDate.value,
-                  style: CustomTextStyle.h4(color: AppColor.blackColor),
-                ),
-              ),
-            );
+            var image = _photoController.photoModel.data[index].url;
+            var imageUrl = "https://${_photoController.photoModel.hostName}/$image";
+            // print(" hostName: ${_photoController.photoModel.hostName}");
+            return Obx(()=> _photoController.isLoading.value?Center(child: CircularProgressIndicator(
+              color: AppColor.deepOrange,
+            ),): Image.network(imageUrl));
+         
+
+
+
+
+            // final image =
+            //     _workOrderController.workOrderModel.data[index].photos;
+            // var baseUrl = "https://epm.essential-infotech.com/";
+
+            // for (var element in image) {
+         
+            //   if (element.url != null) {
+            //     return Container(
+            //       height: 400.h,
+            //       width: double.infinity,
+            //       child: Image.network(baseUrl+element.url.toString(),
+                  
+            //       fit: BoxFit.cover,),
+            //     );
+            //   }
+            // }
+
+
           }),
     );
   }
