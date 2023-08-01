@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../utils/app_color.dart';
 
 class DocumentController extends GetxController {
   var isLoading = false.obs;
@@ -25,12 +24,13 @@ class DocumentController extends GetxController {
         if (kDebugMode) {
           debugPrint("$result");
           Get.snackbar('Error', "File Upload Faild",
-              backgroundColor: AppColor.deepOrange);
+              backgroundColor: Colors.red);
         }
       } else {
         filePth.clear();
-        Get.snackbar('success', 'File Upload seccess',
-            backgroundColor: AppColor.deepOrange);
+        Get.snackbar('success'
+      , 'File Upload seccess',
+            backgroundColor: Colors.white);
       }
     } on Exception catch (e) {
       debugPrint('Error $e');
@@ -50,11 +50,11 @@ class DocumentController extends GetxController {
       files = filePicker.files
           .map((platformFile) => File(platformFile.path!))
           .toList();
-      //  selecetedFile.value = filePicker.paths.map((path) => File(path!)).toList();
-      print(files);
+   
+      debugPrint("$files");
       filePth = files;
       filePth = files;
-      // selecetedFile.add(files);
+    
     }
   }
 

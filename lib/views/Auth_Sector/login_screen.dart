@@ -88,6 +88,7 @@ class LoginScreen extends StatelessWidget {
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       _loginController.userLogin(
+                        isLogged: true,
                           email: _loginController.emailController.text,
                           password: _loginController.passwordController.text);
                     }

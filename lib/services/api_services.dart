@@ -80,7 +80,7 @@ class ApiServices {
       {required List<XFile> imagePath,
       required String workOrderName,
       required int workOrderId}) async {
-    print(" Image Length : ${imagePath.length}");
+    debugPrint(" Image Length : ${imagePath.length}");
     var accessToken = await MyPreference.getToken();
 
     try {
@@ -110,10 +110,10 @@ class ApiServices {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        print("success ${await response.stream.bytesToString()}");
+        debugPrint("success ${await response.stream.bytesToString()}");
         return true;
       } else {
-        print("faild ${await response.stream.bytesToString()}");
+        debugPrint("faild ${await response.stream.bytesToString()}");
         return false;
       }
     } on Exception catch (e) {
@@ -168,6 +168,7 @@ class ApiServices {
     }
   }
 
+// fetch photo
   static fetchPhoto(int id) async {
     var accessToken = await MyPreference.getToken();
 
@@ -190,5 +191,30 @@ class ApiServices {
       }
       return 0;
     }
+  }
+
+// delete photo
+  static dynamic deletePhoto(int id) async {
+    var accessToken = await MyPreference.getToken();
+
+
+    try {
+  var headers = {'Authorization': 'Bearer $accessToken'};
+  
+  var response = await client.get(Uri.parse("$photoDelete$id"),
+  headers: headers);
+  
+  if(response.statusCode == 200){
+    return jsonEncode(response.body);
+  }else{
+    return response.statusCode;
+  }
+} on Exception catch (e) {
+  if(kDebugMode){
+    print('Image Delete Error : $e');
+  }
+  return 1;
+}
+    
   }
 }

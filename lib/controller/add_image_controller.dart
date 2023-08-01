@@ -1,6 +1,7 @@
 
+import 'package:epm/controller/photo_controller.dart';
 import 'package:epm/services/api_services.dart';
-import 'package:epm/utils/app_color.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,15 +9,18 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 
-
+ final _photoController = Get.find<PhotoController>();
 class AddImageController extends GetxController {
 
 
- // final workController = Get.find<WorksOrderController>();
+ 
 
   var isLoading = false.obs;
+
   String workOrder = "";
   int id = (-0);
+
+ 
 
   RxList selectedImage = [].obs;
 
@@ -30,7 +34,7 @@ class AddImageController extends GetxController {
     List<XFile>? images = await picker.pickMultiImage();
     if (images != null) {
       imagePth = images;
-      print(" Image Length : ${images.length}");
+  
       selectedImage.add(images);
 
 
@@ -38,6 +42,7 @@ class AddImageController extends GetxController {
   }
 
 
+// image upload
 
   uploadImage() async {
     try {
@@ -49,13 +54,16 @@ class AddImageController extends GetxController {
         if (kDebugMode) {
           debugPrint("$result");
           Get.snackbar('Error', "Image Upload Faild",
-              backgroundColor: AppColor.deepOrange);
+              backgroundColor: Colors.red);
         }
       } else {
         selectedImage.value = imagePth;
-        print(selectedImage);
+    debugPrint("$selectedImage");
+           _photoController.getPhoto(id );
+        selectedImage.clear();
+     
         Get.snackbar('success', 'Image Upload seccess',
-            backgroundColor: AppColor.deepOrange);
+            backgroundColor: Colors.white);
       }
     } on Exception catch (e) {
       debugPrint('Error $e');
@@ -69,7 +77,7 @@ class AddImageController extends GetxController {
   XFile? images = await picker.pickImage(source: ImageSource.camera);
 
     if (images != null) {
-     // imagePth = images;
+
        selectedImage.add(images);
     }
   }
@@ -86,5 +94,27 @@ class AddImageController extends GetxController {
 
       selectedDate.value = formattedDate;
     }
+  }
+
+  // delete image
+  Future<void> deleteImage(int id)async{
+
+    try {
+  var result = await ApiServices.deletePhoto(id);
+  if(result.runtimeType == int){
+    if(kDebugMode){
+      print('Delete Faild : $result');
+    }
+  }else{
+    _photoController.getPhoto(id);
+    Get.snackbar('Delete Image', 'Success',
+    backgroundColor: Colors.white);
+  }
+} on Exception catch (e) {
+  if(kDebugMode){
+    print("Not Delete Image ${e.toString()}");
+  }
+}
+    
   }
 }

@@ -1,4 +1,3 @@
-import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/services/api_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,16 +9,12 @@ class PhotoController extends GetxController {
 
   late PhotoModel photoModel;
 
-  final workController = Get.find<WorksOrderController>();
-
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-  }
+ 
 
   getPhoto(int id) async {
-    isLoading(true);
+   
+      isLoading(true);
+    
 
     try {
       var result = await ApiServices.fetchPhoto(id);
@@ -32,7 +27,9 @@ class PhotoController extends GetxController {
     } on Exception catch (e) {
       debugPrint("Fetch error : $e");
     } finally {
-      isLoading(false);
+      
+        isLoading(false);
+      
     }
   }
 }

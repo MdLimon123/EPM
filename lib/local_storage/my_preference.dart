@@ -7,7 +7,7 @@ class MyPreference{
   static Future<void> setOnBoard(bool isOnboard)async{
 
     sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences!.setBool(Constance.isOnboard, isOnboard);
+
 
   }
 
@@ -27,6 +27,17 @@ class MyPreference{
     sharedPreferences!.setString(Constance.isLoggedPassword, password);
   }
 
+  static Future<String?> getEmail()async{
+    sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences!.getString(Constance.isLoggedEmail);
+  
+  }
+
+  static Future<String?> getPassword()async{
+    sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences!.getString(Constance.isLoggedPassword);
+  }
+
 
  
 
@@ -35,5 +46,5 @@ class MyPreference{
    static String accessToken = "";
    static String isLoggedEmail = "isLoggedEmail";
    static String isLoggedPassword = "isLoggedPassword";
-   static String isOnboard = "isOnBoard";
+
   }

@@ -12,14 +12,9 @@ import 'package:printing/printing.dart';
 
 import '../../widgets/input_decoration.dart';
 
-class AddWorkOrderScreen extends StatefulWidget {
+class AddWorkOrderScreen extends StatelessWidget {
   AddWorkOrderScreen({super.key});
 
-  @override
-  State<AddWorkOrderScreen> createState() => _AddWorkOrderScreenState();
-}
-
-class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
   final TextEditingController _itemController = TextEditingController();
 
   final TextEditingController _qntController = TextEditingController();
@@ -101,25 +96,21 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
               SizedBox(
                 height: 5.h,
               ),
-
               TextFormField(
-                 maxLines: 4,
+                maxLines: 4,
                 controller: _comController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     fillColor: AppColor.textColor.withOpacity(.1),
                     filled: true,
                     hintText: 'comment',
-                  
                     hintStyle: CustomTextStyle.h4(
                         color: AppColor.deepOrange.withOpacity(.5)),
                     border: border(false),
                     enabledBorder: border(false),
                     focusedBorder: border(true)),
               ),
-
-       
-             SizedBox(
+              SizedBox(
                 height: 15.h,
               ),
               _titleText('Total Price'),
@@ -133,7 +124,11 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
               SizedBox(
                 height: 20.h,
               ),
-              PrimaryButton(title: 'Save', onPressed: printOrSaveAsDocument)
+              PrimaryButton(
+                  title: 'Save',
+                  onPressed: () {
+                    printOrSaveAsDocument(context);
+                  })
             ],
           ),
         ),
@@ -141,7 +136,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
     );
   }
 
-  void printOrSaveAsDocument() async {
+  void printOrSaveAsDocument(BuildContext context) async {
     final itemName = _itemController.text;
     final qntText = _qntController.text;
     final priceText = _priceController.text;
@@ -264,15 +259,13 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                           fontSize: 25.sp,
                           color: const PdfColor.fromInt(0xFF000000),
                         )),
-                           pw.Text('https://essential-infotech.com',
+                    pw.Text('https://essential-infotech.com',
                         style: pw.TextStyle(
                           font: font,
                           fontWeight: pw.FontWeight.bold,
                           fontSize: 25.sp,
                           color: const PdfColor.fromInt(0xFF000000),
                         )),
-                 
-                 
                   ])
             ]);
       },

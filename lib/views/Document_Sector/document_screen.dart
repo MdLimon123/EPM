@@ -1,9 +1,8 @@
 import 'package:epm/controller/document_controller.dart';
 import 'package:epm/utils/app_color.dart';
-import 'package:epm/utils/app_image.dart';
+
 import 'package:epm/utils/text_style.dart';
-import 'package:epm/widgets/custom_button.dart';
-import 'package:epm/widgets/text_field.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -66,7 +65,7 @@ class DocumentScreen extends StatelessWidget {
                               ),
 
                               TextButton(onPressed: (){
-                                    print('work');
+                                 
                                 _documentController.selectFile();
                             
                               },

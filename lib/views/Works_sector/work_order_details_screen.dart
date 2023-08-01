@@ -207,7 +207,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                       Get.toNamed(Routes.addWorkOrderScreen);
                     },
                     child: Text(
-                      'Em.',
+                      'EST.',
                       style: CustomTextStyle.h3(
                           color: AppColor.textColorWhite,
                           fontWeight: FontWeight.w500),

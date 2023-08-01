@@ -1,7 +1,6 @@
-import 'dart:io';
 
-import 'package:epm/controller/works_orders_controller.dart';
-import 'package:epm/services/api_component.dart';
+
+
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 
@@ -18,17 +17,14 @@ class AddImageScreen extends StatelessWidget {
 
   final _addImageController = Get.put(AddImageController());
 
-  final _workOrderController = Get.put(WorksOrderController());
   final _photoController = Get.put(PhotoController());
 
-  final List<dynamic> imageList = [];
   final Map<String, dynamic> data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
     _addImageController.id = data["id"];
-    _addImageController.workOrder = data["workOrderId"];
-    var workOrderId = _addImageController.workOrder;
+
     int id = _addImageController.id;
     _photoController.getPhoto(id);
 
@@ -152,40 +148,67 @@ class AddImageScreen extends StatelessWidget {
       ),
 // https://epm.essential-infotech.com/uploads/work-order-photos/{work_order}/{photo}
 
-      body: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: _photoController.photoModel.data.length,
-          itemBuilder: (context, index) {
-            var image = _photoController.photoModel.data[index].url;
-            var imageUrl = "https://${_photoController.photoModel.hostName}/$image";
-            // print(" hostName: ${_photoController.photoModel.hostName}");
-            return Obx(()=> _photoController.isLoading.value?Center(child: CircularProgressIndicator(
-              color: AppColor.deepOrange,
-            ),): Image.network(imageUrl));
-         
+      body: Obx(
+        () => _photoController.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: AppColor.deepOrange,
+                ),
+              )
+            : ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: _photoController.photoModel.data.length,
+                itemBuilder: (context, index) {
+                  var image = _photoController.photoModel.data[index].url;
+                  var imageUrl =
+                      "https://${_photoController.photoModel.hostName}/$image";
+                  // print(" hostName: ${_photoController.photoModel.hostName}");
 
-
-
-
-            // final image =
-            //     _workOrderController.workOrderModel.data[index].photos;
-            // var baseUrl = "https://epm.essential-infotech.com/";
-
-            // for (var element in image) {
-         
-            //   if (element.url != null) {
-            //     return Container(
-            //       height: 400.h,
-            //       width: double.infinity,
-            //       child: Image.network(baseUrl+element.url.toString(),
                   
-            //       fit: BoxFit.cover,),
-            //     );
-            //   }
-            // }
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 15.w),
+                          height: 250.h,
+                          width: 350.w,
+                          margin: EdgeInsets.only(top: 10.h),
+                        
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            image: DecorationImage(image: NetworkImage(imageUrl,
+                            ),
+                            fit: BoxFit.contain)
+                          ),
+                        //  child: Image.network(imageUrl)
+                        ),
+                        IconButton(onPressed: (){
+                          _addImageController.deleteImage(_photoController.photoModel.data[index].id);
+                        },
+                         icon: Icon(Icons.delete,
+                         color: AppColor.deepOrange,))
+                      ],
+                    );
+                  
 
+                  // final image =
+                  //     _workOrderController.workOrderModel.data[index].photos;
+                  // var baseUrl = "https://epm.essential-infotech.com/";
 
-          }),
+                  // for (var element in image) {
+
+                  //   if (element.url != null) {
+                  //     return Container(
+                  //       height: 400.h,
+                  //       width: double.infinity,
+                  //       child: Image.network(baseUrl+element.url.toString(),
+
+                  //       fit: BoxFit.cover,),
+                  //     );
+                  //   }
+                  // }
+                }),
+      ),
     );
   }
 }

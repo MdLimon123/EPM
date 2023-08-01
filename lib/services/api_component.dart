@@ -4,3 +4,4 @@ String workOrder = "${baseUrl}work-orders";
 String postWorkPhoto = "${baseUrl}work-order-photos-store";
 String documentPostApi = "${baseUrl}work-order-documents-store";
 String photoUrlGet = "${baseUrl}photos-by-work-order-id/";
+String photoDelete = "${baseUrl}work-order-photo-delete/";
