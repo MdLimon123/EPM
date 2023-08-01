@@ -36,6 +36,7 @@ class AddImageController extends GetxController {
       imagePth = images;
   
       selectedImage.add(images);
+      selectedDate();
 
 
     }
@@ -106,7 +107,7 @@ class AddImageController extends GetxController {
       print('Delete Faild : $result');
     }
   }else{
-    _photoController.getPhoto(id);
+  await  _photoController.getPhoto(id);
     Get.snackbar('Delete Image', 'Success',
     backgroundColor: Colors.white);
   }

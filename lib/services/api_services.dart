@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:epm/local_storage/my_preference.dart';
+import 'package:epm/model/document_model.dart';
 import 'package:epm/model/login_model';
 import 'package:epm/model/photo_model.dart';
 import 'package:epm/model/work_order_model.dart';
@@ -197,24 +198,74 @@ class ApiServices {
   static dynamic deletePhoto(int id) async {
     var accessToken = await MyPreference.getToken();
 
+    try {
+      var headers = {'Authorization': 'Bearer $accessToken'};
+
+      var response =
+          await client.get(Uri.parse("$photoDelete$id"), headers: headers);
+
+      if (response.statusCode == 200) {
+        return jsonEncode(response.body);
+      } else {
+        return response.statusCode;
+      }
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print('Image Delete Error : $e');
+      }
+      return 1;
+    }
+  }
+
+  // delete document
+  static dynamic deleteDocument(int id) async {
+    var accessToken = await MyPreference.getToken();
+    try {
+      var headers = {
+        'Authorization': 'Bearer $accessToken',
+        'Cookie':
+            'XSRF-TOKEN=eyJpdiI6IklxcnFUUzdkUlBPTVpkY3BVeDFXOXc9PSIsInZhbHVlIjoiQlNwRXJUa1pOWmc4WHZHckZHeS8wSkVNTTVYQWVxQzJQSXNyaHIvOUc4YURuQTZMUHc5TzFzZWhYZzNMVjRIa0VvdkRkaVZVZ1BrbjREejhWOGszMFZPb1kyT01XQW52VXRtRDZKMWxEWWdseG5jYlcxbkR2UVA5b2dtVHBpOWEiLCJtYWMiOiI3YTExY2NhMmY5Y2FiMTk1NWM0YTFkZGI2NjA5ZjUwYzNlMTk2MGIxZDQ3MWM4MTAxZGFmNzEyOWYwNmY0ZjEyIiwidGFnIjoiIn0%3D; epm_session=eyJpdiI6Im1kd1l5eThWVVg3U1BIUnZEZVBaVUE9PSIsInZhbHVlIjoiMThnM3hrTktuVFo4WEJrdTNUNWgwMmNualBRU2pVUlJ5STloaHQyR0UzNHVsWVR4c3VjYjluZmNteDV2K2NJb0lxNTBLZDh6ZDBUR2t2dEVZVCtmTEdKbHIrTnJxNXAxSThFNlZ6UklpRWlyM2xmOXBnSUZqTGNpWlpQeW5IbysiLCJtYWMiOiJhNTc3NWU2ZDg4ZDU4YTYwNmIzODhkYTdkOTFjNjY2MzA4MjZiYmU1ZmU3MTBiNzc4MmZhZWJiNjc2MGExZmNiIiwidGFnIjoiIn0%3D'
+      };
+
+      var response = await client.get(Uri.parse("$documentDeleteApi$id"),
+          headers: headers);
+      if (response.statusCode == 200) {
+        return jsonEncode(response.body);
+      } else {
+        return response.statusCode;
+      }
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print('Document Delete Error : $e');
+      }
+      return 1;
+    }
+  }
+
+// fetch document
+  static fetchDocument(int id) async {
+    var accessToken = await MyPreference.getToken();
 
     try {
-  var headers = {'Authorization': 'Bearer $accessToken'};
-  
-  var response = await client.get(Uri.parse("$photoDelete$id"),
-  headers: headers);
-  
-  if(response.statusCode == 200){
-    return jsonEncode(response.body);
-  }else{
-    return response.statusCode;
-  }
-} on Exception catch (e) {
-  if(kDebugMode){
-    print('Image Delete Error : $e');
-  }
-  return 1;
-}
-    
+      var headers = {
+        'Authorization': 'Bearer $accessToken',
+        'Cookie':
+            'XSRF-TOKEN=eyJpdiI6IklxcnFUUzdkUlBPTVpkY3BVeDFXOXc9PSIsInZhbHVlIjoiQlNwRXJUa1pOWmc4WHZHckZHeS8wSkVNTTVYQWVxQzJQSXNyaHIvOUc4YURuQTZMUHc5TzFzZWhYZzNMVjRIa0VvdkRkaVZVZ1BrbjREejhWOGszMFZPb1kyT01XQW52VXRtRDZKMWxEWWdseG5jYlcxbkR2UVA5b2dtVHBpOWEiLCJtYWMiOiI3YTExY2NhMmY5Y2FiMTk1NWM0YTFkZGI2NjA5ZjUwYzNlMTk2MGIxZDQ3MWM4MTAxZGFmNzEyOWYwNmY0ZjEyIiwidGFnIjoiIn0%3D; epm_session=eyJpdiI6Im1kd1l5eThWVVg3U1BIUnZEZVBaVUE9PSIsInZhbHVlIjoiMThnM3hrTktuVFo4WEJrdTNUNWgwMmNualBRU2pVUlJ5STloaHQyR0UzNHVsWVR4c3VjYjluZmNteDV2K2NJb0lxNTBLZDh6ZDBUR2t2dEVZVCtmTEdKbHIrTnJxNXAxSThFNlZ6UklpRWlyM2xmOXBnSUZqTGNpWlpQeW5IbysiLCJtYWMiOiJhNTc3NWU2ZDg4ZDU4YTYwNmIzODhkYTdkOTFjNjY2MzA4MjZiYmU1ZmU3MTBiNzc4MmZhZWJiNjc2MGExZmNiIiwidGFnIjoiIn0%3D'
+      };
+
+      var response =
+          await client.get(Uri.parse("$getDocumentApi$id"), headers: headers);
+
+      if (response.statusCode == 200) {
+        return documentModelFromJson(response.body);
+      } else {
+        return response.statusCode;
+      }
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print('Document Fetch Error: ${e.toString()}');
+      }
+      return 0;
+    }
   }
 }

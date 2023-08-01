@@ -1,5 +1,6 @@
 import 'package:epm/controller/document_controller.dart';
 import 'package:epm/utils/app_color.dart';
+import 'package:epm/utils/app_image.dart';
 
 import 'package:epm/utils/text_style.dart';
 
@@ -21,6 +22,8 @@ class DocumentScreen extends StatelessWidget {
 
     _documentController.id = data['id'];
     _documentController.workOrder = data['workOrderId'];
+    int id = _documentController.id;
+    _documentController.getDocument(id);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.blackColor,
@@ -164,62 +167,68 @@ class DocumentScreen extends StatelessWidget {
         ],
       ),
 
-      // body: Padding(
-      //   padding:  EdgeInsets.symmetric(horizontal: 15.h, vertical: 15.h),
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       Text('Documents',
-      //       style: CustomTextStyle.h2(
-      //         color: AppColor.deepOrange,
-      //         fontWeight: FontWeight.w600
-      //       ),),
-      //       SizedBox(height: 15.h,),
-      //       Expanded(
-      //         child: Obx(()=>
-      //            ListView.builder(
-      //             physics: const BouncingScrollPhysics(),
-      //             itemCount: _documentController.fileList.length,
-      //             itemBuilder: (context, index){
-      //               final file = _documentController.fileList[index];
-      //             return Column(
-      //               mainAxisAlignment: MainAxisAlignment.start,
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               children: [
-      //                 Row(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     Image.asset(AppImage.pdf,
-      //                     height: 60.h,
-      //                     width: 60.w,),
-      //                     Container(
-      //                       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
-      //                       margin: EdgeInsets.all(15.w),
-      //                       decoration: BoxDecoration(
-      //                         color: AppColor.deepOrange,
-      //                         borderRadius: BorderRadius.circular(8.r)
-      //                       ),
-      //                       child: Center(child: Text('Download',
-      //                       style: CustomTextStyle.h4(
-      //                         fontWeight: FontWeight.w500,
-      //                         color: AppColor.textColorWhite
-      //                       ),)),
-      //                     )
+      body: Padding(
+        padding:  EdgeInsets.symmetric(horizontal: 15.h, vertical: 15.h),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Documents',
+            style: CustomTextStyle.h2(
+              color: AppColor.deepOrange,
+              fontWeight: FontWeight.w600
+            ),),
+            SizedBox(height: 15.h,),
+            Expanded(
+              child: Obx(()=> _documentController.isLoading.value?Center(child: CircularProgressIndicator(
+                color: AppColor.deepOrange,
+              ),):
+                 ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: _documentController.documentModel.data.length,
+                  itemBuilder: (context, index){
+                    final pdfFile = _documentController.documentModel.data[index];
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset(AppImage.pdf,
+                          height: 60.h,
+                          width: 60.w,),
+                          Container(
+                            height: 50.h,
+                            width: 60.w,
+                            margin: EdgeInsets.all(15.w),
+                            decoration: BoxDecoration(
+                              color: AppColor.deepOrange,
+                              borderRadius: BorderRadius.circular(8.r)
+                            ),
+                            child: Center(
+                              child: IconButton(
+                                onPressed: (){
+                                  _documentController.deleteDocument(_documentController.documentModel.data[index].id);
+                                },
+                               icon: Icon(Icons.delete,
+                              color: AppColor.textColorWhite,)),
+                            ),
+                          )
                         
-      //                   ],
-      //                 ),
+                        ],
+                      ),
                       
-      //                   Text(file),
+                        Text(pdfFile.file),
                       
                         
-      //               ],
-      //             );
-      //           }),
-      //         ),
-      //       )
-      //     ],
-      //   ),
-      // ),
+                    ],
+                  );
+                }),
+              ),
+            )
+          ],
+        ),
+      ),
    
    
     );

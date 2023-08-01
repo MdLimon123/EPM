@@ -29,124 +29,8 @@ class AddImageScreen extends StatelessWidget {
     _photoController.getPhoto(id);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColor.bgColor,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: AppColor.textColorWhite,
-            )),
-        title: Text(
-          'All Image',
-          style: CustomTextStyle.h1(color: AppColor.textColorWhite),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: false,
-                    isDismissible: true,
-                    backgroundColor: const Color(0xFFFFFFFF),
-                    shape: OutlineInputBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15.r),
-                            topRight: Radius.circular(15.r))),
-                    builder: (context) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(horizontal: 17.w),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextButton(
-                                onPressed: () {
-                                  _addImageController.pickImageGallery();
-                                },
-                                child: Text(
-                                  'Gallery',
-                                  style: CustomTextStyle.h3(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColor.deepOrange),
-                                )),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  _addImageController.pickImageCamera();
-                                },
-                                child: Text(
-                                  'Camera',
-                                  style: CustomTextStyle.h3(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColor.deepOrange),
-                                )),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                _addImageController.uploadImage();
-                              },
-                              child: Container(
-                                height: 50.h,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: AppColor.deepOrange,
-                                    borderRadius: BorderRadius.circular(8.r)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Save',
-                                      style: CustomTextStyle.h3(
-                                          color: AppColor.textColorWhite),
-                                    ),
-                                    SizedBox(
-                                      width: _addImageController.isLoading.value
-                                          ? 15.w
-                                          : 0,
-                                    ),
-                                    Obx(() {
-                                      if (_addImageController.isLoading.value) {
-                                        return SizedBox(
-                                          height: 15.sp,
-                                          width: 15.sp,
-                                          child:
-                                              const CircularProgressIndicator(
-                                            color: Colors.white,
-                                            strokeWidth: 3,
-                                          ),
-                                        );
-                                      } else {
-                                        return const SizedBox();
-                                      }
-                                    })
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                          ],
-                        ),
-                      );
-                    });
-              },
-              icon: Icon(
-                Icons.adaptive.more,
-                color: AppColor.textColorWhite,
-              ))
-        ],
-      ),
-// https://epm.essential-infotech.com/uploads/work-order-photos/{work_order}/{photo}
+      appBar: _appBar(context),
+
 
       body: Obx(
         () => _photoController.isLoading.value
@@ -162,9 +46,7 @@ class AddImageScreen extends StatelessWidget {
                   var image = _photoController.photoModel.data[index].url;
                   var imageUrl =
                       "https://${_photoController.photoModel.hostName}/$image";
-                  // print(" hostName: ${_photoController.photoModel.hostName}");
-
-                  
+            
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -209,6 +91,126 @@ class AddImageScreen extends StatelessWidget {
                   // }
                 }),
       ),
+    );
+  }
+
+_appBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: AppColor.bgColor,
+      leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColor.textColorWhite,
+          )),
+      title: Text(
+        'All Image',
+        style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+      ),
+      centerTitle: true,
+      actions: [
+        IconButton(
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: false,
+                  isDismissible: true,
+                  backgroundColor: const Color(0xFFFFFFFF),
+                  shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15.r),
+                          topRight: Radius.circular(15.r))),
+                  builder: (context) {
+                    return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 17.w),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                _addImageController.pickImageGallery();
+                              },
+                              child: Text(
+                                'Gallery',
+                                style: CustomTextStyle.h3(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColor.deepOrange),
+                              )),
+                          SizedBox(
+                            height: 15.h,
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                _addImageController.pickImageCamera();
+                              },
+                              child: Text(
+                                'Camera',
+                                style: CustomTextStyle.h3(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColor.deepOrange),
+                              )),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              _addImageController.uploadImage();
+                            },
+                            child: Container(
+                              height: 50.h,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: AppColor.deepOrange,
+                                  borderRadius: BorderRadius.circular(8.r)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Save',
+                                    style: CustomTextStyle.h3(
+                                        color: AppColor.textColorWhite),
+                                  ),
+                                  SizedBox(
+                                    width: _addImageController.isLoading.value
+                                        ? 15.w
+                                        : 0,
+                                  ),
+                                  Obx(() {
+                                    if (_addImageController.isLoading.value) {
+                                      return SizedBox(
+                                        height: 15.sp,
+                                        width: 15.sp,
+                                        child:
+                                            const CircularProgressIndicator(
+                                          color: Colors.white,
+                                          strokeWidth: 3,
+                                        ),
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  })
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                        ],
+                      ),
+                    );
+                  });
+            },
+            icon: Icon(
+              Icons.adaptive.more,
+              color: AppColor.textColorWhite,
+            ))
+      ],
     );
   }
 }
