@@ -68,7 +68,7 @@ class LoginController extends GetxController {
 
         debugPrint("Last token $accessToken");
 
- Get.offAllNamed(Routes.workOrderScreen);
+ Get.offAllNamed(Routes.mainDashboardScreen);
 
 
         emailController.clear();

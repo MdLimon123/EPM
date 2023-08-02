@@ -14,8 +14,6 @@ class PhotoController extends GetxController {
   getPhoto(int id) async {
    
       isLoading(true);
-    
-
     try {
       var result = await ApiServices.fetchPhoto(id);
       if (result.runtimeType == int) {

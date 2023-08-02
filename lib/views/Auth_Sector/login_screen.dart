@@ -1,4 +1,4 @@
-import 'package:epm/Routes/routes.dart';
+
 import 'package:epm/controller/auth/login_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
@@ -7,6 +7,7 @@ import 'package:epm/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart' as launcher;
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -131,11 +132,14 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                    onPressed: () {
-                      Get.toNamed(Routes.forgetPasswordScreen);
+                    onPressed: () async{
+                      Uri uri = Uri.parse('mailto:limon222020@gmail.com');
+                      if(await launcher.launchUrl(uri)){
+                        debugPrint("Could not launch the uri");
+                      }
                     },
                     child: Text(
-                      'Forget Password?',
+                      'Mail',
                       style: CustomTextStyle.h3(
                           color: AppColor.deepOrange,
                           fontWeight: FontWeight.w500),

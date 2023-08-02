@@ -15,8 +15,6 @@ class DocumentScreen extends StatelessWidget {
 
    final Map<String, dynamic> data = Get.arguments;
 
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -58,14 +56,7 @@ class DocumentScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Document Add',
-                                style: CustomTextStyle.h4(),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(
-                                height: 15.h,
-                              ),
+                           
 
                               TextButton(onPressed: (){
                                  
@@ -78,28 +69,13 @@ class DocumentScreen extends StatelessWidget {
                                       color: AppColor.deepOrange),
                                 )),
 
-                              // CustomTextField(
-                              //   onTap: () {
-                              //     _documentController.selectFile();
-                              //   },
-                              //   controller: _documentController.fileByController,
-                              //   readOnly: true,
-                              //   validator: (value){
-                              //     if(value!.isEmpty){
-                              //       return 'Field is Empty';
-                              //     }
-                              //     return null;
-                              //   },
-                            
-                              // ),
+                          
                           
                             
                               SizedBox(
                                 height: 15.h,
                               ),
-                              // PrimaryButton(title: 'Upload', onPressed: () {
-                              //   _documentController.uploadFile();
-                              // }),
+                          
                               InkWell(
                                 onTap: () {
                                   _documentController.uploadDocument();
@@ -197,21 +173,29 @@ class DocumentScreen extends StatelessWidget {
                           Image.asset(AppImage.pdf,
                           height: 60.h,
                           width: 60.w,),
-                          Container(
-                            height: 50.h,
-                            width: 60.w,
-                            margin: EdgeInsets.all(15.w),
-                            decoration: BoxDecoration(
-                              color: AppColor.deepOrange,
-                              borderRadius: BorderRadius.circular(8.r)
-                            ),
-                            child: Center(
-                              child: IconButton(
-                                onPressed: (){
-                                  _documentController.deleteDocument(_documentController.documentModel.data[index].id);
-                                },
-                               icon: Icon(Icons.delete,
-                              color: AppColor.textColorWhite,)),
+                          InkWell(
+                            onTap: () {
+                              _documentController.deleteDocument(_documentController.documentModel.data[index].id);
+                            },
+                            child: Container(
+                              height: 50.h,
+                              width: 60.w,
+                              margin: EdgeInsets.all(15.w),
+                              decoration: BoxDecoration(
+                                color: AppColor.deepOrange,
+                                borderRadius: BorderRadius.circular(8.r)
+                              ),
+                              child: Icon(Icons.delete,
+                              color: AppColor.textColorWhite,)
+                              
+                              //  Center(
+                              //   child: IconButton(
+                              //     onPressed: (){
+                              //       _documentController.deleteDocument(_documentController.documentModel.data[index].id);
+                              //     },
+                              //    icon: Icon(Icons.delete,
+                              //   color: AppColor.textColorWhite,)),
+                              // ),
                             ),
                           )
                         

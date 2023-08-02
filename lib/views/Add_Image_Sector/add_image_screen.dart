@@ -30,8 +30,6 @@ class AddImageScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: _appBar(context),
-
-
       body: Obx(
         () => _photoController.isLoading.value
             ? Center(
@@ -47,48 +45,50 @@ class AddImageScreen extends StatelessWidget {
                   var imageUrl =
                       "https://${_photoController.photoModel.hostName}/$image";
             
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15.w),
-                          height: 250.h,
-                          width: 350.w,
-                          margin: EdgeInsets.only(top: 10.h),
-                        
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.r),
-                            image: DecorationImage(image: NetworkImage(imageUrl,
+                    return Padding(
+                      padding:  EdgeInsets.only(left: 10.w, right: 10.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 250.h,
+                            width: 300.w,
+                            margin: EdgeInsets.only(top: 10.h),
+                          
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.r),
+                              image: DecorationImage(image: NetworkImage(imageUrl,
+                              ),
+                              fit: BoxFit.cover)
                             ),
-                            fit: BoxFit.contain)
+                          
                           ),
-                        //  child: Image.network(imageUrl)
-                        ),
-                        IconButton(onPressed: (){
-                          _addImageController.deleteImage(_photoController.photoModel.data[index].id);
-                        },
-                         icon: Icon(Icons.delete,
-                         color: AppColor.deepOrange,))
-                      ],
+                          InkWell(
+                            onTap: () {
+                              _addImageController.deleteImage(_photoController.photoModel.data[index].id);
+                            },
+                            child: Container(
+                                height: 50.h,
+                                width: 60.w,
+                                margin: EdgeInsets.only(left: 15.w, top: 15.w),
+                                decoration: BoxDecoration(
+                                  color: AppColor.deepOrange,
+                                  borderRadius: BorderRadius.circular(8.r)
+                                ),
+                              child: Icon(Icons.delete,
+                              color: AppColor.textColorWhite,)
+                              
+                              // IconButton(onPressed: (){
+                              //   _addImageController.deleteImage(_photoController.photoModel.data[index].id);
+                              // },
+                              //  icon: Icon(Icons.delete,
+                              //  color: AppColor.textColorWhite,)),
+                            ),
+                          )
+                        ],
+                      ),
                     );
                   
-
-                  // final image =
-                  //     _workOrderController.workOrderModel.data[index].photos;
-                  // var baseUrl = "https://epm.essential-infotech.com/";
-
-                  // for (var element in image) {
-
-                  //   if (element.url != null) {
-                  //     return Container(
-                  //       height: 400.h,
-                  //       width: double.infinity,
-                  //       child: Image.network(baseUrl+element.url.toString(),
-
-                  //       fit: BoxFit.cover,),
-                  //     );
-                  //   }
-                  // }
                 }),
       ),
     );
@@ -140,9 +140,7 @@ _appBar(BuildContext context) {
                                     fontWeight: FontWeight.w600,
                                     color: AppColor.deepOrange),
                               )),
-                          SizedBox(
-                            height: 15.h,
-                          ),
+                        
                           TextButton(
                               onPressed: () {
                                 _addImageController.pickImageCamera();

@@ -218,10 +218,12 @@ class WorksOrdersScreen extends StatelessWidget {
         'Work Orders',
         style: CustomTextStyle.h1(color: AppColor.textColorWhite),
       ),
-      leading: Icon(
-        Icons.refresh,
-        color: AppColor.textColorWhite,
-      ),
+      centerTitle: true,
+      leading:IconButton(onPressed: (){
+        Get.back();
+      },
+       icon: Icon(Icons.arrow_back,
+       color: AppColor.textColorWhite,)),
       actions: [
         IconButton(
             onPressed: () {},

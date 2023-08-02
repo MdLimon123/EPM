@@ -12,9 +12,6 @@ import 'package:intl/intl.dart';
  final _photoController = Get.find<PhotoController>();
 class AddImageController extends GetxController {
 
-
- 
-
   var isLoading = false.obs;
 
   String workOrder = "";
@@ -107,7 +104,7 @@ class AddImageController extends GetxController {
       print('Delete Faild : $result');
     }
   }else{
-  await  _photoController.getPhoto(id);
+    
     Get.snackbar('Delete Image', 'Success',
     backgroundColor: Colors.white);
   }

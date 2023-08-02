@@ -70,7 +70,7 @@ class DocumentController extends GetxController {
           print('Delete Faild : $result');
         }
       } else {
-        await getDocument(id);
+         //getDocument(id);
         Get.snackbar('Delete Document', 'Success',
             backgroundColor: Colors.white);
       }
