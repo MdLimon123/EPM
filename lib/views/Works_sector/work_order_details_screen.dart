@@ -1,5 +1,5 @@
 import 'package:epm/Routes/routes.dart';
-
+import 'package:epm/controller/works_orders_controller.dart';
 
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
@@ -11,16 +11,15 @@ import 'package:jiffy/jiffy.dart';
 
 import '../../model/work_order_model.dart';
 
+final _workOrderController = Get.put(WorksOrderController());
+
 class WorkOrderDetailsScreen extends StatelessWidget {
   WorkOrderDetailsScreen({super.key});
 
   final Data data = Get.arguments["data"];
 
-
-
   @override
   Widget build(BuildContext context) {
- 
     return Scaffold(
       appBar: _appbar(),
       body: SingleChildScrollView(
@@ -124,36 +123,55 @@ class WorkOrderDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-        
 
-            _customText(title: 'Status', subtitle: 'Unread'),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w),
+              child: Text('Status',
+                  style: CustomTextStyle.h3(
+                      fontWeight: FontWeight.w500,
+                      color: AppColor.deepOrange.withOpacity(.9))),
+            ),
+
+            Padding(
+              padding: EdgeInsets.only(left: 20.w),
+              child: Text(
+                  _workOrderController.workOrderModel.status == true
+                      ? "Read"
+                      : "Unread",
+                  style: CustomTextStyle.h4(
+                      color: AppColor.deepBlack, fontWeight: FontWeight.w400)),
+            ),
+
+            // _customText(title: 'Status', subtitle: 'Unread'),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'WO#', subtitle: data.workOrder ),
+            _customText(title: 'WO#', subtitle: data.workOrder),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'PPW#', subtitle:  data.workTypeId),
+            _customText(title: 'PPW#', subtitle: data.workTypeId),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Work Type', subtitle:  data.workType.name),
+            _customText(title: 'Work Type', subtitle: data.workType.name),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Address', subtitle:  data.property.address),
+            _customText(title: 'Address', subtitle: data.property.address),
             SizedBox(
               height: 10.h,
             ),
+            _customText(title: 'City/State/Zip', subtitle: data.property.city),
+            SizedBox(
+              height: 10.h,
+            ),
+
             _customText(
-                title: 'City/State/Zip', subtitle: data.property.city),
-            SizedBox(
-              height: 10.h,
-            ),
-          
-            _customText(title: 'Date Due', subtitle: Jiffy.parse(data.property.createdAt.toString()).yMMMd),
-           
+                title: 'Date Due',
+                subtitle:
+                    Jiffy.parse(data.property.createdAt.toString()).yMMMd),
+
             SizedBox(
               height: 15.h,
             ),
@@ -176,11 +194,11 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.addImageScreen,arguments: {
-                        "id":data.id,
-                        "workOrderId":data.workOrder
+                      Get.toNamed(Routes.addImageScreen, arguments: {
+                        "id": data.id,
+                        "workOrderId": data.workOrder
                       });
-                    },                                                                                                                                                                                                                          
+                    },
                     child: Text(
                       'Photos',
                       style: CustomTextStyle.h3(
@@ -190,7 +208,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.documentScreen,arguments: {
+                      Get.toNamed(Routes.documentScreen, arguments: {
                         "id": data.id,
                         "workOrderId": data.workOrder
                       });

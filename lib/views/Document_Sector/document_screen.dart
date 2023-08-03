@@ -148,11 +148,11 @@ class DocumentScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Documents',
-            style: CustomTextStyle.h2(
-              color: AppColor.deepOrange,
-              fontWeight: FontWeight.w600
-            ),),
+            // Text('Documents',
+            // style: CustomTextStyle.h2(
+            //   color: AppColor.deepOrange,
+            //   fontWeight: FontWeight.w600
+            // ),),
             SizedBox(height: 15.h,),
             Expanded(
               child: Obx(()=> _documentController.isLoading.value?Center(child: CircularProgressIndicator(
@@ -188,14 +188,7 @@ class DocumentScreen extends StatelessWidget {
                               child: Icon(Icons.delete,
                               color: AppColor.textColorWhite,)
                               
-                              //  Center(
-                              //   child: IconButton(
-                              //     onPressed: (){
-                              //       _documentController.deleteDocument(_documentController.documentModel.data[index].id);
-                              //     },
-                              //    icon: Icon(Icons.delete,
-                              //   color: AppColor.textColorWhite,)),
-                              // ),
+                         
                             ),
                           )
                         

@@ -23,6 +23,9 @@ class AddImageController extends GetxController {
 
   RxString selectedDate = ''.obs;
   List<XFile> imagePth = <XFile>[].obs;
+  RxList<XFile> capturedImages = RxList<XFile>();
+
+   
 
  
 
@@ -56,6 +59,7 @@ class AddImageController extends GetxController {
         }
       } else {
         selectedImage.value = imagePth;
+        capturedImages.value = imagePth;
     debugPrint("$selectedImage");
            _photoController.getPhoto(id );
         selectedImage.clear();
@@ -70,13 +74,17 @@ class AddImageController extends GetxController {
     }
   }
 
+ 
+
   Future<void> pickImageCamera() async {
     final picker = ImagePicker();
-  XFile? images = await picker.pickImage(source: ImageSource.camera);
+ XFile? images = await picker.pickImage(source: ImageSource.camera);
 
     if (images != null) {
+      imagePth = capturedImages;
+       capturedImages.add(images);
+       print(capturedImages);
 
-       selectedImage.add(images);
     }
   }
 

@@ -83,6 +83,8 @@ class DocumentController extends GetxController {
 
 // selected file
 
+
+
   Future<void> selectFile() async {
     List<File> files = [];
     FilePickerResult? filePicker = await FilePicker.platform.pickFiles(
@@ -97,7 +99,10 @@ class DocumentController extends GetxController {
       filePth = files;
       filePth = files;
 
-      if (filePth.length > 20) {}
+    
+
+
+     
     }
   }
 
