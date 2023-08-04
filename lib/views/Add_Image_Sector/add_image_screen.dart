@@ -39,9 +39,9 @@ class AddImageScreen extends StatelessWidget {
               )
             : ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: _photoController.photoModel.data.length,
+                itemCount: _photoController.data.length,
                 itemBuilder: (context, index) {
-                  var image = _photoController.photoModel.data[index].url;
+                  var image = _photoController.data[index].url;
                   var imageUrl =
                       "https://${_photoController.photoModel.hostName}/$image";
             
@@ -56,6 +56,7 @@ class AddImageScreen extends StatelessWidget {
                             margin: EdgeInsets.only(top: 10.h),
                           
                             decoration: BoxDecoration(
+                              color: Colors.amber,
                               borderRadius: BorderRadius.circular(8.r),
                               image: DecorationImage(image: NetworkImage(imageUrl,
                               ),
@@ -65,7 +66,7 @@ class AddImageScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              _addImageController.deleteImage(_photoController.photoModel.data[index].id);
+                              _photoController.deleteImage(_photoController.data[index].id,index);
                             },
                             child: Container(
                                 height: 50.h,

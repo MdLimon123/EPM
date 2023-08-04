@@ -9,15 +9,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class DocumentScreen extends StatelessWidget {
-   DocumentScreen({super.key});
+  DocumentScreen({super.key});
 
   final _documentController = Get.put(DocumentController());
 
-   final Map<String, dynamic> data = Get.arguments;
+  final Map<String, dynamic> data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
-
     _documentController.id = data['id'];
     _documentController.workOrder = data['workOrderId'];
     int id = _documentController.id;
@@ -56,26 +55,19 @@ class DocumentScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                           
-
-                              TextButton(onPressed: (){
-                                 
-                                _documentController.selectFile();
-                            
-                              },
-                               child: Text('Document',
-                               style: CustomTextStyle.h3(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColor.deepOrange),
-                                )),
-
-                          
-                          
-                            
+                              TextButton(
+                                  onPressed: () {
+                                    _documentController.selectFile();
+                                  },
+                                  child: Text(
+                                    'Document',
+                                    style: CustomTextStyle.h3(
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColor.deepOrange),
+                                  )),
                               SizedBox(
                                 height: 15.h,
                               ),
-                          
                               InkWell(
                                 onTap: () {
                                   _documentController.uploadDocument();
@@ -84,22 +76,26 @@ class DocumentScreen extends StatelessWidget {
                                   height: 50.h,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: AppColor.deepOrange,
-                                    borderRadius: BorderRadius.circular(8.r)
-                                  ),
+                                      color: AppColor.deepOrange,
+                                      borderRadius: BorderRadius.circular(8.r)),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text('Upload',
-                                      style: CustomTextStyle.h3(
-                                        color: AppColor.textColorWhite
-                                      ),),
+                                      Text(
+                                        'Upload',
+                                        style: CustomTextStyle.h3(
+                                            color: AppColor.textColorWhite),
+                                      ),
                                       SizedBox(
-                                        width: _documentController.isLoading.value?15.w:0,
+                                        width:
+                                            _documentController.isLoading.value
+                                                ? 15.w
+                                                : 0,
                                       ),
                                       Obx(() {
-                                        if(_documentController.isLoading.value){
-                                            return SizedBox(
+                                        if (_documentController
+                                            .isLoading.value) {
+                                          return SizedBox(
                                             height: 15.sp,
                                             width: 15.sp,
                                             child:
@@ -108,8 +104,8 @@ class DocumentScreen extends StatelessWidget {
                                               strokeWidth: 3,
                                             ),
                                           );
-                                        }else{
-                                           return const SizedBox();
+                                        } else {
+                                          return const SizedBox();
                                         }
                                       })
                                     ],
@@ -142,9 +138,8 @@ class DocumentScreen extends StatelessWidget {
               })
         ],
       ),
-
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 15.h, vertical: 15.h),
+        padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 15.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -153,61 +148,65 @@ class DocumentScreen extends StatelessWidget {
             //   color: AppColor.deepOrange,
             //   fontWeight: FontWeight.w600
             // ),),
-            SizedBox(height: 15.h,),
+            SizedBox(
+              height: 15.h,
+            ),
             Expanded(
-              child: Obx(()=> _documentController.isLoading.value?Center(child: CircularProgressIndicator(
-                color: AppColor.deepOrange,
-              ),):
-                 ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _documentController.documentModel.data.length,
-                  itemBuilder: (context, index){
-                    final pdfFile = _documentController.documentModel.data[index];
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.asset(AppImage.pdf,
-                          height: 60.h,
-                          width: 60.w,),
-                          InkWell(
-                            onTap: () {
-                              _documentController.deleteDocument(_documentController.documentModel.data[index].id);
-                            },
-                            child: Container(
-                              height: 50.h,
-                              width: 60.w,
-                              margin: EdgeInsets.all(15.w),
-                              decoration: BoxDecoration(
-                                color: AppColor.deepOrange,
-                                borderRadius: BorderRadius.circular(8.r)
+              child: Obx(
+                () => _documentController.isLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: AppColor.deepOrange,
+                        ),
+                      )
+                    : ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: _documentController.data.length,
+                        itemBuilder: (context, index) {
+                          final pdfFile = _documentController.data[index];
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Image.asset(
+                                    AppImage.pdf,
+                                    height: 60.h,
+                                    width: 60.w,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      _documentController.deleteDocument(
+                                          _documentController.data[index].id,
+                                          index);
+                                    },
+                                    child: Container(
+                                        height: 50.h,
+                                        width: 60.w,
+                                        margin: EdgeInsets.all(15.w),
+                                        decoration: BoxDecoration(
+                                            color: AppColor.deepOrange,
+                                            borderRadius:
+                                                BorderRadius.circular(8.r)),
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: AppColor.textColorWhite,
+                                        )),
+                                  )
+                                ],
                               ),
-                              child: Icon(Icons.delete,
-                              color: AppColor.textColorWhite,)
-                              
-                         
-                            ),
-                          )
-                        
-                        ],
-                      ),
-                      
-                        Text(pdfFile.file),
-                      
-                        
-                    ],
-                  );
-                }),
+                              Text(pdfFile.file),
+                            ],
+                          );
+                        }),
               ),
             )
           ],
         ),
       ),
-   
-   
     );
   }
 }

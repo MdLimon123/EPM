@@ -102,25 +102,5 @@ class AddImageController extends GetxController {
     }
   }
 
-  // delete image
-  Future<void> deleteImage(int id)async{
-
-    try {
-  var result = await ApiServices.deletePhoto(id);
-  if(result.runtimeType == int){
-    if(kDebugMode){
-      print('Delete Faild : $result');
-    }
-  }else{
-    
-    Get.snackbar('Delete Image', 'Success',
-    backgroundColor: Colors.white);
-  }
-} on Exception catch (e) {
-  if(kDebugMode){
-    print("Not Delete Image ${e.toString()}");
-  }
-}
-    
-  }
+  
 }

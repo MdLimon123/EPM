@@ -15,6 +15,7 @@ class DocumentController extends GetxController {
   int id = (-0);
 
   late DocumentModel documentModel;
+  RxList<Datum> data = <Datum>[].obs;
 
   uploadDocument() async {
     isLoading(true);
@@ -32,7 +33,7 @@ class DocumentController extends GetxController {
         filePth.clear();
         Get.snackbar('success', 'File Upload seccess',
             backgroundColor: Colors.white);
-        await getDocument(id);
+        getDocument(id);
       }
     } on Exception catch (e) {
       debugPrint('Error $e');
@@ -51,6 +52,7 @@ class DocumentController extends GetxController {
         debugPrint('Docemnt Error :$result');
       } else {
         documentModel = result;
+        data.value = documentModel.data;
         debugPrint(documentModel.toString());
       }
     } on Exception catch (e) {
@@ -62,7 +64,7 @@ class DocumentController extends GetxController {
 
   // delete document
 
-  Future<void> deleteDocument(int id) async {
+  Future<void> deleteDocument(int id, int index) async {
     try {
       var result = await ApiServices.deleteDocument(id);
       if (result.runtimeType == int) {
@@ -70,7 +72,8 @@ class DocumentController extends GetxController {
           print('Delete Faild : $result');
         }
       } else {
-         //getDocument(id);
+        //getDocument(id);
+        data.removeAt(index);
         Get.snackbar('Delete Document', 'Success',
             backgroundColor: Colors.white);
       }
@@ -82,8 +85,6 @@ class DocumentController extends GetxController {
   }
 
 // selected file
-
-
 
   Future<void> selectFile() async {
     List<File> files = [];
@@ -98,11 +99,6 @@ class DocumentController extends GetxController {
       debugPrint("$files");
       filePth = files;
       filePth = files;
-
-    
-
-
-     
     }
   }
 
