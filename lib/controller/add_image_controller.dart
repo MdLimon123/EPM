@@ -1,4 +1,3 @@
-
 import 'package:epm/controller/photo_controller.dart';
 import 'package:epm/services/api_services.dart';
 
@@ -8,26 +7,17 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
+final _photoController = Get.find<PhotoController>();
 
- final _photoController = Get.find<PhotoController>();
 class AddImageController extends GetxController {
-
   var isLoading = false.obs;
 
   String workOrder = "";
   int id = (-0);
 
- 
-
-  RxList selectedImage = [].obs;
-
+   
   RxString selectedDate = ''.obs;
   List<XFile> imagePth = <XFile>[].obs;
-  
-  RxList<XFile> capturedImages = RxList<XFile>();
-
-   
-
  
 
   Future<void> pickImageGallery() async {
@@ -35,15 +25,11 @@ class AddImageController extends GetxController {
     List<XFile>? images = await picker.pickMultiImage();
     if (images != null) {
       imagePth = images;
-  
-    
-      selectedImage.add(images);
+
+     
       selectedDate();
-
-
     }
   }
-
 
 // image upload
 
@@ -60,12 +46,11 @@ class AddImageController extends GetxController {
               backgroundColor: Colors.red);
         }
       } else {
-        selectedImage.value = imagePth;
-        capturedImages.value = imagePth;
-    debugPrint("$selectedImage");
-           _photoController.getPhoto(id );
-        selectedImage.clear();
-     
+        
+        _photoController.getPhoto(id);
+ 
+        imagePth.clear();
+
         Get.snackbar('success', 'Image Upload seccess',
             backgroundColor: Colors.white);
       }
@@ -76,17 +61,12 @@ class AddImageController extends GetxController {
     }
   }
 
- 
-
   Future<void> pickImageCamera() async {
     final picker = ImagePicker();
- XFile? images = await picker.pickImage(source: ImageSource.camera);
+    XFile? images = await picker.pickImage(source: ImageSource.camera);
 
     if (images != null) {
-      imagePth = capturedImages;
-       capturedImages.add(images);
-       print(capturedImages);
-
+      
     }
   }
 
@@ -103,6 +83,4 @@ class AddImageController extends GetxController {
       selectedDate.value = formattedDate;
     }
   }
-
-  
 }

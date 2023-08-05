@@ -1,6 +1,3 @@
-
-
-
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-
 
 import '../../controller/add_image_controller.dart';
 import '../../controller/photo_controller.dart';
@@ -28,6 +24,7 @@ class AddImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _addImageController.id = data["id"];
+    _addImageController.workOrder = data["workOrderId"];
 
     int id = _addImageController.id;
     _photoController.getPhoto(id);
@@ -48,60 +45,58 @@ class AddImageScreen extends StatelessWidget {
                   var image = _photoController.data[index].url;
                   var imageUrl =
                       "https://${_photoController.photoModel.hostName}/$image";
-            
-                    return Padding(
-                      padding:  EdgeInsets.only(left: 10.w, right: 10.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                             height: 250.h,
-                            width: 300.w,
-                            margin: EdgeInsets.only(top: 20.h),
-                          
-                            child: 
-                            CachedNetworkImage(imageUrl: imageUrl,
+
+                  return Padding(
+                    padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 250.h,
+                          width: 300.w,
+                          margin: EdgeInsets.only(top: 20.h),
+                          child: CachedNetworkImage(
+                            imageUrl: imageUrl,
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.r),
-                                image: DecorationImage(image: imageProvider,
-                                fit: BoxFit.cover)
-                              ),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover)),
                             ),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                            placeholder: (context, url) =>  Center(child: CircularProgressIndicator(
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                            placeholder: (context, url) => Center(
+                                child: CircularProgressIndicator(
                               color: AppColor.deepOrange,
-                            )),),
-                          
+                            )),
                           ),
-                          InkWell(
-                            onTap: () {
-                              _photoController.deleteImage(_photoController.data[index].id,index);
-                            },
-                            child: Container(
-                                height: 50.h,
-                                width: 60.w,
-                                margin: EdgeInsets.only(left: 15.w, top: 15.w),
-                                decoration: BoxDecoration(
+                        ),
+                        InkWell(
+                          onTap: () {
+                            _photoController.deleteImage(
+                                _photoController.data[index].id, index);
+                          },
+                          child: Container(
+                              height: 50.h,
+                              width: 60.w,
+                              margin: EdgeInsets.only(left: 15.w, top: 15.w),
+                              decoration: BoxDecoration(
                                   color: AppColor.deepOrange,
-                                  borderRadius: BorderRadius.circular(8.r)
-                                ),
-                              child: Icon(Icons.delete,
-                              color: AppColor.textColorWhite,)
-                              
-                         
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  
+                                  borderRadius: BorderRadius.circular(8.r)),
+                              child: Icon(
+                                Icons.delete,
+                                color: AppColor.textColorWhite,
+                              )),
+                        )
+                      ],
+                    ),
+                  );
                 }),
       ),
     );
   }
 
-_appBar(BuildContext context) {
+  _appBar(BuildContext context) {
     return AppBar(
       backgroundColor: AppColor.bgColor,
       leading: IconButton(
@@ -147,7 +142,6 @@ _appBar(BuildContext context) {
                                     fontWeight: FontWeight.w600,
                                     color: AppColor.deepOrange),
                               )),
-                        
                           TextButton(
                               onPressed: () {
                                 _addImageController.pickImageCamera();
@@ -189,8 +183,7 @@ _appBar(BuildContext context) {
                                       return SizedBox(
                                         height: 15.sp,
                                         width: 15.sp,
-                                        child:
-                                            const CircularProgressIndicator(
+                                        child: const CircularProgressIndicator(
                                           color: Colors.white,
                                           strokeWidth: 3,
                                         ),
