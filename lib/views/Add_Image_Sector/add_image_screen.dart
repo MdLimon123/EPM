@@ -1,6 +1,9 @@
 
 
 
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 
@@ -8,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+
 
 import '../../controller/add_image_controller.dart';
 import '../../controller/photo_controller.dart';
@@ -51,17 +55,23 @@ class AddImageScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            height: 250.h,
+                             height: 250.h,
                             width: 300.w,
-                            margin: EdgeInsets.only(top: 10.h),
+                            margin: EdgeInsets.only(top: 20.h),
                           
-                            decoration: BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius: BorderRadius.circular(8.r),
-                              image: DecorationImage(image: NetworkImage(imageUrl,
+                            child: 
+                            CachedNetworkImage(imageUrl: imageUrl,
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.r),
+                                image: DecorationImage(image: imageProvider,
+                                fit: BoxFit.cover)
                               ),
-                              fit: BoxFit.cover)
                             ),
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
+                            placeholder: (context, url) =>  Center(child: CircularProgressIndicator(
+                              color: AppColor.deepOrange,
+                            )),),
                           
                           ),
                           InkWell(
@@ -79,11 +89,7 @@ class AddImageScreen extends StatelessWidget {
                               child: Icon(Icons.delete,
                               color: AppColor.textColorWhite,)
                               
-                              // IconButton(onPressed: (){
-                              //   _addImageController.deleteImage(_photoController.photoModel.data[index].id);
-                              // },
-                              //  icon: Icon(Icons.delete,
-                              //  color: AppColor.textColorWhite,)),
+                         
                             ),
                           )
                         ],

@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
       this.labelText,
       this.labelStyle,
       //this.maxLines,
+      this.suffixIcon,
       this.readOnly ,
       this.keyboardType,
       this.validator});
@@ -27,6 +28,7 @@ class CustomTextField extends StatelessWidget {
   final String? labelText;
   final TextStyle? labelStyle;
   final TextInputType? keyboardType;
+  final Widget? suffixIcon;
   //final int? maxLines;
 
   @override
@@ -46,6 +48,7 @@ class CustomTextField extends StatelessWidget {
           hintText: hintText,
           labelText: labelText,
           labelStyle: labelStyle,
+          suffixIcon: suffixIcon,
         //  constraints: BoxConstraints(maxHeight: 70.h),
           hintStyle:
               CustomTextStyle.h4(color: AppColor.deepOrange.withOpacity(.5)),

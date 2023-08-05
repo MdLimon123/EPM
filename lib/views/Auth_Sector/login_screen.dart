@@ -65,18 +65,27 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 15.h,
                 ),
-                CustomTextField(
-                  controller: _loginController.passwordController,
-                  hintText: 'password',
-                  obsecure: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Field is Empty';
-                    } else if (value.length < 6) {
-                      return 'Password must be 6 character';
-                    }
-                    return null;
-                  },
+                Obx(()=>
+                   CustomTextField(
+                    controller: _loginController.passwordController,
+                    hintText: 'password',
+                    obsecure: !_loginController.isVisibility.value,
+                    suffixIcon: Obx(()=>
+                       InkWell
+                      (
+                        onTap: (){
+                          _loginController.isVisibility.value = !_loginController.isVisibility.value;
+                        },
+                        child: Icon(!_loginController.isVisibility.value? Icons.visibility_off: Icons.visibility)),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Field is Empty';
+                      }
+                      return null;
+                    },
+                    
+                  ),
                 ),
                 SizedBox(
                   height: 15.h,

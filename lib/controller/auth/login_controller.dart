@@ -12,6 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginController extends GetxController {
   var isLoading = false.obs;
 
+  var isVisibility = false.obs;
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 

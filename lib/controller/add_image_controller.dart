@@ -23,6 +23,7 @@ class AddImageController extends GetxController {
 
   RxString selectedDate = ''.obs;
   List<XFile> imagePth = <XFile>[].obs;
+  
   RxList<XFile> capturedImages = RxList<XFile>();
 
    
@@ -35,6 +36,7 @@ class AddImageController extends GetxController {
     if (images != null) {
       imagePth = images;
   
+    
       selectedImage.add(images);
       selectedDate();
 

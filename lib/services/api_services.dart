@@ -77,7 +77,7 @@ class ApiServices {
 
   // post work order photo
 
-  static uploadPhoto(
+  static uploadPhoto<Uint8List>(
       {required List<XFile> imagePath,
       required String workOrderName,
       required int workOrderId}) async {
