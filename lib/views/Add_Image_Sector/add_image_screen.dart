@@ -73,8 +73,51 @@ class AddImageScreen extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            _photoController.deleteImage(
-                                _photoController.data[index].id, index);
+                            // _photoController.deleteImage(
+                            //     _photoController.data[index].id, index);
+                            showDialog(
+                                barrierDismissible: true,
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Delete Image',
+                                      style: CustomTextStyle.h1(
+                                          color: AppColor.deepOrange,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    content: Text(
+                                      'Are you sure you want to delete Image!',
+                                      style: CustomTextStyle.h3(
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          child: Text(
+                                            'Cancel',
+                                            style: CustomTextStyle.h3(
+                                                fontWeight: FontWeight.w400),
+                                          )),
+                                      TextButton(
+                                          onPressed: () {
+                                            _photoController.deleteImage(
+                                                _photoController.data[index].id,
+                                                index);
+                                            Get.back();
+                                          },
+                                          child: Text(
+                                            'Ok',
+                                            style: CustomTextStyle.h3(
+                                                fontWeight: FontWeight.w400),
+                                          )),
+                                    ],
+                                  );
+                                });
+                        
+                        
                           },
                           child: Container(
                               height: 50.h,

@@ -77,7 +77,7 @@ class MainDashboardScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        "${workOrderController.workOrderModel.data.length}",
+                        "${workOrderController.data.length}",
                         style: CustomTextStyle.h3(
                             color: AppColor.blackColor,
                             fontWeight: FontWeight.w700),

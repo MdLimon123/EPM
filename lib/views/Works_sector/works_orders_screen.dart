@@ -65,125 +65,135 @@ class WorksOrdersScreen extends StatelessWidget {
                     )
                   : ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount:
-                          _workOrderController.workOrderModel.data.length,
+                      itemCount: _workOrderController.data.length,
                       itemBuilder: (context, index) {
-                    
-                        var item =
-                            _workOrderController.workOrderModel.data[index];
+                        var item = _workOrderController.data[index];
                         var date =
                             Jiffy.parse('${item.contractorDueDate}').yMMMd;
-                        return InkWell(
-                          onTap: () {
-                            Get.toNamed(Routes.workOrderDetailsScreen,
-                                arguments: {"data": item});
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 10.h),
-                            margin: EdgeInsets.only(top: 10.h),
-                            decoration: const BoxDecoration(boxShadow: [
-                              BoxShadow(
-                                  color: Colors.white,
-                                  spreadRadius: 1,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 3))
-                            ]),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "WO#: ${item.workOrder}",
-                                  style: CustomTextStyle.h2(
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColor.deepOrange),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Text(
-                                  item.workType.name.toString(),
-                                  style: CustomTextStyle.h3(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16.sp,
-                                      color:
-                                          AppColor.deepOrange.withOpacity(.6)),
-                                ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                Row(
+                        return Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 10.h),
+                          margin: EdgeInsets.only(top: 10.h),
+                          decoration: const BoxDecoration(boxShadow: [
+                            BoxShadow(
+                                color: Colors.white,
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3))
+                          ]),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Get.toNamed(Routes.workOrderDetailsScreen,
+                                      arguments: {"data": item});
+                                },
+                                child: Column(
                                   children: [
-                                    Icon(
-                                      Icons.calendar_today,
-                                      color: AppColor.deepBlack,
+                                    Text(
+                                      "WO#: ${item.workOrder}",
+                                      style: CustomTextStyle.h2(
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColor.deepOrange),
                                     ),
                                     SizedBox(
-                                      width: 5.w,
+                                      height: 5.h,
                                     ),
                                     Text(
-                                      "Due: $date",
-                                      style: CustomTextStyle.h2(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18.sp,
-                                          color: AppColor.deepBlack),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 15.h,
-                                ),
-                                Text(
-                                  "${item.property.address}, ${item.property.state}",
-                                  style: CustomTextStyle.h2(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColor.deepBlack,
-                                      fontSize: 16.sp),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      color: AppColor.blackColor,
-                                    ),
-                                    Text(
-                                      "${item.property.city}, ${item.property.zip}",
-                                      style: CustomTextStyle.h2(
-                                          fontWeight: FontWeight.w600,
+                                      item.workType.name.toString(),
+                                      style: CustomTextStyle.h3(
+                                          fontWeight: FontWeight.w400,
                                           fontSize: 16.sp,
-                                          color: AppColor.deepBlack
-                                              .withOpacity(.8)),
+                                          color: AppColor.deepOrange
+                                              .withOpacity(.6)),
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 15.h,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      height: 40.h,
-                                      width: 40.w,
-                                      decoration: BoxDecoration(
-                                          color: AppColor.deepOrange,
-                                          borderRadius:
-                                              BorderRadius.circular(10.r)),
-                                      child: Icon(
-                                        Icons.check,
-                                        color: AppColor.checkColor,
-                                      ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.calendar_today,
+                                    color: AppColor.deepBlack,
+                                  ),
+                                  SizedBox(
+                                    width: 5.w,
+                                  ),
+                                  Text(
+                                    "Due: $date",
+                                    style: CustomTextStyle.h2(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18.sp,
+                                        color: AppColor.deepBlack),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Text(
+                                "${item.property.address}, ${item.property.state}",
+                                style: CustomTextStyle.h2(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColor.deepBlack,
+                                    fontSize: 16.sp),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: AppColor.blackColor,
+                                  ),
+                                  Text(
+                                    "${item.property.city}, ${item.property.zip}",
+                                    style: CustomTextStyle.h2(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.sp,
+                                        color:
+                                            AppColor.deepBlack.withOpacity(.8)),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    height: 40.h,
+                                    width: 40.w,
+                                    decoration: BoxDecoration(
+                                        color: AppColor.deepOrange,
+                                        borderRadius:
+                                            BorderRadius.circular(10.r)),
+                                    child: Icon(
+                                      Icons.check,
+                                      color: AppColor.checkColor,
                                     ),
-                                    Image.asset(
-                                      AppImage.refresh,
-                                      height: 30.h,
-                                      width: 30.h,
-                                      color: AppColor.deepOrange,
-                                    ),
-                                    Row(
+                                  ),
+                                  Image.asset(
+                                    AppImage.refresh,
+                                    height: 30.h,
+                                    width: 30.h,
+                                    color: AppColor.deepOrange,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.toNamed(Routes.addImageScreen,
+                                          arguments: {
+                                            "id": item.id,
+                                            "workOrderId": item.workOrder
+                                          });
+                                    },
+                                    child: Row(
                                       children: [
                                         Icon(
                                           Icons.image,
@@ -196,11 +206,11 @@ class WorksOrdersScreen extends StatelessWidget {
                                               color: AppColor.deepOrange),
                                         )
                                       ],
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
                           ),
                         );
                       },
@@ -220,11 +230,14 @@ class WorksOrdersScreen extends StatelessWidget {
         style: CustomTextStyle.h1(color: AppColor.textColorWhite),
       ),
       centerTitle: true,
-      leading:IconButton(onPressed: (){
-        Get.back();
-      },
-       icon: Icon(Icons.arrow_back,
-       color: AppColor.textColorWhite,)),
+      leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColor.textColorWhite,
+          )),
       actions: [
         IconButton(
             onPressed: () {},

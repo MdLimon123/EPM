@@ -143,14 +143,6 @@ class DocumentScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text('Documents',
-            // style: CustomTextStyle.h2(
-            //   color: AppColor.deepOrange,
-            //   fontWeight: FontWeight.w600
-            // ),),
-            SizedBox(
-              height: 15.h,
-            ),
             Expanded(
               child: Obx(
                 () => _documentController.isLoading.value
@@ -179,9 +171,54 @@ class DocumentScreen extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      _documentController.deleteDocument(
-                                          _documentController.data[index].id,
-                                          index);
+                                      showDialog(
+                                          barrierDismissible: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                'Delete Document',
+                                                style: CustomTextStyle.h1(
+                                                    color: AppColor.deepOrange,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              content: Text(
+                                                'Are you sure you want to delete Docuemnt!',
+                                                style: CustomTextStyle.h3(
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    child: Text(
+                                                      'Cancel',
+                                                      style: CustomTextStyle.h3(
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    )),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      _documentController
+                                                          .deleteDocument(
+                                                              _documentController
+                                                                  .data[index]
+                                                                  .id,
+                                                              index);
+                                                      Get.back();
+                                                    },
+                                                    child: Text(
+                                                      'Ok',
+                                                      style: CustomTextStyle.h3(
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    )),
+                                              ],
+                                            );
+                                          });
                                     },
                                     child: Container(
                                         height: 50.h,

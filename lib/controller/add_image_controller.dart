@@ -63,9 +63,12 @@ class AddImageController extends GetxController {
 
   Future<void> pickImageCamera() async {
     final picker = ImagePicker();
-    XFile? images = await picker.pickImage(source: ImageSource.camera);
+   
+   XFile? images = await picker.pickImage(source: ImageSource.camera);
 
     if (images != null) {
+    
+      
       
     }
   }

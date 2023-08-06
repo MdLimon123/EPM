@@ -25,7 +25,9 @@ List<GetPage> getPage = [
   GetPage(
       name: Routes.workOrderDetailsScreen,
       page: () => WorkOrderDetailsScreen()),
-  GetPage(name: Routes.addImageScreen, page: () => AddImageScreen()),
+  GetPage(name: Routes.addImageScreen, page: () => AddImageScreen(
+    
+  )),
   GetPage(name: Routes.addWorkOrderScreen, page: () => AddWorkOrderScreen()),
   GetPage(name: Routes.documentScreen, page: () => DocumentScreen()),
   GetPage(name: Routes.mainDashboardScreen, page: () => MainDashboardScreen())

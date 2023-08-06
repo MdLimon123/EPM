@@ -12,6 +12,8 @@ class WorksOrderController extends GetxController {
 
   late WorkOrderModel workOrderModel  ;
 
+  RxList<Data> data = <Data>[].obs;
+
 
 
   @override
@@ -32,6 +34,7 @@ class WorksOrderController extends GetxController {
         }
       } else {
         workOrderModel = result;
+        data.value = workOrderModel.data;
         if (kDebugMode) {
           print(workOrderModel);
         }
