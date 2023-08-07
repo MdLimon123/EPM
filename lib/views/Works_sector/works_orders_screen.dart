@@ -179,11 +179,16 @@ class WorksOrdersScreen extends StatelessWidget {
                                       color: AppColor.checkColor,
                                     ),
                                   ),
-                                  Image.asset(
-                                    AppImage.refresh,
-                                    height: 30.h,
-                                    width: 30.h,
-                                    color: AppColor.deepOrange,
+                                  InkWell(
+                                    onTap: () {
+                                      _workOrderController.refreshScreen();
+                                    },
+                                    child: Image.asset(
+                                      AppImage.refresh,
+                                      height: 30.h,
+                                      width: 30.h,
+                                      color: AppColor.deepOrange,
+                                    ),
                                   ),
                                   InkWell(
                                     onTap: () {

@@ -10,11 +10,9 @@ class WorksOrderController extends GetxController {
 
   var isLoading = false.obs;
 
-  late WorkOrderModel workOrderModel  ;
+  late WorkOrderModel workOrderModel;
 
   RxList<Data> data = <Data>[].obs;
-
-
 
   @override
   void onInit() {
@@ -46,5 +44,12 @@ class WorksOrderController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  void refreshScreen() async {
+    isLoading.value = true;
+    await Future.delayed(const Duration(seconds: 2));
+
+    isLoading.value = false;
   }
 }
