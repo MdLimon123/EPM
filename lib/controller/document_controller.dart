@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 class DocumentController extends GetxController {
   var isLoading = false.obs;
 
@@ -16,6 +17,8 @@ class DocumentController extends GetxController {
 
   late DocumentModel documentModel;
   RxList<Datum> data = <Datum>[].obs;
+
+  double? progress;
 
   uploadDocument() async {
     isLoading(true);

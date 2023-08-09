@@ -50,8 +50,11 @@ dependencies:
   path_provider: ^2.0.15
   url_launcher: ^6.1.12
   cached_network_image: ^3.2.3
-  shimmer: ^3.0.0
-  
+  flutter_file_downloader: ^1.1.2
+  easy_pdf_viewer: ^1.0.7
+
+ 
+ 
 
 dev_dependencies:
   flutter_test:

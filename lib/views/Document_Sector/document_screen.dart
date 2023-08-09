@@ -1,10 +1,15 @@
+
 import 'package:epm/controller/document_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
 
 import 'package:epm/utils/text_style.dart';
+import 'package:epm/views/Document_Sector/pdf_viewer.dart';
+
 
 import 'package:flutter/material.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -60,7 +65,7 @@ class DocumentScreen extends StatelessWidget {
                                     _documentController.selectFile();
                                   },
                                   child: Text(
-                                    'Document',
+                                    'Pick Document',
                                     style: CustomTextStyle.h3(
                                         fontWeight: FontWeight.w600,
                                         color: AppColor.deepOrange),
@@ -156,87 +161,113 @@ class DocumentScreen extends StatelessWidget {
                         itemCount: _documentController.data.length,
                         itemBuilder: (context, index) {
                           final pdfFile = _documentController.data[index];
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Image.asset(
-                                    AppImage.pdf,
-                                    height: 60.h,
-                                    width: 60.w,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                          barrierDismissible: true,
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: Text(
-                                                'Delete Document',
-                                                style: CustomTextStyle.h1(
-                                                    color: AppColor.deepOrange,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                              content: Text(
-                                                'Are you sure you want to delete Docuemnt!',
-                                                style: CustomTextStyle.h3(
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              actions: [
-                                                TextButton(
-                                                    onPressed: () {
-                                                      Get.back();
-                                                    },
-                                                    child: Text(
-                                                      'Cancel',
-                                                      style: CustomTextStyle.h3(
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    )),
-                                                TextButton(
-                                                    onPressed: () {
-                                                      _documentController
-                                                          .deleteDocument(
-                                                              _documentController
-                                                                  .data[index]
-                                                                  .id,
-                                                              index);
-                                                      Get.back();
-                                                    },
-                                                    child: Text(
-                                                      'Ok',
-                                                      style: CustomTextStyle.h3(
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    )),
-                                              ],
-                                            );
-                                          });
-                                    },
-                                    child: Container(
-                                        height: 50.h,
-                                        width: 60.w,
-                                        margin: EdgeInsets.all(15.w),
-                                        decoration: BoxDecoration(
-                                            color: AppColor.deepOrange,
-                                            borderRadius:
-                                                BorderRadius.circular(8.r)),
-                                        child: Icon(
-                                          Icons.delete,
-                                          color: AppColor.textColorWhite,
-                                        )),
-                                  )
-                                ],
-                              ),
-                              Text(pdfFile.file),
-                            ],
+                          final url = pdfFile.url;
+
+                          final pdfUrl = "https://${_documentController.documentModel.hostName}/$url";
+                          return InkWell(
+                            onTap: () {
+                               Navigator.of(context).push(MaterialPageRoute(builder: (context)=> PdfViewScreen(pdfUrl: pdfUrl)));
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      AppImage.pdf,
+                                      height: 60.h,
+                                      width: 60.w,
+                                    ),
+                                    SizedBox(
+                                      width: 190.w,
+                                    ),
+                               
+                                    IconButton(
+                                      onPressed: (){
+                                       FileDownloader.downloadFile(url: pdfUrl,
+                                       onProgress: (fileName, progress) {
+                          
+                                        _documentController.progress = progress;
+                                         
+                                       },
+                                       onDownloadCompleted: (path) {
+                                      
+                                         _documentController.progress = null;
+                                       },
+                                       
+                                       );
+                                      }, 
+                                    icon: const Icon(Icons.download)),
+                                    InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                            barrierDismissible: true,
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                  'Delete Document',
+                                                  style: CustomTextStyle.h1(
+                                                      color: AppColor.deepOrange,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                content: Text(
+                                                  'Are you sure you want to delete Docuemnt!',
+                                                  style: CustomTextStyle.h3(
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Get.back();
+                                                      },
+                                                      child: Text(
+                                                        'Cancel',
+                                                        style: CustomTextStyle.h3(
+                                                            fontWeight:
+                                                                FontWeight.w400),
+                                                      )),
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        _documentController
+                                                            .deleteDocument(
+                                                                _documentController
+                                                                    .data[index]
+                                                                    .id,
+                                                                index);
+                                                        Get.back();
+                                                      },
+                                                      child: Text(
+                                                        'Ok',
+                                                        style: CustomTextStyle.h3(
+                                                            fontWeight:
+                                                                FontWeight.w400),
+                                                      )),
+                                                ],
+                                              );
+                                            });
+                                      },
+                                      child: Container(
+                                          height: 50.h,
+                                          width: 60.w,
+                                          margin: EdgeInsets.all(15.w),
+                                          decoration: BoxDecoration(
+                                              color: AppColor.deepOrange,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r)),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: AppColor.textColorWhite,
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                Text(pdfFile.file),
+                              ],
+                            ),
                           );
                         }),
               ),

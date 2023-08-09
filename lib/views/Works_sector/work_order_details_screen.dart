@@ -27,6 +27,75 @@ class WorkOrderDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+              height: 60.h,
+              width: double.infinity,
+              padding: EdgeInsets.only(left: 10.w),
+              decoration: BoxDecoration(color: AppColor.deepOrange),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      'Chat',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.addImageScreen, arguments: {
+                        "id": data.id,
+                        "workOrderId": data.workOrder
+                      });
+                    },
+                    child: Text(
+                      'Photos',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.documentScreen, arguments: {
+                        "id": data.id,
+                        "workOrderId": data.workOrder
+                      });
+                    },
+                    child: Text(
+                      'Documents',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.addWorkOrderScreen);
+                    },
+                    child: Text(
+                      'EST.',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      'Invoice.',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             ListTile(
               dense: true,
               leading: Container(
@@ -175,74 +244,6 @@ class WorkOrderDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 15.h,
             ),
-            Container(
-              height: 60.h,
-              width: double.infinity,
-              padding: EdgeInsets.only(left: 10.w),
-              decoration: BoxDecoration(color: AppColor.deepOrange),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    onTap: () {},
-                    child: Text(
-                      'Chat',
-                      style: CustomTextStyle.h3(
-                          color: AppColor.textColorWhite,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.addImageScreen, arguments: {
-                        "id": data.id,
-                        "workOrderId": data.workOrder
-                      });
-                    },
-                    child: Text(
-                      'Photos',
-                      style: CustomTextStyle.h3(
-                          color: AppColor.textColorWhite,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.documentScreen, arguments: {
-                        "id": data.id,
-                        "workOrderId": data.workOrder
-                      });
-                    },
-                    child: Text(
-                      'Documents',
-                      style: CustomTextStyle.h3(
-                          color: AppColor.textColorWhite,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.addWorkOrderScreen);
-                    },
-                    child: Text(
-                      'EST.',
-                      style: CustomTextStyle.h3(
-                          color: AppColor.textColorWhite,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Text(
-                      'Invoice.',
-                      style: CustomTextStyle.h3(
-                          color: AppColor.textColorWhite,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),

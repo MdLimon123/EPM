@@ -167,18 +167,22 @@ class WorksOrdersScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Container(
-                                    height: 40.h,
-                                    width: 40.w,
-                                    decoration: BoxDecoration(
-                                        color: AppColor.deepOrange,
-                                        borderRadius:
-                                            BorderRadius.circular(10.r)),
-                                    child: Icon(
-                                      Icons.check,
-                                      color: AppColor.checkColor,
-                                    ),
-                                  ),
+
+
+                                  // Container(
+                                  //   height: 40.h,
+                                  //   width: 40.w,
+                                  //   decoration: BoxDecoration(
+                                  //       color: AppColor.deepOrange,
+                                  //       borderRadius:
+                                  //           BorderRadius.circular(10.r)),
+                                  //   child: Icon(
+                                  //     Icons.check,
+                                  //     color: AppColor.checkColor,
+                                  //   ),
+                                  // ),
+                                 
+                                 
                                   InkWell(
                                     onTap: () {
                                       _workOrderController.refreshScreen();
@@ -201,7 +205,7 @@ class WorksOrdersScreen extends StatelessWidget {
                                     child: Row(
                                       children: [
                                         Icon(
-                                          Icons.image,
+                                          Icons.camera_alt,
                                           color: AppColor.deepOrange,
                                         ),
                                         Text(
