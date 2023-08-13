@@ -14,9 +14,16 @@ class WorksOrderController extends GetxController {
 
   RxList<Data> data = <Data>[].obs;
 
+  RxList<Data> searchData = <Data>[].obs;
+
+  var selectedValue = ''.obs;
+  var dropdownList =
+      ['Expired', '3 days', '7 days', '15 days', 'more then 15 days'].obs;
+
   @override
   void onInit() {
     getDataForWork();
+    searchData.value = data;
     super.onInit();
   }
 
@@ -33,6 +40,7 @@ class WorksOrderController extends GetxController {
       } else {
         workOrderModel = result;
         data.value = workOrderModel.data;
+
         if (kDebugMode) {
           print(workOrderModel);
         }
@@ -47,9 +55,25 @@ class WorksOrderController extends GetxController {
   }
 
   void refreshScreen() async {
-    isLoading.value = true;
+    isLoading(true);
     await Future.delayed(const Duration(seconds: 2));
 
-    isLoading.value = false;
+    isLoading(false);
+  }
+
+  void searchWork(String workOrder) {
+    List<Data> result = <Data>[].obs;
+
+    if (workOrder.isEmpty) {
+      result = data;
+    } else {
+      result = data
+          .where((element) => element.workType.name
+              .toString()
+              .toLowerCase()
+              .contains(workOrder.toLowerCase()))
+          .toList();
+    }
+    searchData.value = result;
   }
 }

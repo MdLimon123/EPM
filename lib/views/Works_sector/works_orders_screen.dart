@@ -33,26 +33,40 @@ class WorksOrdersScreen extends StatelessWidget {
                     offset: const Offset(0, 1))
               ]),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Filtered 6 of 23 results',
+                    'DATE DUE :',
                     style: CustomTextStyle.h3(
                         fontWeight: FontWeight.w500,
                         color: AppColor.deepOrange),
                   ),
-                  SizedBox(
-                    width: 60.w,
+                  Obx(
+                    () => DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: _workOrderController.selectedValue.value.isEmpty
+                            ? _workOrderController.selectedValue.value
+                            : null,
+                        items: _workOrderController.dropdownList.map((item) {
+                          return DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(color: Colors.black),
+                              ));
+                        }).toList(),
+                        onChanged: (value) {
+                          _workOrderController.selectedValue.value = value!;
+                        },
+                        hint: Text(
+                          _workOrderController.selectedValue.value,
+                          style: CustomTextStyle.h4(
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.deepOrange),
+                        ),
+                      ),
+                    ),
                   ),
-                  Text(
-                    'DATE DUE',
-                    style: CustomTextStyle.h2(
-                        color: AppColor.deepOrange,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    color: AppColor.deepOrange,
-                  )
                 ],
               )),
           Expanded(
@@ -167,22 +181,6 @@ class WorksOrdersScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-
-
-                                  // Container(
-                                  //   height: 40.h,
-                                  //   width: 40.w,
-                                  //   decoration: BoxDecoration(
-                                  //       color: AppColor.deepOrange,
-                                  //       borderRadius:
-                                  //           BorderRadius.circular(10.r)),
-                                  //   child: Icon(
-                                  //     Icons.check,
-                                  //     color: AppColor.checkColor,
-                                  //   ),
-                                  // ),
-                                 
-                                 
                                   InkWell(
                                     onTap: () {
                                       _workOrderController.refreshScreen();
@@ -233,33 +231,34 @@ class WorksOrdersScreen extends StatelessWidget {
 
   _appbar() {
     return AppBar(
-      backgroundColor: AppColor.bgColor,
-      title: Text(
-        'Work Orders',
-        style: CustomTextStyle.h1(color: AppColor.textColorWhite),
-      ),
-      centerTitle: true,
-      leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: AppColor.textColorWhite,
-          )),
-      actions: [
-        IconButton(
-            onPressed: () {},
+        backgroundColor: AppColor.bgColor,
+        title: Text(
+          'Work Orders',
+          style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
             icon: Icon(
-              Icons.menu,
+              Icons.arrow_back,
               color: AppColor.textColorWhite,
-            ))
-      ],
-      bottom: PreferredSize(
+            )),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.menu,
+                color: AppColor.textColorWhite,
+              ))
+        ],
+        bottom: PreferredSize(
           preferredSize: Size.fromHeight(100.h),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
             child: TextFormField(
+              onChanged: (value) => _workOrderController.searchWork(value),
               controller: _workOrderController.searchController,
               style: CustomTextStyle.h2(color: AppColor.textColorWhite),
               decoration: InputDecoration(
@@ -268,15 +267,9 @@ class WorksOrdersScreen extends StatelessWidget {
                   hintStyle: CustomTextStyle.h2(
                       color: AppColor.textColorWhite,
                       fontWeight: FontWeight.w500),
-                  prefixIcon: Icon(
+                  suffixIcon: Icon(
                     Icons.search,
                     color: AppColor.textColorWhite,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      _workOrderController.searchController.clear();
-                    },
-                    icon: Icon(Icons.clear, color: AppColor.textColorWhite),
                   ),
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AppColor.textColorWhite),
@@ -284,7 +277,7 @@ class WorksOrdersScreen extends StatelessWidget {
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: AppColor.textColorWhite))),
             ),
-          )),
-    );
+          ),
+        ));
   }
 }

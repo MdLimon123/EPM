@@ -35,15 +35,15 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  InkWell(
-                    onTap: () {},
-                    child: Text(
-                      'Chat',
-                      style: CustomTextStyle.h3(
-                          color: AppColor.textColorWhite,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {},
+                  //   child: Text(
+                  //     'Chat',
+                  //     style: CustomTextStyle.h3(
+                  //         color: AppColor.textColorWhite,
+                  //         fontWeight: FontWeight.w500),
+                  //   ),
+                  // ),
                   InkWell(
                     onTap: () {
                       Get.toNamed(Routes.addImageScreen, arguments: {

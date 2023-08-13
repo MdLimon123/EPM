@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class MainDashboardScreen extends StatelessWidget {
-  MainDashboardScreen({super.key});
+  const MainDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class MainDashboardScreen extends StatelessWidget {
                                   Text(
                                     'Total Work Order',
                                     style: CustomTextStyle.h3(
-                                        color: const Color(0xFF98A6AD),
+                                        color: AppColor.deepOrange,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Text(
