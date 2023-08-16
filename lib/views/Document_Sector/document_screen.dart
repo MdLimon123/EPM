@@ -1,11 +1,9 @@
-
 import 'package:epm/controller/document_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
 
 import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Document_Sector/pdf_viewer.dart';
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
@@ -163,10 +161,13 @@ class DocumentScreen extends StatelessWidget {
                           final pdfFile = _documentController.data[index];
                           final url = pdfFile.url;
 
-                          final pdfUrl = "https://${_documentController.documentModel.hostName}/$url";
+                          final pdfUrl =
+                              "https://${_documentController.documentModel.hostName}/$url";
                           return InkWell(
                             onTap: () {
-                               Navigator.of(context).push(MaterialPageRoute(builder: (context)=> PdfViewScreen(pdfUrl: pdfUrl)));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      PdfViewScreen(pdfUrl: pdfUrl)));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -182,23 +183,21 @@ class DocumentScreen extends StatelessWidget {
                                     SizedBox(
                                       width: 190.w,
                                     ),
-                               
                                     IconButton(
-                                      onPressed: (){
-                                       FileDownloader.downloadFile(url: pdfUrl,
-                                       onProgress: (fileName, progress) {
-                          
-                                        _documentController.progress = progress;
-                                         
-                                       },
-                                       onDownloadCompleted: (path) {
-                                      
-                                         _documentController.progress = null;
-                                       },
-                                       
-                                       );
-                                      }, 
-                                    icon: const Icon(Icons.download)),
+                                        onPressed: () {
+                                          FileDownloader.downloadFile(
+                                            url: pdfUrl,
+                                            onProgress: (fileName, progress) {
+                                              _documentController.progress =
+                                                  progress;
+                                            },
+                                            onDownloadCompleted: (path) {
+                                              _documentController.progress =
+                                                  null;
+                                            },
+                                          );
+                                        },
+                                        icon: const Icon(Icons.download)),
                                     InkWell(
                                       onTap: () {
                                         showDialog(
@@ -209,7 +208,8 @@ class DocumentScreen extends StatelessWidget {
                                                 title: Text(
                                                   'Delete Document',
                                                   style: CustomTextStyle.h1(
-                                                      color: AppColor.deepOrange,
+                                                      color:
+                                                          AppColor.deepOrange,
                                                       fontWeight:
                                                           FontWeight.w600),
                                                 ),
@@ -226,9 +226,11 @@ class DocumentScreen extends StatelessWidget {
                                                       },
                                                       child: Text(
                                                         'Cancel',
-                                                        style: CustomTextStyle.h3(
-                                                            fontWeight:
-                                                                FontWeight.w400),
+                                                        style:
+                                                            CustomTextStyle.h3(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
                                                       )),
                                                   TextButton(
                                                       onPressed: () {
@@ -242,9 +244,11 @@ class DocumentScreen extends StatelessWidget {
                                                       },
                                                       child: Text(
                                                         'Ok',
-                                                        style: CustomTextStyle.h3(
-                                                            fontWeight:
-                                                                FontWeight.w400),
+                                                        style:
+                                                            CustomTextStyle.h3(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
                                                       )),
                                                 ],
                                               );

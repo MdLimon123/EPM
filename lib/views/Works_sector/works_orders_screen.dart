@@ -13,12 +13,61 @@ import '../../Routes/routes.dart';
 class WorksOrdersScreen extends StatelessWidget {
   WorksOrdersScreen({super.key});
 
-  final _workOrderController = Get.put(WorksOrderController());
-
   @override
   Widget build(BuildContext context) {
+    final workOrderController = Get.put(WorksOrderController());
+    workOrderController.getDataForWork();
     return Scaffold(
-      appBar: _appbar(),
+      appBar: AppBar(
+          backgroundColor: AppColor.bgColor,
+          title: Text(
+            'Work Orders',
+            style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: AppColor.textColorWhite,
+              )),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.menu,
+                  color: AppColor.textColorWhite,
+                ))
+          ],
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(100.h),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+              child: TextFormField(
+                onChanged: (value) => workOrderController.searchWork(value),
+                controller: workOrderController.searchController,
+                style: CustomTextStyle.h2(color: AppColor.textColorWhite),
+                decoration: InputDecoration(
+                    constraints: BoxConstraints(maxHeight: 60.h),
+                    hintText: 'Search',
+                    hintStyle: CustomTextStyle.h2(
+                        color: AppColor.textColorWhite,
+                        fontWeight: FontWeight.w500),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: AppColor.textColorWhite,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColor.textColorWhite),
+                        borderRadius: BorderRadius.circular(4.r)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColor.textColorWhite))),
+              ),
+            ),
+          )),
       body: Column(
         children: [
           Container(
@@ -43,35 +92,30 @@ class WorksOrdersScreen extends StatelessWidget {
                   ),
                   Obx(
                     () => DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: _workOrderController.selectedValue.value.isEmpty
-                            ? _workOrderController.selectedValue.value
-                            : null,
-                        items: _workOrderController.dropdownList.map((item) {
-                          return DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(color: Colors.black),
-                              ));
-                        }).toList(),
-                        onChanged: (value) {
-                          _workOrderController.selectedValue.value = value!;
-                        },
-                        hint: Text(
-                          _workOrderController.selectedValue.value,
-                          style: CustomTextStyle.h4(
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.deepOrange),
-                        ),
-                      ),
+                      child: DropdownButton(
+                          hint: Text(
+                            workOrderController.selectedValue.value,
+                            style:
+                                CustomTextStyle.h4(color: AppColor.deepOrange),
+                          ),
+                          items: workOrderController.dropdownList
+                              .map((selectedType) {
+                            return DropdownMenuItem(
+                              value: selectedType,
+                              child: Text(selectedType,
+                                  style: CustomTextStyle.h3()),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            workOrderController.setSelectedValue('$value');
+                          }),
                     ),
-                  ),
+                  )
                 ],
               )),
           Expanded(
             child: Obx(
-              () => _workOrderController.isLoading.value
+              () => workOrderController.isLoading.value
                   ? Center(
                       child: CircularProgressIndicator(
                         color: AppColor.deepOrange,
@@ -79,9 +123,9 @@ class WorksOrdersScreen extends StatelessWidget {
                     )
                   : ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: _workOrderController.data.length,
+                      itemCount: workOrderController.data.length,
                       itemBuilder: (context, index) {
-                        var item = _workOrderController.data[index];
+                        var item = workOrderController.data[index];
                         var date =
                             Jiffy.parse('${item.contractorDueDate}').yMMMd;
                         return Container(
@@ -183,7 +227,7 @@ class WorksOrdersScreen extends StatelessWidget {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      _workOrderController.refreshScreen();
+                                      workOrderController.refreshScreen();
                                     },
                                     child: Image.asset(
                                       AppImage.refresh,
@@ -229,55 +273,55 @@ class WorksOrdersScreen extends StatelessWidget {
     );
   }
 
-  _appbar() {
-    return AppBar(
-        backgroundColor: AppColor.bgColor,
-        title: Text(
-          'Work Orders',
-          style: CustomTextStyle.h1(color: AppColor.textColorWhite),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: AppColor.textColorWhite,
-            )),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.menu,
-                color: AppColor.textColorWhite,
-              ))
-        ],
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(100.h),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-            child: TextFormField(
-              onChanged: (value) => _workOrderController.searchWork(value),
-              controller: _workOrderController.searchController,
-              style: CustomTextStyle.h2(color: AppColor.textColorWhite),
-              decoration: InputDecoration(
-                  constraints: BoxConstraints(maxHeight: 60.h),
-                  hintText: 'Search',
-                  hintStyle: CustomTextStyle.h2(
-                      color: AppColor.textColorWhite,
-                      fontWeight: FontWeight.w500),
-                  suffixIcon: Icon(
-                    Icons.search,
-                    color: AppColor.textColorWhite,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.textColorWhite),
-                      borderRadius: BorderRadius.circular(4.r)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.textColorWhite))),
-            ),
-          ),
-        ));
-  }
+  // _appbar() {
+  //   return AppBar(
+  //       backgroundColor: AppColor.bgColor,
+  //       title: Text(
+  //         'Work Orders',
+  //         style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+  //       ),
+  //       centerTitle: true,
+  //       leading: IconButton(
+  //           onPressed: () {
+  //             Get.back();
+  //           },
+  //           icon: Icon(
+  //             Icons.arrow_back,
+  //             color: AppColor.textColorWhite,
+  //           )),
+  //       actions: [
+  //         IconButton(
+  //             onPressed: () {},
+  //             icon: Icon(
+  //               Icons.menu,
+  //               color: AppColor.textColorWhite,
+  //             ))
+  //       ],
+  //       bottom: PreferredSize(
+  //         preferredSize: Size.fromHeight(100.h),
+  //         child: Padding(
+  //           padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+  //           child: TextFormField(
+  //             onChanged: (value) => _workOrderController.searchWork(value),
+  //             controller: _workOrderController.searchController,
+  //             style: CustomTextStyle.h2(color: AppColor.textColorWhite),
+  //             decoration: InputDecoration(
+  //                 constraints: BoxConstraints(maxHeight: 60.h),
+  //                 hintText: 'Search',
+  //                 hintStyle: CustomTextStyle.h2(
+  //                     color: AppColor.textColorWhite,
+  //                     fontWeight: FontWeight.w500),
+  //                 suffixIcon: Icon(
+  //                   Icons.search,
+  //                   color: AppColor.textColorWhite,
+  //                 ),
+  //                 enabledBorder: OutlineInputBorder(
+  //                     borderSide: BorderSide(color: AppColor.textColorWhite),
+  //                     borderRadius: BorderRadius.circular(4.r)),
+  //                 focusedBorder: OutlineInputBorder(
+  //                     borderSide: BorderSide(color: AppColor.textColorWhite))),
+  //           ),
+  //         ),
+  //       ));
+  // }
 }

@@ -83,15 +83,15 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Text(
-                      'Invoice.',
-                      style: CustomTextStyle.h3(
-                          color: AppColor.textColorWhite,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: () {},
+                  //   child: Text(
+                  //     'Invoice.',
+                  //     style: CustomTextStyle.h3(
+                  //         color: AppColor.textColorWhite,
+                  //         fontWeight: FontWeight.w500),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

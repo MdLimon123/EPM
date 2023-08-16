@@ -16,9 +16,18 @@ class WorksOrderController extends GetxController {
 
   RxList<Data> searchData = <Data>[].obs;
 
-  var selectedValue = ''.obs;
-  var dropdownList =
-      ['Expired', '3 days', '7 days', '15 days', 'more then 15 days'].obs;
+  var selectedValue = 'selected'.obs;
+  var dropdownList = [
+    'Expired',
+    '3 days',
+    '7 days',
+    '15 days',
+    'more then 15 days'
+  ];
+
+  void setSelectedValue(String value) {
+    selectedValue.value = value;
+  }
 
   @override
   void onInit() {
