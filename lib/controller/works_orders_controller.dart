@@ -65,7 +65,8 @@ class WorksOrderController extends GetxController {
 
   void refreshScreen() async {
     isLoading(true);
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(milliseconds: 2000));
+    getDataForWork();
 
     isLoading(false);
   }

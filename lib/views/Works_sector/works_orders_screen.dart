@@ -13,10 +13,10 @@ import '../../Routes/routes.dart';
 class WorksOrdersScreen extends StatelessWidget {
   WorksOrdersScreen({super.key});
 
+  final workOrderController = Get.put(WorksOrderController());
+
   @override
   Widget build(BuildContext context) {
-    final workOrderController = Get.put(WorksOrderController());
-    workOrderController.getDataForWork();
     return Scaffold(
       appBar: AppBar(
           backgroundColor: AppColor.bgColor,
@@ -68,60 +68,73 @@ class WorksOrdersScreen extends StatelessWidget {
               ),
             ),
           )),
-      body: Column(
-        children: [
-          Container(
-              height: 80.h,
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              decoration: BoxDecoration(color: AppColor.greyColor, boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: const Offset(0, 1))
-              ]),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Obx(
+        () => workOrderController.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: AppColor.deepOrange,
+                ),
+              )
+            : Column(
                 children: [
-                  Text(
-                    'DATE DUE :',
-                    style: CustomTextStyle.h3(
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.deepOrange),
-                  ),
-                  Obx(
-                    () => DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                          hint: Text(
-                            workOrderController.selectedValue.value,
-                            style:
-                                CustomTextStyle.h4(color: AppColor.deepOrange),
+                  Container(
+                      height: 80.h,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      decoration:
+                          BoxDecoration(color: AppColor.greyColor, boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(0, 1))
+                      ]),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'DATE DUE :',
+                            style: CustomTextStyle.h3(
+                                fontWeight: FontWeight.w500,
+                                color: AppColor.deepOrange),
                           ),
-                          items: workOrderController.dropdownList
-                              .map((selectedType) {
-                            return DropdownMenuItem(
-                              value: selectedType,
-                              child: Text(selectedType,
-                                  style: CustomTextStyle.h3()),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            workOrderController.setSelectedValue('$value');
-                          }),
-                    ),
-                  )
-                ],
-              )),
-          Expanded(
-            child: Obx(
-              () => workOrderController.isLoading.value
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        color: AppColor.deepOrange,
-                      ),
-                    )
-                  : ListView.builder(
+                          // Obx(
+                          //   () =>
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                                hint: Text(
+                                  workOrderController.selectedValue.value,
+                                  style: CustomTextStyle.h4(
+                                      color: AppColor.deepOrange),
+                                ),
+                                items: workOrderController.dropdownList
+                                    .map((selectedType) {
+                                  return DropdownMenuItem(
+                                    value: selectedType,
+                                    child: Text(selectedType,
+                                        style: CustomTextStyle.h3()),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  workOrderController
+                                      .setSelectedValue('$value');
+                                }),
+                          ),
+                          //  )
+                        ],
+                      )),
+                  Expanded(
+                    child:
+                        //  Obx(
+                        //   () => workOrderController.isLoading.value
+                        //       ? Center(
+                        //           child: CircularProgressIndicator(
+                        //             color: AppColor.deepOrange,
+                        //           ),
+                        //         )
+                        //       :
+
+                        ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: workOrderController.data.length,
                       itemBuilder: (context, index) {
@@ -266,9 +279,10 @@ class WorksOrdersScreen extends StatelessWidget {
                         );
                       },
                     ),
-            ),
-          )
-        ],
+                  ),
+                  // )
+                ],
+              ),
       ),
     );
   }
