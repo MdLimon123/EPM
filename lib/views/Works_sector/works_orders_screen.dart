@@ -136,9 +136,9 @@ class WorksOrdersScreen extends StatelessWidget {
 
                         ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: workOrderController.data.length,
+                      itemCount: workOrderController.searchData.length,
                       itemBuilder: (context, index) {
-                        var item = workOrderController.data[index];
+                        var item = workOrderController.searchData[index];
                         var date =
                             Jiffy.parse('${item.contractorDueDate}').yMMMd;
                         return Container(
