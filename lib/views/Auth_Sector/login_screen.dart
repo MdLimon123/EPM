@@ -1,4 +1,3 @@
-
 import 'package:epm/controller/auth/login_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
@@ -65,18 +64,20 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: 15.h,
                 ),
-                Obx(()=>
-                   CustomTextField(
+                Obx(
+                  () => CustomTextField(
                     controller: _loginController.passwordController,
                     hintText: 'password',
                     obsecure: !_loginController.isVisibility.value,
-                    suffixIcon: Obx(()=>
-                       InkWell
-                      (
-                        onTap: (){
-                          _loginController.isVisibility.value = !_loginController.isVisibility.value;
-                        },
-                        child: Icon(!_loginController.isVisibility.value? Icons.visibility_off: Icons.visibility)),
+                    suffixIcon: Obx(
+                      () => InkWell(
+                          onTap: () {
+                            _loginController.isVisibility.value =
+                                !_loginController.isVisibility.value;
+                          },
+                          child: Icon(!_loginController.isVisibility.value
+                              ? Icons.visibility_off
+                              : Icons.visibility)),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -84,13 +85,11 @@ class LoginScreen extends StatelessWidget {
                       }
                       return null;
                     },
-                    
                   ),
                 ),
                 SizedBox(
                   height: 15.h,
                 ),
-            
                 SizedBox(
                   height: 25.h,
                 ),
@@ -98,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       _loginController.userLogin(
-                        isLogged: true,
+                          isLogged: true,
                           email: _loginController.emailController.text,
                           password: _loginController.passwordController.text);
                     }
@@ -141,11 +140,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                    onPressed: () async{
-                      Uri uri = Uri.parse('mailto:limon222020@gmail.com');
-                      if(await launcher.launchUrl(uri)){
-                        debugPrint("Could not launch the uri");
-                      }
+                    onPressed: () async {
+                      // Uri uri = Uri.parse('mailto:limon222020@gmail.com');
+                      // if(await launcher.launchUrl(uri)){
+                      //   debugPrint("Could not launch the uri");
+                      // }
                     },
                     child: Text(
                       'Mail',

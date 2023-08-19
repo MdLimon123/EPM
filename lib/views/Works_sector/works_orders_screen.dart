@@ -19,55 +19,55 @@ class WorksOrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: AppColor.bgColor,
-          title: Text(
-            'Work Orders',
-            style: CustomTextStyle.h1(color: AppColor.textColorWhite),
-          ),
-          centerTitle: true,
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
+        backgroundColor: AppColor.bgColor,
+        title: Text(
+          'Work Orders',
+          style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+        ),
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColor.textColorWhite,
+            )),
+        actions: [
+          IconButton(
+              onPressed: () {},
               icon: Icon(
-                Icons.arrow_back,
+                Icons.menu,
                 color: AppColor.textColorWhite,
-              )),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.menu,
-                  color: AppColor.textColorWhite,
-                ))
-          ],
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(100.h),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-              child: TextFormField(
-                onChanged: (value) => workOrderController.searchWork(value),
-                controller: workOrderController.searchController,
-                style: CustomTextStyle.h2(color: AppColor.textColorWhite),
-                decoration: InputDecoration(
-                    constraints: BoxConstraints(maxHeight: 60.h),
-                    hintText: 'Search',
-                    hintStyle: CustomTextStyle.h2(
-                        color: AppColor.textColorWhite,
-                        fontWeight: FontWeight.w500),
-                    suffixIcon: Icon(
-                      Icons.search,
+              ))
+        ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(100.h),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+            child: TextFormField(
+              onChanged: (value) => workOrderController.searchWork(value),
+              controller: workOrderController.searchController,
+              style: CustomTextStyle.h2(color: AppColor.textColorWhite),
+              decoration: InputDecoration(
+                  constraints: BoxConstraints(maxHeight: 60.h),
+                  hintText: 'Search',
+                  hintStyle: CustomTextStyle.h2(
                       color: AppColor.textColorWhite,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColor.textColorWhite),
-                        borderRadius: BorderRadius.circular(4.r)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: AppColor.textColorWhite))),
-              ),
+                      fontWeight: FontWeight.w500),
+                  suffixIcon: Icon(
+                    Icons.search,
+                    color: AppColor.textColorWhite,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColor.textColorWhite),
+                      borderRadius: BorderRadius.circular(4.r)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: AppColor.textColorWhite))),
             ),
-          )),
+          ),
+        ),
+      ),
       body: Obx(
         () => workOrderController.isLoading.value
             ? Center(
@@ -98,8 +98,7 @@ class WorksOrdersScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 color: AppColor.deepOrange),
                           ),
-                          // Obx(
-                          //   () =>
+
                           DropdownButtonHideUnderline(
                             child: DropdownButton(
                                 hint: Text(
@@ -124,17 +123,7 @@ class WorksOrdersScreen extends StatelessWidget {
                         ],
                       )),
                   Expanded(
-                    child:
-                        //  Obx(
-                        //   () => workOrderController.isLoading.value
-                        //       ? Center(
-                        //           child: CircularProgressIndicator(
-                        //             color: AppColor.deepOrange,
-                        //           ),
-                        //         )
-                        //       :
-
-                        ListView.builder(
+                    child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: workOrderController.searchData.length,
                       itemBuilder: (context, index) {
