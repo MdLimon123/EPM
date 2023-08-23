@@ -30,15 +30,12 @@ class LoginController extends GetxController {
 
   // handle login method
   userLogin(
-      {
-        required bool isLogged,
+      {required bool isLogged,
       required String email,
       required String password}) async {
-   if(isLogged){
- isLoading(true);
-   }
-     
-    
+    if (isLogged) {
+      isLoading(true);
+    }
 
     try {
       var result =
@@ -56,22 +53,20 @@ class LoginController extends GetxController {
 
         await MyPreference.isLoggedSave(
             email: emailController.text, password: passwordController.text);
-            debugPrint(allData.accessToken);
+        debugPrint(allData.accessToken);
 
         await MyPreference.setToken(allData.accessToken);
 
-       // Get.offAllNamed(Routes.workOrderScreen);
-
         _dataController.setData(bearerTokenD: allData.accessToken);
-        await MyPreference.isLoggedSave(email: emailController.text, password: passwordController.text);
+        await MyPreference.isLoggedSave(
+            email: emailController.text, password: passwordController.text);
         await MyPreference.setToken(allData.accessToken);
 
         var accessToken = await MyPreference.getToken();
 
         debugPrint("Last token $accessToken");
 
- Get.offAllNamed(Routes.mainDashboardScreen);
-
+        Get.offAllNamed(Routes.mainDashboardScreen);
 
         emailController.clear();
         passwordController.clear();
@@ -81,11 +76,23 @@ class LoginController extends GetxController {
     } on Exception catch (e) {
       debugPrint("Opps sign in Error $e");
     } finally {
-      if(isLogged){
- isLoading(false);
+      if (isLogged) {
+        isLoading(false);
       }
-       
-      
+    }
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    checkIfUserLoggedIn(emailController.text, passwordController.text);
+  }
+
+  checkIfUserLoggedIn(String email, String password) {
+    if (email == null && password == null) {
+      Get.offAllNamed(Routes.loginScreen);
+    } else {
+      Get.offAllNamed(Routes.mainDashboardScreen);
     }
   }
 }
