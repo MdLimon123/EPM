@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
@@ -116,8 +114,6 @@ class AddImageScreen extends StatelessWidget {
                                     ],
                                   );
                                 });
-                        
-                        
                           },
                           child: Container(
                               height: 50.h,

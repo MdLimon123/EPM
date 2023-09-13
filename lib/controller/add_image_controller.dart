@@ -15,10 +15,8 @@ class AddImageController extends GetxController {
   String workOrder = "";
   int id = (-0);
 
-   
   RxString selectedDate = ''.obs;
   List<XFile> imagePth = <XFile>[].obs;
- 
 
   Future<void> pickImageGallery() async {
     final picker = ImagePicker();
@@ -26,7 +24,6 @@ class AddImageController extends GetxController {
     if (images != null) {
       imagePth = images;
 
-     
       selectedDate();
     }
   }
@@ -46,9 +43,7 @@ class AddImageController extends GetxController {
               backgroundColor: Colors.red);
         }
       } else {
-        
         _photoController.getPhoto(id);
- 
         imagePth.clear();
 
         Get.snackbar('success', 'Image Upload seccess',
@@ -63,14 +58,10 @@ class AddImageController extends GetxController {
 
   Future<void> pickImageCamera() async {
     final picker = ImagePicker();
-   
-   XFile? images = await picker.pickImage(source: ImageSource.camera);
 
-    if (images != null) {
-    
-      
-      
-    }
+    XFile? images = await picker.pickImage(source: ImageSource.camera);
+
+    if (images != null) {}
   }
 
   Future<void> selectDate() async {

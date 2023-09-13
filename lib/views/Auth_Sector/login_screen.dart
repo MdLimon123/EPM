@@ -6,7 +6,6 @@ import 'package:epm/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart' as launcher;
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -97,7 +96,6 @@ class LoginScreen extends StatelessWidget {
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       _loginController.userLogin(
-                          isLogged: true,
                           email: _loginController.emailController.text,
                           password: _loginController.passwordController.text);
                     }
