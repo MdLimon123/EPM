@@ -253,4 +253,28 @@ class ApiServices {
       return 0;
     }
   }
+
+  static Future<bool> userLogout() async {
+    var accessToken = await MyPreference.getToken();
+
+    try {
+      var headers = {'Authorization': 'Bearer $accessToken'};
+
+      var request = http.MultipartRequest('GET', Uri.parse(logout));
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        debugPrint(await response.stream.bytesToString());
+        return true;
+      } else {
+        debugPrint(response.reasonPhrase);
+        return false;
+      }
+    } on Exception catch (e) {
+      debugPrint('User logout error : $e');
+
+      return false;
+    }
+  }
 }

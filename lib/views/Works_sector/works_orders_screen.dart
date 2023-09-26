@@ -1,3 +1,4 @@
+import 'package:epm/controller/auth/login_controller.dart';
 import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
@@ -6,6 +7,7 @@ import 'package:epm/utils/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '../../Routes/routes.dart';
@@ -14,6 +16,54 @@ class WorksOrdersScreen extends StatelessWidget {
   WorksOrdersScreen({super.key});
 
   final workOrderController = Get.put(WorksOrderController());
+  final _authController = Get.put(LoginController());
+
+  void _logout(context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.black54,
+            title: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0.w),
+                  child: Icon(Icons.logout, color: Colors.white, size: 36.sp),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0.sp),
+                  child: Text(
+                    'Sign Out',
+                    style: TextStyle(color: Colors.white, fontSize: 28.sp),
+                  ),
+                )
+              ],
+            ),
+            content: Text(
+              'Do you want to Log Out?',
+              style: TextStyle(fontSize: 20.sp, color: Colors.white),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text(
+                    'No',
+                    style: TextStyle(color: Colors.green, fontSize: 18.sp),
+                  )),
+              TextButton(
+                  onPressed: () {
+                    _authController.handleUserLogout();
+                  },
+                  child: Text(
+                    'Yes',
+                    style: TextStyle(color: Colors.green, fontSize: 18.sp),
+                  )),
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +85,9 @@ class WorksOrdersScreen extends StatelessWidget {
             )),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                _logout(context);
+              },
               icon: Icon(
                 Icons.menu,
                 color: AppColor.textColorWhite,

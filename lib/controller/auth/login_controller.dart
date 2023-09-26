@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:epm/Routes/routes.dart';
 import 'package:epm/local_storage/my_preference.dart';
 import 'package:epm/model/log_in_model.dart';
@@ -55,6 +57,35 @@ class LoginController extends GetxController {
       debugPrint("Opps sign in Error $e");
     } finally {
       isLoading(false);
+    }
+  }
+
+// user logout
+
+  handleUserLogout() async {
+    try {
+      isLoading(true);
+      var result = await ApiServices.userLogout();
+
+      if (result) {
+        Get.toNamed(Routes.loginScreen);
+        preferences = await SharedPreferences.getInstance();
+        String email = preferences.getString("remeberEmail") ?? "";
+        String password = preferences.getString("rememberPassword") ?? "";
+
+        preferences.clear();
+
+        preferences.setString("remeberEmail", email);
+        preferences.setString("rememberPassword", password);
+        Fluttertoast.showToast(msg: "Author logged out successfully");
+        isLoading(false);
+      } else {
+        debugPrint("user not logout");
+        isLoading(false);
+      }
+    } on Exception catch (e) {
+      isLoading(false);
+      debugPrint("Opps logout error $e");
     }
   }
 }
