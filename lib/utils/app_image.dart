@@ -6,4 +6,9 @@ class AppImage {
   static String total = "assets/image/total.png";
   static String active = "assets/image/active.png";
   static String ready = "assets/image/ready.png";
+  static String status = "assets/image/status.png";
+  static String city = "assets/image/city.png";
+  static String date = "assets/image/date.png";
+  static String address = "assets/image/address.png";
+  static String work = "assets/image/work.png";
 }

@@ -23,7 +23,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: _appbar(),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -95,36 +95,38 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
-
-            ListTile(
-              dense: true,
-              leading: Container(
-                height: 40.h,
-                width: 40.w,
-                decoration: BoxDecoration(
-                    color: AppColor.deepOrange,
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Icon(
-                  Icons.check,
-                  color: AppColor.checkColor,
+            Padding(
+              padding: EdgeInsets.only(left: 25.w),
+              child: ListTile(
+                dense: true,
+                leading: Container(
+                  height: 40.h,
+                  width: 40.w,
+                  decoration: BoxDecoration(
+                      color: AppColor.deepOrange,
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: Icon(
+                    Icons.check,
+                    color: AppColor.checkColor,
+                  ),
                 ),
+                title: Text(
+                  'Checking',
+                  style: CustomTextStyle.h3(color: AppColor.deepOrange),
+                ),
+                subtitle: Text(
+                  'Never',
+                  style: CustomTextStyle.h4(
+                      color: AppColor.deepOrange.withOpacity(.6),
+                      fontWeight: FontWeight.w400),
+                ),
+                trailing: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.navigate_next,
+                      color: AppColor.textColor,
+                    )),
               ),
-              title: Text(
-                'Checking',
-                style: CustomTextStyle.h3(color: AppColor.deepOrange),
-              ),
-              subtitle: Text(
-                'Never',
-                style: CustomTextStyle.h4(
-                    color: AppColor.deepOrange.withOpacity(.6),
-                    fontWeight: FontWeight.w400),
-              ),
-              trailing: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.navigate_next,
-                    color: AppColor.textColor,
-                  )),
             ),
             Padding(
               padding: EdgeInsets.only(left: 40.w),
@@ -134,41 +136,44 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                 thickness: 2,
               ),
             ),
-            ListTile(
-              dense: true,
-              leading: Image.asset(
-                AppImage.refresh,
-                height: 30.h,
-                width: 30.w,
-                color: AppColor.deepOrange,
+            Padding(
+              padding: EdgeInsets.only(left: 25.w),
+              child: ListTile(
+                dense: true,
+                leading: Image.asset(
+                  AppImage.refresh,
+                  height: 30.h,
+                  width: 30.w,
+                  color: AppColor.deepOrange,
+                ),
+                title: Text(
+                  'Sync',
+                  style: CustomTextStyle.h3(color: AppColor.deepOrange),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Never',
+                      style: CustomTextStyle.h4(
+                          color: AppColor.deepOrange.withOpacity(.6),
+                          fontWeight: FontWeight.w400),
+                    ),
+                    Text(
+                      '-You must be checked in',
+                      style: CustomTextStyle.h4(
+                          color: AppColor.deepOrange.withOpacity(.6),
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                trailing: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.navigate_next,
+                      color: AppColor.textColor,
+                    )),
               ),
-              title: Text(
-                'Sync',
-                style: CustomTextStyle.h3(color: AppColor.deepOrange),
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Never',
-                    style: CustomTextStyle.h4(
-                        color: AppColor.deepOrange.withOpacity(.6),
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    '-You must be checked in',
-                    style: CustomTextStyle.h4(
-                        color: AppColor.deepOrange.withOpacity(.6),
-                        fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-              trailing: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.navigate_next,
-                    color: AppColor.textColor,
-                  )),
             ),
             SizedBox(
               height: 20.h,
@@ -192,55 +197,63 @@ class WorkOrderDetailsScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-
             Padding(
-              padding: EdgeInsets.only(left: 20.w),
-              child: Text('Status',
-                  style: CustomTextStyle.h3(
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.deepOrange.withOpacity(.9))),
+              padding: EdgeInsets.only(left: 15.w),
+              child: ListTile(
+                leading: Image.asset(AppImage.status),
+                title: Text('Status',
+                    style: CustomTextStyle.h3(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18.sp,
+                        color: AppColor.deepOrange.withOpacity(.9))),
+                subtitle: Text(
+                    _workOrderController.workOrderModel.status == true
+                        ? "Read"
+                        : "Unread",
+                    style: CustomTextStyle.h4(
+                        fontSize: 14.sp,
+                        color: const Color(0xFF6A6868),
+                        fontWeight: FontWeight.w400)),
+              ),
             ),
-
-            Padding(
-              padding: EdgeInsets.only(left: 20.w),
-              child: Text(
-                  _workOrderController.workOrderModel.status == true
-                      ? "Read"
-                      : "Unread",
-                  style: CustomTextStyle.h4(
-                      color: AppColor.deepBlack, fontWeight: FontWeight.w400)),
-            ),
-
-            // _customText(title: 'Status', subtitle: 'Unread'),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'WO#', subtitle: data.workOrder),
+            _customText(
+                title: 'WO#', subtitle: data.workOrder, image: AppImage.work),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'PPW#', subtitle: data.workTypeId),
+            _customText(
+                title: 'PPW#', subtitle: data.workTypeId, image: AppImage.city),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Work Type', subtitle: data.workType.name),
+            _customText(
+                title: 'Work Type',
+                subtitle: data.workType.name,
+                image: AppImage.work),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'Address', subtitle: data.property.address),
+            _customText(
+                title: 'Address',
+                subtitle: data.property.address,
+                image: AppImage.address),
             SizedBox(
               height: 10.h,
             ),
-            _customText(title: 'City/State/Zip', subtitle: data.property.city),
+            _customText(
+                title: 'City/State/Zip',
+                subtitle: data.property.city,
+                image: AppImage.city),
             SizedBox(
               height: 10.h,
             ),
-
             _customText(
                 title: 'Date Due',
-                subtitle:
-                    Jiffy.parse(data.property.createdAt.toString()).yMMMd),
-
+                subtitle: Jiffy.parse(data.property.createdAt.toString()).yMMMd,
+                image: AppImage.date),
             SizedBox(
               height: 15.h,
             ),
@@ -278,33 +291,29 @@ class WorkOrderDetailsScreen extends StatelessWidget {
     );
   }
 
-  _customText({required String title, required String subtitle}) {
+  _customText(
+      {required String title,
+      required String subtitle,
+      required String image}) {
     return Padding(
-      padding: EdgeInsets.only(left: 20.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
+        padding: EdgeInsets.only(left: 20.w),
+        child: ListTile(
+          dense: true,
+          title: Text(
             title,
             style: CustomTextStyle.h3(
                 fontWeight: FontWeight.w500,
+                fontSize: 18.sp,
                 color: AppColor.deepOrange.withOpacity(.9)),
           ),
-          Text(
+          subtitle: Text(
             subtitle,
             style: CustomTextStyle.h4(
-                color: AppColor.deepBlack, fontWeight: FontWeight.w400),
+                color: const Color(0xFF6A6868),
+                fontWeight: FontWeight.w500,
+                fontSize: 14.sp),
           ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Divider(
-            color: AppColor.greyColor,
-            height: 2.h,
-            thickness: 2,
-          ),
-        ],
-      ),
-    );
+          leading: Image.asset(image),
+        ));
   }
 }

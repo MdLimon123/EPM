@@ -7,7 +7,7 @@ import 'package:epm/utils/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
+
 import 'package:jiffy/jiffy.dart';
 
 import '../../Routes/routes.dart';
@@ -203,26 +203,60 @@ class WorksOrdersScreen extends StatelessWidget {
                                   Get.toNamed(Routes.workOrderDetailsScreen,
                                       arguments: {"data": item});
                                 },
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "WO#: ${item.workOrder}",
-                                      style: CustomTextStyle.h2(
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColor.deepOrange),
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    Text(
-                                      item.workType.name.toString(),
-                                      style: CustomTextStyle.h3(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 16.sp,
-                                          color: AppColor.deepOrange
-                                              .withOpacity(.6)),
-                                    ),
-                                  ],
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 8.w),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Text(
+                                            "WO#: ${item.workOrder}",
+                                            style: CustomTextStyle.h2(
+                                                fontWeight: FontWeight.w700,
+                                                color: AppColor.deepOrange),
+                                          ),
+                                          SizedBox(
+                                            height: 5.h,
+                                          ),
+                                          Text(
+                                            item.workType.name.toString(),
+                                            style: CustomTextStyle.h3(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 16.sp,
+                                                color: const Color(0xFF6A6868)),
+                                          ),
+                                        ],
+                                      ),
+                                      Stack(
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                Get.toNamed(
+                                                    Routes.addImageScreen,
+                                                    arguments: {
+                                                      "id": item.id,
+                                                      "workOrderId":
+                                                          item.workOrder
+                                                    });
+                                              },
+                                              icon: Icon(
+                                                Icons.camera_alt,
+                                                color: AppColor.deepOrange,
+                                              )),
+                                          Positioned(
+                                              right: 2.w,
+                                              child: Text(
+                                                item.photos.length.toString(),
+                                                style: CustomTextStyle.h3(
+                                                    fontWeight: FontWeight.w500,
+                                                    color: AppColor.deepOrange),
+                                              ))
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -249,72 +283,60 @@ class WorksOrdersScreen extends StatelessWidget {
                               SizedBox(
                                 height: 15.h,
                               ),
-                              Text(
-                                "${item.property.address}, ${item.property.state}",
-                                style: CustomTextStyle.h2(
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.deepBlack,
-                                    fontSize: 16.sp),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.location_on,
-                                    color: AppColor.blackColor,
-                                  ),
-                                  Text(
-                                    "${item.property.city}, ${item.property.zip}",
-                                    style: CustomTextStyle.h2(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16.sp,
-                                        color:
-                                            AppColor.deepBlack.withOpacity(.8)),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      workOrderController.refreshScreen();
-                                    },
-                                    child: Image.asset(
-                                      AppImage.refresh,
-                                      height: 30.h,
-                                      width: 30.h,
-                                      color: AppColor.deepOrange,
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Get.toNamed(Routes.addImageScreen,
-                                          arguments: {
-                                            "id": item.id,
-                                            "workOrderId": item.workOrder
-                                          });
-                                    },
-                                    child: Row(
+                              Padding(
+                                padding: EdgeInsets.only(right: 15.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Icon(
-                                          Icons.camera_alt,
-                                          color: AppColor.deepOrange,
-                                        ),
                                         Text(
-                                          item.photos.length.toString(),
-                                          style: CustomTextStyle.h3(
-                                              fontWeight: FontWeight.w500,
-                                              color: AppColor.deepOrange),
-                                        )
+                                          "${item.property.address}, ${item.property.state}",
+                                          style: CustomTextStyle.h2(
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color(0xFF969A9E),
+                                              fontSize: 16.sp),
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.location_on,
+                                              color: Color(0xFF969A9E),
+                                            ),
+                                            Text(
+                                              "${item.property.city}, ${item.property.zip}",
+                                              style: CustomTextStyle.h2(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16.sp,
+                                                  color:
+                                                      const Color(0xFF969A9E)),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 15.h,
+                                        ),
                                       ],
                                     ),
-                                  )
-                                ],
-                              )
+                                    InkWell(
+                                      onTap: () {
+                                        workOrderController.refreshScreen();
+                                      },
+                                      child: Image.asset(
+                                        AppImage.refresh,
+                                        height: 30.h,
+                                        width: 30.h,
+                                        color: const Color(0xFF969A9E),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         );
