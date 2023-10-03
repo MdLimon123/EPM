@@ -1,4 +1,5 @@
 import 'package:epm/views/Add_Image_Sector/add_image_screen.dart';
+import 'package:epm/views/Add_Image_Sector/image_details_screen.dart';
 
 import 'package:epm/views/Auth_Sector/login_screen.dart';
 import 'package:epm/views/Dashboard/main_dashborad_screen.dart';
@@ -18,6 +19,7 @@ class Routes {
   static String addWorkOrderScreen = "/addWorkOrderScreen";
   static String documentScreen = "/documentScreen";
   static String mainDashboardScreen = "/mainDashboardScreen";
+  static String imageDetailsScreen = "/imageDetailsScreen";
 
 }
 
@@ -33,5 +35,6 @@ List<GetPage> getPage = [
   GetPage(name: Routes.addWorkOrderScreen, page: () => AddWorkOrderScreen()),
   GetPage(name: Routes.documentScreen, page: () => DocumentScreen()),
   GetPage(name: Routes.mainDashboardScreen, page: () => MainDashboardScreen()),
+
 
 ];

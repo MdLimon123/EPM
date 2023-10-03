@@ -89,7 +89,7 @@ class WorksOrdersScreen extends StatelessWidget {
                 _logout(context);
               },
               icon: Icon(
-                Icons.menu,
+                Icons.logout,
                 color: AppColor.textColorWhite,
               ))
         ],

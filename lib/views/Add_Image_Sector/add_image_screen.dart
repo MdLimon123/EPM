@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:epm/Routes/routes.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
+import 'package:epm/views/Add_Image_Sector/image_details_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+
 
 import '../../controller/add_image_controller.dart';
 import '../../controller/photo_controller.dart';
@@ -35,102 +38,272 @@ class AddImageScreen extends StatelessWidget {
                 child: CircularProgressIndicator(
                   color: AppColor.deepOrange,
                 ),
-              )
-            : ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: _photoController.data.length,
-                itemBuilder: (context, index) {
-                  var image = _photoController.data[index].url;
-                  var imageUrl =
-                      "https://${_photoController.photoModel.hostName}/$image";
-
-                  return Padding(
-                    padding: EdgeInsets.only(left: 10.w, right: 10.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: 250.h,
-                          width: 300.w,
-                          margin: EdgeInsets.only(top: 20.h),
-                          child: CachedNetworkImage(
-                            imageUrl: imageUrl,
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.r),
-                                  image: DecorationImage(
-                                      image: imageProvider, fit: BoxFit.cover)),
-                            ),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                            placeholder: (context, url) => Center(
-                                child: CircularProgressIndicator(
-                              color: AppColor.deepOrange,
-                            )),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            // _photoController.deleteImage(
-                            //     _photoController.data[index].id, index);
-                            showDialog(
-                                barrierDismissible: true,
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text(
-                                      'Delete Image',
-                                      style: CustomTextStyle.h1(
-                                          color: AppColor.deepOrange,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    content: Text(
-                                      'Are you sure you want to delete Image!',
-                                      style: CustomTextStyle.h3(
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          child: Text(
-                                            'Cancel',
-                                            style: CustomTextStyle.h3(
-                                                fontWeight: FontWeight.w400),
-                                          )),
-                                      TextButton(
-                                          onPressed: () {
-                                            _photoController.deleteImage(
-                                                _photoController.data[index].id,
-                                                index);
-                                            Get.back();
-                                          },
-                                          child: Text(
-                                            'Ok',
-                                            style: CustomTextStyle.h3(
-                                                fontWeight: FontWeight.w400),
-                                          )),
-                                    ],
-                                  );
-                                });
-                          },
-                          child: Container(
-                              height: 50.h,
-                              width: 60.w,
-                              margin: EdgeInsets.only(left: 15.w, top: 15.w),
-                              decoration: BoxDecoration(
-                                  color: AppColor.deepOrange,
-                                  borderRadius: BorderRadius.circular(8.r)),
-                              child: Icon(
-                                Icons.delete,
-                                color: AppColor.textColorWhite,
-                              )),
-                        )
-                      ],
+              ):Column(
+                children: [
+                  ListTile(
+                    dense: true,
+                    title: Text('Select All',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xFF000000)
+                    ),),
+                    trailing: Container(
+                      height: 28.h,
+                      width: 81.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(4.r)),
+                        border: Border.all(color: const Color(0xFFEB6526))
+                      ),
+                      child: Center(
+                        child: Text('Delete All',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          color: const Color(0xFFEB6526)
+                        ),),
+                      ),
                     ),
-                  );
-                }),
+                    leading: Checkbox(
+                      value: false,
+                      onChanged: (value){
+                        
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 15.w,
+            mainAxisSpacing: 23,
+            mainAxisExtent: 250.h
+          ),
+          itemCount: _photoController.data.length,
+          itemBuilder: (context, index){
+                        var image = _photoController.data[index].url;
+                        var imageUrl =
+                            "https://${_photoController.photoModel.hostName}/$image";
+                        return GridTile(
+                          child: InkWell(
+                            onTap: (){
+                              Get.to(ImageDetailsScreen(image: imageUrl));
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              margin: EdgeInsets.all(10.w),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 5.0,
+                                        spreadRadius: 1.0,
+                                        offset: Offset(1.0, 1.0))
+                                  ]),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: CachedNetworkImage(
+                                            imageUrl: imageUrl,
+                                            imageBuilder: (context, imageProvider) => Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(8.r),
+                                                  image: DecorationImage(
+                                                      image: imageProvider, fit: BoxFit.cover)),
+                                            ),
+                                            errorWidget: (context, url, error) =>
+                                                const Icon(Icons.error),
+                                            placeholder: (context, url) => Center(
+                                                child: CircularProgressIndicator(
+                                              color: AppColor.deepOrange,
+                                            )),
+                                          ),
+                                  ),
+                                  Padding(
+                                    padding:  EdgeInsets.symmetric(horizontal: 10.w
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("Remove photo",
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color:const Color(0xFF000000)
+                                        ),),
+                                        InkWell(
+                                                        onTap: () {
+                                                          // _photoController.deleteImage(
+                                                          //     _photoController.data[index].id, index);
+                                                          showDialog(
+                                                              barrierDismissible: true,
+                                                              context: context,
+                                                              builder: (context) {
+                                                                return AlertDialog(
+                                                                  title: Text(
+                                                                    'Delete Image',
+                                                                    style: CustomTextStyle.h1(
+                                                                        color: AppColor.deepOrange,
+                                                                        fontWeight: FontWeight.w600),
+                                                                  ),
+                                                                  content: Text(
+                                                                    'Are you sure you want to delete Image!',
+                                                                    style: CustomTextStyle.h3(
+                                                                        fontWeight: FontWeight.w400),
+                                                                  ),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                        onPressed: () {
+                                                                          Get.back();
+                                                                        },
+                                                                        child: Text(
+                                                                          'Cancel',
+                                                                          style: CustomTextStyle.h3(
+                                                                              fontWeight: FontWeight.w400),
+                                                                        )),
+                                                                    TextButton(
+                                                                        onPressed: () {
+                                                                          _photoController.deleteImage(
+                                                                              _photoController.data[index].id,
+                                                                              index);
+                                                                          Get.back();
+                                                                        },
+                                                                        child: Text(
+                                                                          'Ok',
+                                                                          style: CustomTextStyle.h3(
+                                                                              fontWeight: FontWeight.w400),
+                                                                        )),
+                                                                  ],
+                                                                );
+                                                              });
+                                                        },
+                                                        child: Container(
+                                                            height: 35.h,
+                                                            width: 35.w,
+                                                            margin: EdgeInsets.only(left: 15.w, top: 15.w,bottom: 5.w
+                                                            ),
+                                                            decoration: BoxDecoration(
+                                                                color: AppColor.deepOrange,
+                                                              shape: BoxShape.circle
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.delete,
+
+                                                              color: AppColor.textColorWhite,
+                                                            ))),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+          },
+        ),
+                  ),
+                ],
+              )
+
+            // : ListView.builder(
+            //     physics: const BouncingScrollPhysics(),
+            //     itemCount: _photoController.data.length,
+            //     itemBuilder: (context, index) {
+            //       var image = _photoController.data[index].url;
+            //       var imageUrl =
+            //           "https://${_photoController.photoModel.hostName}/$image";
+            //
+            //       return Padding(
+            //         padding: EdgeInsets.only(left: 10.w, right: 10.w),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           children: [
+            //             Container(
+            //               height: 250.h,
+            //               width: 300.w,
+            //               margin: EdgeInsets.only(top: 20.h),
+            //               child: CachedNetworkImage(
+            //                 imageUrl: imageUrl,
+            //                 imageBuilder: (context, imageProvider) => Container(
+            //                   decoration: BoxDecoration(
+            //                       borderRadius: BorderRadius.circular(8.r),
+            //                       image: DecorationImage(
+            //                           image: imageProvider, fit: BoxFit.cover)),
+            //                 ),
+            //                 errorWidget: (context, url, error) =>
+            //                     const Icon(Icons.error),
+            //                 placeholder: (context, url) => Center(
+            //                     child: CircularProgressIndicator(
+            //                   color: AppColor.deepOrange,
+            //                 )),
+            //               ),
+            //             ),
+            //             InkWell(
+            //               onTap: () {
+            //                 // _photoController.deleteImage(
+            //                 //     _photoController.data[index].id, index);
+            //                 showDialog(
+            //                     barrierDismissible: true,
+            //                     context: context,
+            //                     builder: (context) {
+            //                       return AlertDialog(
+            //                         title: Text(
+            //                           'Delete Image',
+            //                           style: CustomTextStyle.h1(
+            //                               color: AppColor.deepOrange,
+            //                               fontWeight: FontWeight.w600),
+            //                         ),
+            //                         content: Text(
+            //                           'Are you sure you want to delete Image!',
+            //                           style: CustomTextStyle.h3(
+            //                               fontWeight: FontWeight.w400),
+            //                         ),
+            //                         actions: [
+            //                           TextButton(
+            //                               onPressed: () {
+            //                                 Get.back();
+            //                               },
+            //                               child: Text(
+            //                                 'Cancel',
+            //                                 style: CustomTextStyle.h3(
+            //                                     fontWeight: FontWeight.w400),
+            //                               )),
+            //                           TextButton(
+            //                               onPressed: () {
+            //                                 _photoController.deleteImage(
+            //                                     _photoController.data[index].id,
+            //                                     index);
+            //                                 Get.back();
+            //                               },
+            //                               child: Text(
+            //                                 'Ok',
+            //                                 style: CustomTextStyle.h3(
+            //                                     fontWeight: FontWeight.w400),
+            //                               )),
+            //                         ],
+            //                       );
+            //                     });
+            //               },
+            //               child: Container(
+            //                   height: 50.h,
+            //                   width: 60.w,
+            //                   margin: EdgeInsets.only(left: 15.w, top: 15.w),
+            //                   decoration: BoxDecoration(
+            //                       color: AppColor.deepOrange,
+            //                       borderRadius: BorderRadius.circular(8.r)),
+            //                   child: Icon(
+            //                     Icons.delete,
+            //                     color: AppColor.textColorWhite,
+            //                   )),
+            //             )
+            //           ],
+            //         ),
+            //       );
+            //     }),
       ),
     );
   }
@@ -147,8 +320,10 @@ class AddImageScreen extends StatelessWidget {
             color: AppColor.textColorWhite,
           )),
       title: Text(
-        'All Image',
-        style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+        'Photos',
+        style: CustomTextStyle.h1(color: AppColor.textColorWhite,
+        fontSize: 22.sp,
+        fontWeight: FontWeight.w600),
       ),
       centerTitle: true,
       actions: [
@@ -181,16 +356,7 @@ class AddImageScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     color: AppColor.deepOrange),
                               )),
-                          TextButton(
-                              onPressed: () {
-                                _addImageController.pickImageCamera();
-                              },
-                              child: Text(
-                                'Camera',
-                                style: CustomTextStyle.h3(
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.deepOrange),
-                              )),
+
                           SizedBox(
                             height: 20.h,
                           ),
