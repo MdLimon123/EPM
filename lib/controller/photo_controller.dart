@@ -13,15 +13,9 @@ class PhotoController extends GetxController {
 
   var isAllChecked = false.obs;
 
-  void toggleImage(Datum imagePath){
-    if(data.contains( imagePath)){
-      data.remove(imagePath);
-    }else{
-      data.value.add(imagePath);
-    }
-  }
 
 
+// fetch image
   getPhoto(int id) async {
     isLoading(true);
     try {
@@ -46,7 +40,7 @@ class PhotoController extends GetxController {
       var result = await ApiServices.deletePhoto(id);
       if (result.runtimeType == int) {
         if (kDebugMode) {
-          print('Delete Faild : $result');
+          print('Delete Failed : $result');
         }
       } else {
          data.removeAt(index);
@@ -59,4 +53,7 @@ class PhotoController extends GetxController {
       }
     }
   }
+
+
+
 }
