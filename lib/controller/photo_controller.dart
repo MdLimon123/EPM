@@ -11,6 +11,17 @@ class PhotoController extends GetxController {
   late PhotoModel photoModel;
   RxList<Datum> data = <Datum>[].obs;
 
+  var isAllChecked = false.obs;
+
+  void toggleImage(Datum imagePath){
+    if(data.contains( imagePath)){
+      data.remove(imagePath);
+    }else{
+      data.value.add(imagePath);
+    }
+  }
+
+
   getPhoto(int id) async {
     isLoading(true);
     try {

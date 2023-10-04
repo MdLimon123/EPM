@@ -22,6 +22,8 @@ class AddImageScreen extends StatelessWidget {
 
   final Map<String, dynamic> data = Get.arguments;
 
+  ValueNotifier selectAll = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     _addImageController.id = data["id"];
@@ -41,6 +43,9 @@ class AddImageScreen extends StatelessWidget {
               ):Column(
                 children: [
                   ListTile(
+                    onTap: (){
+                      _photoController.isAllChecked.value = !_photoController.isAllChecked.value;
+                    },
                     dense: true,
                     title: Text('Select All',
                     style: TextStyle(
@@ -64,12 +69,12 @@ class AddImageScreen extends StatelessWidget {
                         ),),
                       ),
                     ),
-                    leading: Checkbox(
-                      value: false,
+                    leading:  Checkbox(
+                      value: _photoController.isAllChecked.value,
                       onChanged: (value){
-                        
+                        _photoController.isAllChecked.value = !_photoController.isAllChecked.value;
                       },
-                    ),
+                    )
                   ),
                   Expanded(
                     child: GridView.builder(
@@ -106,6 +111,7 @@ class AddImageScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  
                                   Expanded(
                                     child: CachedNetworkImage(
                                             imageUrl: imageUrl,
