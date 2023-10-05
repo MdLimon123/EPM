@@ -11,7 +11,7 @@ class PhotoController extends GetxController {
   late PhotoModel photoModel;
   RxList<Datum> data = <Datum>[].obs;
 
-  var isAllChecked = false.obs;
+  RxBool isAllChecked = false.obs;
 
 
 

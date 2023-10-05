@@ -45,8 +45,8 @@ class AddImageScreen extends StatelessWidget {
                   children: [
                     ListTile(
                         onTap: () {
-                          _photoController.isAllChecked.value =
-                              !_photoController.isAllChecked.value;
+                          // _photoController.isAllChecked.value =
+                          //     !_photoController.isAllChecked.value;
                         },
                         dense: true,
                         title: Text(
@@ -125,23 +125,28 @@ class AddImageScreen extends StatelessWidget {
                           ),
                         ),
                         leading: Checkbox(
-                          value: _photoController.isAllChecked.value,
-                          onChanged: (value) {
-                            _photoController.isAllChecked.value = value!;
-                            for (int i = 0;
-                                i < _photoController.data.length;
-                                i++) {
-                              _photoController.data[i].url = "$value";
-                            }
-                          },
-                        )),
+                          focusColor: AppColor.deepOrange,
+                            checkColor: Colors.white,
+                            activeColor: AppColor.deepOrange,
+                            value: _photoController.isAllChecked.value,
+                            onChanged: (value) {
+                              _photoController.isAllChecked.value = value!;
+                              for (int i = 0;
+                                  i < _photoController.data.length;
+                                  i++) {
+                                _photoController.data[i].url = "$value";
+                              }
+                            },
+                          ),
+                        ),
                     Expanded(
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 15.w,
                             mainAxisSpacing: 23,
-                            mainAxisExtent: 250.h),
+                            mainAxisExtent: 300.h
+                        ),
                         itemCount: _photoController.data.length,
                         itemBuilder: (context, index) {
                           var image = _photoController.data[index].url;
@@ -170,13 +175,16 @@ class AddImageScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Checkbox(
-                                        value:
-                                            _photoController.isAllChecked.value,
-                                        onChanged: (value) {
-                                          _photoController.isAllChecked.value =
-                                              value!;
-                                          imageUrl = "$value";
-                                        }),
+                                        focusColor: AppColor.deepOrange,
+                                        checkColor: Colors.white,
+                                        activeColor: AppColor.deepOrange,
+                                          value:
+                                              _photoController.isAllChecked.value,
+                                          onChanged: (value) {
+                                            _photoController.isAllChecked.value =
+                                                value!;
+                                            image = "$value";
+                                          }),
                                     Expanded(
                                       child: CachedNetworkImage(
                                         imageUrl: imageUrl,
@@ -191,7 +199,7 @@ class AddImageScreen extends StatelessWidget {
                                                   fit: BoxFit.cover)),
                                         ),
                                         errorWidget: (context, url, error) =>
-                                            const Icon(Icons.error),
+                                            const Center(child: Icon(Icons.error)),
                                         placeholder: (context, url) => Center(
                                             child: CircularProgressIndicator(
                                           color: AppColor.deepOrange,

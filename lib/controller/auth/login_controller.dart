@@ -49,7 +49,7 @@ class LoginController extends GetxController {
         emailController.clear();
         passwordController.clear();
 
-        debugPrint("Sign in Successfull");
+        debugPrint("Sign in Successfully");
       }
     } on Exception catch (e) {
       debugPrint("Opps sign in Error $e");

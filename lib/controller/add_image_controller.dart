@@ -39,7 +39,7 @@ class AddImageController extends GetxController {
       if (!result) {
         if (kDebugMode) {
           debugPrint("$result");
-          Get.snackbar('Error', "Image Upload Faild",
+          Get.snackbar('Error', "Image Upload Failed",
               backgroundColor: Colors.red);
         }
       } else {
@@ -47,7 +47,7 @@ class AddImageController extends GetxController {
 
         imagePth.clear();
 
-        Get.snackbar('success', 'Image Upload seccess',
+        Get.snackbar('success', 'Image Upload success',
             backgroundColor: Colors.white);
       }
     } on Exception catch (e) {

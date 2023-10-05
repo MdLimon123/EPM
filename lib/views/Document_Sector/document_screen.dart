@@ -6,7 +6,7 @@ import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Document_Sector/pdf_viewer.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -174,30 +174,31 @@ class DocumentScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Image.asset(
                                       AppImage.pdf,
                                       height: 60.h,
                                       width: 60.w,
                                     ),
-                                    SizedBox(
-                                      width: 190.w,
-                                    ),
-                                    IconButton(
-                                        onPressed: () {
-                                          FileDownloader.downloadFile(
-                                            url: pdfUrl,
-                                            onProgress: (fileName, progress) {
-                                              _documentController.progress =
-                                                  progress;
-                                            },
-                                            onDownloadCompleted: (path) {
-                                              _documentController.progress =
-                                                  null;
-                                            },
-                                          );
-                                        },
-                                        icon: const Icon(Icons.download)),
+                                    // SizedBox(
+                                    //   width: 190.w,
+                                    // ),
+                                    // IconButton(
+                                    //     onPressed: () {
+                                    //       FileDownloader.downloadFile(
+                                    //         url: pdfUrl,
+                                    //         onProgress: (fileName, progress) {
+                                    //           _documentController.progress =
+                                    //               progress;
+                                    //         },
+                                    //         onDownloadCompleted: (path) {
+                                    //           _documentController.progress =
+                                    //               null;
+                                    //         },
+                                    //       );
+                                    //     },
+                                    //     icon: const Icon(Icons.download)),
                                     InkWell(
                                       onTap: () {
                                         showDialog(
@@ -214,7 +215,7 @@ class DocumentScreen extends StatelessWidget {
                                                           FontWeight.w600),
                                                 ),
                                                 content: Text(
-                                                  'Are you sure you want to delete Docuemnt!',
+                                                  'Are you sure you want to delete Document!',
                                                   style: CustomTextStyle.h3(
                                                       fontWeight:
                                                           FontWeight.w400),

@@ -13,7 +13,7 @@ class MainDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final workOrderController = Get.put(WorksOrderController());
-    workOrderController.getDataForWork();
+   // workOrderController.getDataForWork();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.bgColor,

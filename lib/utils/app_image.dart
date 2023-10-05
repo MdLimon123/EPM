@@ -11,4 +11,5 @@ class AppImage {
   static String date = "assets/image/date.png";
   static String address = "assets/image/address.png";
   static String work = "assets/image/work.png";
+  static String person = "assets/image/person.jpg";
 }

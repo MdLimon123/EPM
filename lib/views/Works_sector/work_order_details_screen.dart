@@ -4,6 +4,7 @@ import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
 import 'package:epm/utils/text_style.dart';
+import 'package:epm/views/ChatScreen/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -83,15 +84,17 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  // InkWell(
-                  //   onTap: () {},
-                  //   child: Text(
-                  //     'Invoice.',
-                  //     style: CustomTextStyle.h3(
-                  //         color: AppColor.textColorWhite,
-                  //         fontWeight: FontWeight.w500),
-                  //   ),
-                  // ),
+                  InkWell(
+                    onTap: () {
+                      Get.to(ChatScreen());
+                    },
+                    child: Text(
+                      'Chat.',
+                      style: CustomTextStyle.h3(
+                          color: AppColor.textColorWhite,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
                 ],
               ),
             ),
