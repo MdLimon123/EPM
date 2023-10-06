@@ -8,3 +8,5 @@ String photoDelete = "${baseUrl}work-order-photo-delete/";
 String getDocumentApi = "${baseUrl}documents-by-work-order-id/";
 String documentDeleteApi = "${baseUrl}work-order-document-delete/";
 String logout = "${baseUrl}logout";
+String profile = "${baseUrl}profile";
+String getChatApi = "${baseUrl}work-order-chat/";

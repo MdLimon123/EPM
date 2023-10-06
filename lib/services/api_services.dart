@@ -8,6 +8,8 @@ import 'package:epm/model/photo_model.dart';
 import 'package:epm/model/work_order_model.dart';
 
 import 'package:epm/services/api_component.dart';
+import 'package:epm/views/ChatScreen/Models/user_chat_model.dart';
+import 'package:epm/views/ProfileScreen/model/profile_model.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:http/http.dart' as http;
@@ -47,9 +49,8 @@ class ApiServices {
       };
       print(workOrder);
       print(accessToken);
-      http.Response response = await client.get(
-          Uri.parse("https://epm.essential-infotech.com/api/work-orders"),
-          headers: headers);
+      http.Response response =
+          await client.get(Uri.parse(workOrder), headers: headers);
       if (response.statusCode == 200) {
         return workOrderModelFromJson(response.body);
       } else {
@@ -254,6 +255,7 @@ class ApiServices {
     }
   }
 
+// usre logout
   static Future<bool> userLogout() async {
     var accessToken = await MyPreference.getToken();
 
@@ -275,6 +277,56 @@ class ApiServices {
       debugPrint('User logout error : $e');
 
       return false;
+    }
+  }
+
+// user profile
+
+  static dynamic userProfile() async {
+    var accessToken = await MyPreference.getToken();
+
+    try {
+      var headers = {'Authorization': 'Bearer $accessToken'};
+
+      var response = await client.get(Uri.parse(profile), headers: headers);
+
+      if (response.statusCode == 200) {
+        print(response.body);
+        return profileModelFromJson(response.body);
+      } else {
+        return response.statusCode;
+      }
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print('Profile Data Fetch Error: ${e.toString()}');
+      }
+      return 0;
+    }
+  }
+
+  // user get chat message
+
+  static dynamic getUserChatMessage({required int id}) async {
+    var accessToken = await MyPreference.getToken();
+
+    var headers = {'Authorization': 'Bearer $accessToken'};
+
+    try {
+      var respone =
+          await client.get(Uri.parse("$getChatApi$id"), headers: headers);
+
+      if (respone.statusCode == 200) {
+        print(respone.body);
+
+        return userChatModelFromJson(respone.body);
+      } else {
+        return respone.statusCode;
+      }
+    } on Exception catch (e) {
+      if (kDebugMode) {
+        print("User Message fetch Error. Reason ${e.toString()}");
+      }
+      return 0;
     }
   }
 }

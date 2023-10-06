@@ -1,7 +1,8 @@
-enum ChatMessageType {text, audio, image, video, setTime}
-enum MessageStatus {not_sent, not_view, viewed}
+enum ChatMessageType { text, audio, image, video, setTime }
 
-class ChatMessage{
+enum MessageStatus { not_sent, not_view, viewed }
+
+class ChatMessage {
   final String text;
   final ChatMessageType messageType;
   final MessageStatus messageStatus;
@@ -9,6 +10,11 @@ class ChatMessage{
 
   final bool isSender;
 
-  ChatMessage({required this.text, this.isSender = true, required this.messageType, required this.messageStatus, required this.setTime});
-
+  ChatMessage({
+    required this.text,
+    this.isSender = true,
+    required this.messageType,
+    required this.messageStatus,
+    required this.setTime,
+  });
 }
