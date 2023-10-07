@@ -11,44 +11,52 @@ class ChatController extends GetxController {
 
   var isLoading = false.obs;
 
-  getMessage(int id) async {
-    var result = await ApiServices.getUserChatMessage(id: id);
-
-    isLoading(true);
-    try {
-      if (result.runtimeType == int) {
-        print("$result");
-      } else {
-        userChatModel = result;
-        for (var element in userChatModel.chats) {
-          messageList.assign(element);
-          print(messageList);
-        }
-        // messageList.value = userChatModel.chats;
-      }
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print('Message Fetch Error : $e');
-      }
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  // Stream<List<Chat>> getChatMessage(int id) async* {
-  //   while (true) {
-  //     await Future.delayed(const Duration(seconds: 1));
-  //     var result = await ApiServices.getUserChatMessage(id: id);
-
-  //     userChatModel = result;
-  //     List<Chat> demoList = [];
-  //     for (var element in userChatModel.chats) {
-  //       demoList.add(element);
-  //       print(demoList);
+  // getMessage(int id) async {
+  //   var result = await ApiServices.getUserChatMessage(id: id);
+  //
+  //   isLoading(true);
+  //   try {
+  //     if (result.runtimeType == int) {
+  //       print("$result");
+  //     } else {
+  //       userChatModel = result;
+  //       for (var element in userChatModel.chats) {
+  //        // messageList.clear();
+  //         messageList.add(element);
+  //         print(messageList.length);
+  //       }
+  //       // messageList.value = userChatModel.chats;
   //     }
-  //     yield demoList;
+  //   } on Exception catch (e) {
+  //     if (kDebugMode) {
+  //       print('Message Fetch Error : $e');
+  //     }
+  //   } finally {
+  //     isLoading(false);
   //   }
   // }
+
+  Stream<List<Chat>> getChatMessage(int id) async* {
+
+      await Future.delayed(const Duration(seconds: 1));
+      var result = await ApiServices.getUserChatMessage(id: id);
+
+      userChatModel = result;
+      List<Chat> demoList = [];
+      //demoList = userChatModel.chats;
+
+      for (var element in userChatModel.chats) {
+
+       // messageList.clear();
+        demoList.add(element);
+
+
+        print(messageList.length);
+
+
+      yield demoList;
+    }
+  }
 
   // List<ChatMessage> messageList = [
   //   ChatMessage(

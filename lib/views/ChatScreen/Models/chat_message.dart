@@ -7,7 +7,7 @@ class ChatMessage {
   final ChatMessageType messageType;
   final MessageStatus messageStatus;
   final String setTime;
-
+  final String time;
   final bool isSender;
 
   ChatMessage({
@@ -16,5 +16,6 @@ class ChatMessage {
     required this.messageType,
     required this.messageStatus,
     required this.setTime,
+    required this.time
   });
 }

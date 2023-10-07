@@ -23,7 +23,7 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     _addImageController.id = data["id"];
     int id = _addImageController.id;
-    _chatController.getMessage(id);
+    //_chatController.getMessage(id);
 
     return Scaffold(
       appBar: AppBar(
@@ -57,60 +57,65 @@ class ChatScreen extends StatelessWidget {
           Expanded(
               child: Padding(
             padding: EdgeInsets.only(left: 10.w),
-            child: Obx(
-              () => _chatController.isLoading.value
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : ListView.builder(
-                      itemCount: _chatController.messageList.length,
-                      itemBuilder: (context, index) {
-                        var result = _chatController.messageList[index];
-                        return MessageScreen(
-                            message: ChatMessage(
-                                text: result.message,
-                                isSender:
-                                    result.memberId == 'yes' ? false : true,
-                                messageType: ChatMessageType.text,
-                                messageStatus: MessageStatus.not_view,
-                                setTime: result.createdAt.toString()));
-                      }),
-            ),
+            child:
+            // Obx(
+            //   () => _chatController.isLoading.value
+            //       ? const Center(
+            //           child: CircularProgressIndicator(),
+            //         )
+            //       : ListView.builder(
+            //           itemCount: _chatController.messageList.length,
+            //           itemBuilder: (context, index) {
+            //             var result = _chatController.messageList[index];
+            //             return MessageScreen(
+            //                 message: ChatMessage(
+            //                     text: result.message,
+            //                     isSender:
+            //                         result.memberId == result.vendorId ? false : true,
+            //                     messageType: ChatMessageType.text,
+            //                     messageStatus: MessageStatus.not_view,
+            //                     setTime: result.createdAt.toString()));
+            //           }),
+            // ),
 
-            // StreamBuilder<List<Chat>>(
-            //     stream: _chatController.getChatMessage(id),
-            //     builder: (BuildContext context,
-            //         AsyncSnapshot<List<Chat>> snapshot) {
-            //       if (snapshot.hasData) {
-            //         return ListView.builder(
-            //             itemCount: snapshot.data!.length,
-            //             itemBuilder: (context, index) {
-            //               var result = snapshot.data![index];
-            //               return MessageScreen(
-            //                   message: ChatMessage(
-            //                       text: result.message,
-            //                       isSender: result.memberId == true,
-            //                       messageType: ChatMessageType.text,
-            //                       messageStatus:
-            //                           MessageStatus.not_sent,
-            //                       setTime:
-            //                           result.createdAt.toString()));
-            //             });
-            //       } else if (!snapshot.hasData) {
-            //         return Center(
-            //           child: Text(
-            //             'Loading....',
-            //             style: TextStyle(fontSize: 16.sp),
-            //           ),
-            //         );
-            //       } else {
-            //         return Center(
-            //           child: CircularProgressIndicator(
-            //             color: AppColor.deepOrange,
-            //           ),
-            //         );
-            //       }
-            //     })
+            StreamBuilder<List<Chat>>(
+                stream: _chatController.getChatMessage(id),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Chat>> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          var result = snapshot.data![index];
+                          return MessageScreen(
+                              message: ChatMessage(
+                                  text: result.message,
+                                  isSender: result.memberId == result.vendorId? false:true,
+                                  messageType: ChatMessageType.text,
+                                  messageStatus:
+                                      MessageStatus.not_sent,
+                                  setTime:
+                                      result.createdAt.toString(),
+                                  time:result.createdAt.toString()));
+                        });
+                  } else if (!snapshot.hasData) {
+                    return Center(
+                      child: Text(
+                        'Loading....',
+                        style: TextStyle(fontSize: 16.sp),
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: AppColor.deepOrange,
+                      ),
+                    );
+                  }
+                })
+
+
           )),
           Row(
             children: [
