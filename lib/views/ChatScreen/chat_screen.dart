@@ -4,20 +4,26 @@ import 'package:epm/views/ChatScreen/Controller/chat_controller.dart';
 import 'package:epm/views/ChatScreen/Models/chat_message.dart';
 import 'package:epm/views/ChatScreen/Models/user_chat_model.dart';
 import 'package:epm/views/ChatScreen/component/message_screen.dart';
+import 'package:epm/views/ProfileScreen/model/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../utils/app_color.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({super.key});
+
+
 
   final _chatController = Get.put(ChatController());
 
   final _addImageController = Get.put(AddImageController());
 
   final Map<String, dynamic> data = Get.arguments;
+
+late Chat chat;
 
   @override
   Widget build(BuildContext context) {
@@ -79,15 +85,24 @@ class ChatScreen extends StatelessWidget {
             // ),
 
             StreamBuilder<List<Chat>>(
-                stream: _chatController.getChatMessage(id),
+                stream: Get.find<ChatController>().getChatMessage(id),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Chat>> snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
                       physics: const AlwaysScrollableScrollPhysics(),
+
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           var result = snapshot.data![index];
+                          if(index < _chatController.timeGroup.length){
+                            final date = _chatController.timeGroup.keys.elementAt(index);
+                            final dateByMessage = _chatController.timeGroup[date];
+                            final now = DateTime.now();
+                            final today = DateTime(now.year, now.month, now.day);
+
+                            result.createdAt = today;
+                          }
                           return MessageScreen(
                               message: ChatMessage(
                                   text: result.message,
@@ -130,6 +145,7 @@ class ChatScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6.r),
                   ),
                   child: TextField(
+                    controller: _chatController.messageController,
                     keyboardType: TextInputType.multiline,
                     maxLines: 4,
                     minLines: 1,
@@ -140,21 +156,40 @@ class ChatScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 60.h,
-                width: 100.w,
-                margin: EdgeInsets.only(
-                    left: 10.w, top: 10.h, bottom: 20.w, right: 10),
-                decoration: BoxDecoration(
-                    color: AppColor.deepOrange,
-                    borderRadius: BorderRadius.circular(8.r)),
-                child: Center(
-                  child: Text(
-                    'Send',
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        color: const Color(0xFFFFFFFF),
-                        fontWeight: FontWeight.w500),
+              InkWell(
+                onTap: (){
+                  if(_chatController.messageController.text.isEmpty){
+                    Fluttertoast.showToast(msg: 'Please input some message');
+                  }else{
+
+
+
+                  _chatController.sendMessage(
+                        vendorId: int.parse(chat.vendorId),
+                        message: _chatController.messageController.text,
+                        memberId: int.parse(chat.memberId),
+                        workID: id);
+                    _chatController.messageController.clear();
+
+
+                  }
+                },
+                child: Container(
+                  height: 60.h,
+                  width: 100.w,
+                  margin: EdgeInsets.only(
+                      left: 10.w, top: 10.h, bottom: 20.w, right: 10),
+                  decoration: BoxDecoration(
+                      color: AppColor.deepOrange,
+                      borderRadius: BorderRadius.circular(8.r)),
+                  child: Center(
+                    child: Text(
+                      'Send',
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          color: const Color(0xFFFFFFFF),
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               )
@@ -165,3 +200,5 @@ class ChatScreen extends StatelessWidget {
     );
   }
 }
+
+

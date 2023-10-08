@@ -10,3 +10,4 @@ String documentDeleteApi = "${baseUrl}work-order-document-delete/";
 String logout = "${baseUrl}logout";
 String profile = "${baseUrl}profile";
 String getChatApi = "${baseUrl}work-order-chat/";
+String postChatMessage = "${baseUrl}work-order-chat-submit";
