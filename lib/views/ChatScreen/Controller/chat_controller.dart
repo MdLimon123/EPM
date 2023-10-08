@@ -14,15 +14,12 @@ class ChatController extends GetxController {
 
   final TextEditingController messageController = TextEditingController();
 
-
   var isLoading = false.obs;
   Timer? _pollingTimer;
 
   RxMap<DateTime, List<Chat>> timeGroup = <DateTime, List<Chat>>{}.obs;
 
- late ScrollController scrollController;
-
-
+  late ScrollController scrollController;
 
   // getMessage(int id) async {
   //   var result = await ApiServices.getUserChatMessage(id: id);
@@ -49,18 +46,10 @@ class ChatController extends GetxController {
   //   }
   // }
 
- int id =-0;
-
- @override
+  @override
   void onInit() {
-
-   message.refresh();
     super.onInit();
   }
-
-
-
-
 
   // Future<void> fetchMessage(int id)async{
   //  try{
@@ -75,13 +64,13 @@ class ChatController extends GetxController {
   //  }
   // }
 
-
   @override
   void onClose() {
     _pollingTimer?.cancel();
 
     super.onClose();
   }
+
   @override
   void dispose() {
     scrollController.dispose();
@@ -89,77 +78,65 @@ class ChatController extends GetxController {
     super.dispose();
   }
 
-  void _scrollToBottom(){
-
-   scrollController.animateTo(
-       scrollController.position.maxScrollExtent,
-       duration: const Duration(milliseconds: 300),
-       curve: Curves.easeOut);
-
+  void _scrollToBottom() {
+    scrollController.jumpTo(scrollController.position.maxScrollExtent);
   }
 
   Stream<List<Chat>> getChatMessage(int id) async* {
+    await Future.delayed(const Duration(seconds: 1));
+    var result = await ApiServices.getUserChatMessage(id: id);
 
-      await Future.delayed(const Duration(seconds: 1));
-      var result = await ApiServices.getUserChatMessage(id: id);
-
-      userChatModel = result;
-      List<Chat> demoList = [];
-      message.value = userChatModel.chats;
-      for (var element in message.value) {
-        demoList.add(element);
-
-
+    userChatModel = result;
+    List<Chat> demoList = [];
+    message.value = userChatModel.chats;
+    for (var element in message) {
+      demoList.add(element);
 
       yield demoList;
-
-
     }
   }
 
+  groupMessageByData(List<Chat> chatList, bool loadMore) {
+    chatList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    for (var message in chatList) {
+      print("message : ${message.createdAt.year}");
+      final date = DateTime(message.createdAt.year, message.createdAt.month,
+          message.createdAt.day);
+      print("=====> date :$date");
+      timeGroup.putIfAbsent(date, () => []);
 
-  groupMessageByData(List<Chat> chatList, bool loadMore){
-   chatList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-   for(var message in chatList){
-     print("message : ${message.createdAt.year}");
-     final date = DateTime(message.createdAt.year, message.createdAt.month, message.createdAt.day);
-     print("=====> date :$date");
-     timeGroup.putIfAbsent(date, () => []);
-
-     if(loadMore){
-       timeGroup[date]?.insert(0, message);
-       timeGroup.refresh();
-     }else{
-       timeGroup[date]?.add(message);
-       timeGroup.refresh();
-     }
-   }
+      if (loadMore) {
+        timeGroup[date]?.insert(0, message);
+        timeGroup.refresh();
+      } else {
+        timeGroup[date]?.add(message);
+        timeGroup.refresh();
+      }
+    }
   }
 
+  sendMessage(
+      {required String vendorId,
+      required String message,
+      required String memberId,
+      required int workId}) async {
+    try {
+      var result = await ApiServices.postMessageToUser(
+          workOrderId: workId,
+          memberId: memberId,
+          vendorId: vendorId,
+          message: messageController.text);
 
-sendMessage({required int vendorId, required String message, required int memberId, required int workID})async{
-
-   try {
-
-     var result = await ApiServices.postMessageToUser(
-         workOrderId: id,
-         memberId: memberId,
-         vendorId: vendorId,
-         message: messageController.text);
-
-     if(result){
-       print('Message sent');
-       messageController.clear();
-     }else{
-       print('Message send failed');
-       Fluttertoast.showToast(msg: 'Message send failed');
-     }
-   } on Exception catch (e) {
-     print('Message send failed. Reason${e.toString()}');
-     Fluttertoast.showToast(msg: 'Message send failed');
-   }
-
-}
-
-
+      if (result) {
+        print('Message sent');
+        messageController.clear();
+      } else {
+        print('Message send failed');
+        Fluttertoast.showToast(msg: 'Message send failed');
+      }
+    } on Exception catch (e) {
+      print('Message send failed. Reason${e.toString()}');
+      Fluttertoast.showToast(msg: 'Message send failed');
+    }
+  }
 }

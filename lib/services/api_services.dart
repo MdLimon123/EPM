@@ -332,43 +332,41 @@ class ApiServices {
 
   /// send message to user
 
-  static Future<bool> postMessageToUser({ required int workOrderId,required int memberId,required int vendorId,
-  required String message})async{
-
+  static Future<bool> postMessageToUser(
+      {required int workOrderId,
+      required String memberId,
+      required String vendorId,
+      required String message}) async {
     var accessToken = await MyPreference.getToken();
 
     try {
-      var headers = {
-        'Authorization': 'Bearer $accessToken'
-      };
+      var headers = {'Authorization': 'Bearer $accessToken'};
 
       var request = http.MultipartRequest('POST', Uri.parse(postChatMessage));
       request.fields.addAll({
         "work_order_id": workOrderId.toString(),
         "message": message,
-        "member_id": memberId.toString(),
-        "vendor_id":vendorId.toString()
+        "member_id": memberId,
+        "vendor_id": vendorId
       });
 
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
 
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         return true;
-      }else{
-        if(kDebugMode){
+      } else {
+        if (kDebugMode) {
           print(response.reasonPhrase);
         }
         return false;
       }
     } on Exception catch (e) {
-      if(kDebugMode){
+      if (kDebugMode) {
         print("User Message send Error. Reason ${e.toString()}");
       }
       return false;
     }
-
   }
-
 }

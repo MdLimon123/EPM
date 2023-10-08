@@ -86,8 +86,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.chatScreen,
-                          arguments: {"id": data.id});
+                      Get.toNamed(Routes.chatScreen, arguments: data);
                     },
                     child: Text(
                       'Chat.',
