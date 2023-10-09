@@ -101,7 +101,7 @@ late Chat chat;
                             final now = DateTime.now();
                             final today = DateTime(now.year, now.month, now.day);
 
-                            result.createdAt = today;
+
                           }
                           return MessageScreen(
                               message: ChatMessage(
@@ -169,7 +169,7 @@ late Chat chat;
                         message: _chatController.messageController.text,
                         memberId: int.parse(chat.memberId),
                         workID: id);
-                    _chatController.messageController.clear();
+
 
 
                   }
