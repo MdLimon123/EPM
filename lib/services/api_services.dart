@@ -11,6 +11,7 @@ import 'package:epm/services/api_component.dart';
 import 'package:epm/views/ChatScreen/Models/user_chat_model.dart';
 import 'package:epm/views/ProfileScreen/model/profile_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
@@ -332,43 +333,42 @@ class ApiServices {
 
   /// send message to user
 
-  static Future<bool> postMessageToUser({ required int workOrderId,required int memberId,required int vendorId,
-  required String message})async{
-
+  static Future<bool> postMessageToUser(
+      {required int workOrderId,
+      required String memberId,
+      required String vendorId,
+      required String message}) async {
     var accessToken = await MyPreference.getToken();
 
     try {
-      var headers = {
-        'Authorization': 'Bearer $accessToken'
-      };
+      var headers = {'Authorization': 'Bearer $accessToken'};
 
       var request = http.MultipartRequest('POST', Uri.parse(postChatMessage));
       request.fields.addAll({
         "work_order_id": workOrderId.toString(),
         "message": message,
-        "member_id": memberId.toString(),
-        "vendor_id":vendorId.toString()
+        "member_id": memberId,
+        "vendor_id": vendorId
       });
 
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
 
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
+        print(response);
         return true;
-      }else{
-        if(kDebugMode){
+      } else {
+        if (kDebugMode) {
           print(response.reasonPhrase);
         }
         return false;
       }
     } on Exception catch (e) {
-      if(kDebugMode){
+      if (kDebugMode) {
         print("User Message send Error. Reason ${e.toString()}");
       }
       return false;
     }
-
   }
-
 }

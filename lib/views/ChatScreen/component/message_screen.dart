@@ -47,7 +47,7 @@ class MessageScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                 constraints: BoxConstraints(maxWidth: 267.w),
                 decoration: BoxDecoration(
-                    color: const Color(0xFFFFECE5),
+                    color: message.isSender? const Color(0xFFCCF7FF):const Color(0xFFF1F1F1),
                     borderRadius: BorderRadius.circular(6.r)),
                 child: HtmlWidget(
                   message.text,
