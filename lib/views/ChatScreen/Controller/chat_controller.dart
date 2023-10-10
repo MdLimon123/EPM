@@ -9,18 +9,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ChatController extends GetxController {
-
-
   late UserChatModel userChatModel;
   final TextEditingController messageController = TextEditingController();
 
   var isLoading = false.obs;
 
   RxMap<DateTime, List<Chat>> timeGroup = <DateTime, List<Chat>>{}.obs;
-
-
-
-
 
   int id = 0;
 
@@ -51,7 +45,6 @@ class ChatController extends GetxController {
 
   @override
   void onInit() {
-
     super.onInit();
   }
 
@@ -74,35 +67,42 @@ class ChatController extends GetxController {
   //   }
   // }
 
-
-
   @override
   void dispose() {
-
     messageController.dispose();
     super.dispose();
   }
 
-
-
-
-
+  var isGet = false.obs;
+  var isScroll = false.obs;
+  late ScrollController scrollController;
   Stream<List<Chat>> getChatMessage(int id) async* {
+    if (!isGet.value) {
+      while (true) {
+        isGet(true);
+        await Future.delayed(const Duration(seconds: 1));
+        var result = await ApiServices.getUserChatMessage(id: id);
+        userChatModel = result;
+        List<Chat> demoList = [];
+        for (var element in userChatModel.chats) {
+          demoList.add(element);
+        }
 
-    while(true) {
-      await Future.delayed(const Duration(seconds: 1));
-      var result = await ApiServices.getUserChatMessage(id: id);
-      userChatModel = result;
-      List<Chat> demoList = [];
-      for (var element in userChatModel.chats) {
-        demoList.add(element);
-        print(demoList.length);
+        yield demoList;
+        if (!isScroll.value) {
+          isScrollPixel();
+          isScroll(true);
+        }
+        isGet(false);
       }
-
-      yield demoList;
-
-
     }
+  }
+
+  isScrollPixel() {
+    Timer(const Duration(seconds: 1), () {
+      scrollController.position
+          .jumpTo(scrollController.position.maxScrollExtent);
+    });
   }
 
   groupMessageByData(List<Chat> chatList, bool loadMore) {
@@ -139,7 +139,6 @@ class ChatController extends GetxController {
 
       if (result) {
         print('Message sent');
-
       } else {
         print('Message send failed');
         Fluttertoast.showToast(msg: 'Message send failed');

@@ -1,3 +1,4 @@
+import 'dart:async';
 
 import 'package:epm/controller/add_image_controller.dart';
 import 'package:epm/utils/app_image.dart';
@@ -6,6 +7,7 @@ import 'package:epm/views/ChatScreen/Models/chat_message.dart';
 import 'package:epm/views/ChatScreen/Models/user_chat_model.dart';
 import 'package:epm/views/ChatScreen/component/message_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -18,19 +20,24 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-
   final _chatController = Get.put(ChatController());
 
   final _addImageController = Get.put(AddImageController());
 
   final Data orderData = Get.arguments;
 
-  final ScrollController _controller = ScrollController();
+  @override
+  void initState() {
+    _chatController.scrollController =
+        ScrollController(initialScrollOffset: 0.0);
+    _chatController.isScroll(false);
 
+    super.initState();
+  }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _chatController.scrollController.dispose();
     super.dispose();
   }
 
@@ -95,7 +102,6 @@ class _ChatScreenState extends State<ChatScreen> {
                       //           }),
                       // ),
 
-
                       StreamBuilder<List<Chat>>(
                           stream: _chatController.getChatMessage(id),
                           builder: (BuildContext context,
@@ -104,52 +110,66 @@ class _ChatScreenState extends State<ChatScreen> {
                               return ListView.builder(
                                   physics:
                                       const AlwaysScrollableScrollPhysics(),
-                                  controller: _controller,
+                                  controller: _chatController.scrollController,
                                   shrinkWrap: true,
                                   itemCount: snapshot.data!.length,
                                   itemBuilder: (context, index) {
                                     var result = snapshot.data![index];
 
-                                    // if(index ==snapshot.data!.length - 1){
-                                    //   WidgetsBinding.instance.addPersistentFrameCallback((_) {
-                                    //     _controller.animateTo(
-                                    //         _controller.position.maxScrollExtent,
-                                    //         duration: const Duration(seconds: 1),
-                                    //         curve: Curves.easeOut);
-                                    //   });
-                                    // }
+                                    if (index == snapshot.data!.length - 1) {
+                                      print(
+                                          "=======> scroll index $index = ${snapshot.data!.length}");
+                                      // SchedulerBinding.instance
+                                      //     .addPersistentFrameCallback((_) {
+                                      //   if (_controller.position.pixels ==
+                                      //       _controller
+                                      //           .position.maxScrollExtent) {
+                                      //     _controller.animateTo(
+                                      //         _controller
+                                      //             .position.maxScrollExtent,
+                                      //         duration: const Duration(
+                                      //             milliseconds: 500),
+                                      //         curve: Curves.easeOut);
+                                      //   }
+                                      // });
 
-                          return MessageScreen(
-                              message: ChatMessage(
-                                  text: result.message,
-                                  isSender: result.memberId == result.vendorId? false:true,
-                                  messageType: ChatMessageType.text,
-                                  messageStatus:
-                                      MessageStatus.not_sent,
-                                  setTime:result.createdAt.toString(),
+                                      Timer(const Duration(milliseconds: 500),
+                                          () {
+                                        _chatController.scrollController.jumpTo(
+                                            _chatController.scrollController
+                                                .position.maxScrollExtent);
+                                      });
+                                    }
 
-                                  time:result.createdAt.toString()));
-                        });
-                  } else if (!snapshot.hasData) {
-                    return Center(
-                      child: Text(
-                        'Loading....',
-                        style: TextStyle(fontSize: 16.sp),
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: AppColor.deepOrange,
-                      ),
-                    );
-                  }
-                })
-
-
-     )),
-
-
+                                    return MessageScreen(
+                                        message: ChatMessage(
+                                            text: result.message,
+                                            isSender: result.memberId ==
+                                                    result.vendorId
+                                                ? false
+                                                : true,
+                                            messageType: ChatMessageType.text,
+                                            messageStatus:
+                                                MessageStatus.not_sent,
+                                            setTime:
+                                                result.createdAt.toString(),
+                                            time: result.createdAt.toString()));
+                                  });
+                            } else if (!snapshot.hasData) {
+                              return Center(
+                                child: Text(
+                                  'Loading....',
+                                  style: TextStyle(fontSize: 16.sp),
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColor.deepOrange,
+                                ),
+                              );
+                            }
+                          }))),
           Row(
             children: [
               Expanded(
@@ -184,7 +204,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         message: _chatController.messageController.text,
                         memberId: orderData.contractorId,
                         workId: orderData.id);
-
                   }
                 },
                 child: Container(

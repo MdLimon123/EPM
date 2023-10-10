@@ -12,7 +12,6 @@ import 'package:epm/views/ChatScreen/Models/user_chat_model.dart';
 import 'package:epm/views/ProfileScreen/model/profile_model.dart';
 import 'package:flutter/foundation.dart';
 
-
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -356,7 +355,6 @@ class ApiServices {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        print(response);
         return true;
       } else {
         if (kDebugMode) {
