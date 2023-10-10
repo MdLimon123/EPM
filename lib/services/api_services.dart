@@ -309,7 +309,10 @@ class ApiServices {
   static dynamic getUserChatMessage({required int id}) async {
     var accessToken = await MyPreference.getToken();
 
-    var headers = {'Authorization': 'Bearer $accessToken'};
+    var headers = {
+      'Authorization': 'Bearer $accessToken',
+      "HttpHeaders.contentTypeHeader": "application/json"
+    };
 
     try {
       var respone =

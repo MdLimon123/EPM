@@ -133,7 +133,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       //   }
                                       // });
 
-                                      Timer(const Duration(milliseconds: 500),
+                                      Timer(const Duration(milliseconds: 100),
                                           () {
                                         _chatController.scrollController.jumpTo(
                                             _chatController.scrollController

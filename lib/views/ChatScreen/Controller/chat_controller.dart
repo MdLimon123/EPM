@@ -77,29 +77,30 @@ class ChatController extends GetxController {
   var isScroll = false.obs;
   late ScrollController scrollController;
   Stream<List<Chat>> getChatMessage(int id) async* {
-    if (!isGet.value) {
-      while (true) {
+    while (true) {
+      await Future.delayed(const Duration(seconds: 1));
+      if (!isGet.value) {
         isGet(true);
-        await Future.delayed(const Duration(seconds: 1));
         var result = await ApiServices.getUserChatMessage(id: id);
         userChatModel = result;
         List<Chat> demoList = [];
         for (var element in userChatModel.chats) {
           demoList.add(element);
         }
-
-        yield demoList;
         if (!isScroll.value) {
           isScrollPixel();
           isScroll(true);
         }
+
+        yield demoList;
+
         isGet(false);
       }
     }
   }
 
   isScrollPixel() {
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(milliseconds: 100), () {
       scrollController.position
           .jumpTo(scrollController.position.maxScrollExtent);
     });
