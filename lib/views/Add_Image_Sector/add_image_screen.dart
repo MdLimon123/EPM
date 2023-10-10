@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:epm/utils/app_color.dart';
@@ -5,12 +7,15 @@ import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Add_Image_Sector/image_details_screen.dart';
 
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 import '../../controller/add_image_controller.dart';
 import '../../controller/photo_controller.dart';
+
 
 class AddImageScreen extends StatelessWidget {
   AddImageScreen({super.key});
@@ -174,17 +179,29 @@ class AddImageScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Checkbox(
-                                        focusColor: AppColor.deepOrange,
-                                        checkColor: Colors.white,
-                                        activeColor: AppColor.deepOrange,
-                                          value:
-                                              _photoController.isAllChecked.value,
-                                          onChanged: (value) {
-                                            _photoController.isAllChecked.value =
-                                                value!;
-                                            image = "$value";
-                                          }),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Checkbox(
+                                            focusColor: AppColor.deepOrange,
+                                            checkColor: Colors.white,
+                                            activeColor: AppColor.deepOrange,
+                                              value:
+                                                  _photoController.isAllChecked.value,
+                                              onChanged: (value) {
+                                                _photoController.isAllChecked.value =
+                                                    value!;
+                                                image = "$value";
+                                              }),
+                                        
+                                        IconButton(
+                                            onPressed: (){
+                                              // downloadImage(imageUrl, context);
+                                              downloadFile(imageUrl, context);
+                                            },
+                                            icon: const Icon(Icons.download))
+                                      ],
+                                    ),
                                     Expanded(
                                       child: CachedNetworkImage(
                                         imageUrl: imageUrl,
@@ -406,6 +423,69 @@ class AddImageScreen extends StatelessWidget {
           //     }),
           ),
     );
+  }
+
+ // downloadImage(String imageUrl, BuildContext context)async{
+ //
+ //   try {
+ //     // Saved with this method.
+ //     var imageId = await ImageDownloader.downloadImage(imageUrl);
+ //     if (imageId == null) {
+ //       return;
+ //     }
+ //
+ //     ScaffoldMessenger.of(context).showSnackBar(
+ //       SnackBar(content: const Text('Download Complete'),
+ //       duration: const Duration(seconds: 10),
+ //       action: SnackBarAction(
+ //         label: 'Open Image',
+ //         onPressed: ()async{
+ //           // open image
+ //
+ //           var path = await ImageDownloader.findPath(imageId);
+ //           await ImageDownloader.open(path!);
+ //
+ //
+ //         },
+ //       ),)
+ //     );
+ //
+ //     // Below is a method of obtaining saved image information.
+ //     // var fileName = await ImageDownloader.findName(imageId);
+ //     // var path = await ImageDownloader.findPath(imageId);
+ //     // var size = await ImageDownloader.findByteSize(imageId);
+ //     // var mimeType = await ImageDownloader.findMimeType(imageId);
+ //   } on PlatformException catch (error) {
+ //     print(error);
+ //   }
+ // }
+
+  void downloadFile(String imageUrl,BuildContext context )async{
+
+    var time = DateTime.now().millisecondsSinceEpoch;
+
+    var path = "/storage/emulated/0/Download/$time.jpg";
+    var file = File(path);
+    var res = await get(Uri.parse(imageUrl));
+    file.writeAsBytes(res.bodyBytes);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: const Text('Download Complete'),
+          duration: const Duration(seconds: 10),
+          action: SnackBarAction(
+            label: '',
+            onPressed: ()async{
+              // open image
+
+              // var path = await ImageDownloader.findPath(file.toString());
+              // await ImageDownloader.open(path!);
+
+
+            },
+          ),)
+        );
+
+
   }
 
   _appBar(BuildContext context) {

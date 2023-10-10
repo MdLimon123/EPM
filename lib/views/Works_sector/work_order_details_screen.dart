@@ -4,7 +4,7 @@ import 'package:epm/controller/works_orders_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
 import 'package:epm/utils/text_style.dart';
-import 'package:epm/views/ChatScreen/Controller/chat_controller.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -105,26 +105,25 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               padding: EdgeInsets.only(left: 25.w),
               child: ListTile(
                 dense: true,
-                leading: Container(
-                  height: 40.h,
-                  width: 40.w,
-                  decoration: BoxDecoration(
-                      color: AppColor.deepOrange,
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Icon(
-                    Icons.check,
-                    color: AppColor.checkColor,
-                  ),
+                leading: Icon(
+                  Icons.check,
+                  color: AppColor.deepOrange,
                 ),
                 title: Text(
                   'Checking',
-                  style: CustomTextStyle.h3(color: AppColor.deepOrange),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18.sp,
+                    color: const Color(0xFF000000)
+                  ),
                 ),
                 subtitle: Text(
                   'Never',
-                  style: CustomTextStyle.h4(
-                      color: AppColor.deepOrange.withOpacity(.6),
-                      fontWeight: FontWeight.w400),
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF6A6868)
+                  ),
                 ),
                 trailing: IconButton(
                     onPressed: () {},
@@ -154,22 +153,30 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                 ),
                 title: Text(
                   'Sync',
-                  style: CustomTextStyle.h3(color: AppColor.deepOrange),
+                    style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF000000)
+                ),
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Never',
-                      style: CustomTextStyle.h4(
-                          color: AppColor.deepOrange.withOpacity(.6),
-                          fontWeight: FontWeight.w400),
+                        style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFF6A6868)
+                        ),
                     ),
                     Text(
                       '-You must be checked in',
-                      style: CustomTextStyle.h4(
-                          color: AppColor.deepOrange.withOpacity(.6),
-                          fontWeight: FontWeight.w400),
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xFF6A6868)
+                      ),
                     ),
                   ],
                 ),
@@ -188,8 +195,11 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.w),
               child: Text(
                 'Work Order Info',
-                style: CustomTextStyle.h3(
-                    color: AppColor.deepOrange, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700,
+                    color: const Color(0xFF000000)
+                ),
               ),
             ),
             SizedBox(
@@ -208,10 +218,11 @@ class WorkOrderDetailsScreen extends StatelessWidget {
               child: ListTile(
                 leading: Image.asset(AppImage.status),
                 title: Text('Status',
-                    style: CustomTextStyle.h3(
-                        fontWeight: FontWeight.w500,
+                    style: TextStyle(
                         fontSize: 18.sp,
-                        color: AppColor.deepOrange.withOpacity(.9))),
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF000000)
+                    )),
                 subtitle: Text(
                     _workOrderController.workOrderModel.status == true
                         ? "Read"
@@ -310,7 +321,7 @@ class WorkOrderDetailsScreen extends StatelessWidget {
             style: CustomTextStyle.h3(
                 fontWeight: FontWeight.w500,
                 fontSize: 18.sp,
-                color: AppColor.deepOrange.withOpacity(.9)),
+                color: const Color(0xFF000000)),
           ),
           subtitle: Text(
             subtitle,

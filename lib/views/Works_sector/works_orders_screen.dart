@@ -147,8 +147,8 @@ class WorksOrdersScreen extends StatelessWidget {
                           Text(
                             'DATE DUE :',
                             style: CustomTextStyle.h3(
-                                fontWeight: FontWeight.w500,
-                                color: AppColor.deepOrange),
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xFF000000)),
                           ),
 
                           DropdownButtonHideUnderline(
@@ -214,8 +214,8 @@ class WorksOrdersScreen extends StatelessWidget {
                                           Text(
                                             "WO#: ${item.workOrder}",
                                             style: CustomTextStyle.h2(
-                                                fontWeight: FontWeight.w700,
-                                                color: AppColor.deepOrange),
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xFF000000)),
                                           ),
                                           SizedBox(
                                             height: 5.h,
@@ -244,14 +244,23 @@ class WorksOrdersScreen extends StatelessWidget {
                                               icon: Icon(
                                                 Icons.camera_alt,
                                                 color: AppColor.deepOrange,
+                                                size: 50.w,
                                               )),
                                           Positioned(
                                               right: 2.w,
-                                              child: Text(
-                                                item.photos.length.toString(),
-                                                style: CustomTextStyle.h3(
-                                                    fontWeight: FontWeight.w500,
-                                                    color: AppColor.deepOrange),
+                                              top: 1.w,
+                                              child: CircleAvatar(
+                                                radius: 16.w,
+                                                backgroundColor: const Color(0xFFEB6526),
+                                                child: Center(
+                                                  child: Text(
+                                                    item.photos.length.toString(),
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 12.sp,
+                                                        color: const Color(0xFFFFFFFF)),
+                                                  ),
+                                                ),
                                               ))
                                         ],
                                       )

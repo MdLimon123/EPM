@@ -11,7 +11,7 @@ import 'package:epm/services/api_component.dart';
 import 'package:epm/views/ChatScreen/Models/user_chat_model.dart';
 import 'package:epm/views/ProfileScreen/model/profile_model.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
+
 
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';

@@ -1,3 +1,4 @@
+
 import 'package:epm/controller/add_image_controller.dart';
 import 'package:epm/utils/app_image.dart';
 import 'package:epm/views/ChatScreen/Controller/chat_controller.dart';
@@ -8,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
-
 import '../../model/work_order_model.dart';
 import '../../utils/app_color.dart';
 
@@ -19,17 +18,20 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+
   final _chatController = Get.put(ChatController());
 
   final _addImageController = Get.put(AddImageController());
 
   final Data orderData = Get.arguments;
 
+  final ScrollController _controller = ScrollController();
+
+
   @override
-  void initState() {
-    _chatController.scrollController =
-        ScrollController(initialScrollOffset: 0.0);
-    super.initState();
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -102,22 +104,21 @@ class _ChatScreenState extends State<ChatScreen> {
                               return ListView.builder(
                                   physics:
                                       const AlwaysScrollableScrollPhysics(),
-                                  controller: _chatController.scrollController,
+                                  controller: _controller,
+                                  shrinkWrap: true,
                                   itemCount: snapshot.data!.length,
                                   itemBuilder: (context, index) {
                                     var result = snapshot.data![index];
-                                    if (index <
-                                        _chatController.timeGroup.length) {
-                                      final date = _chatController
-                                          .timeGroup.keys
-                                          .elementAt(index);
-                                      final dateByMessage =
-                                          _chatController.timeGroup[date];
-                                      final now = DateTime.now();
-                                      final today = DateTime(
-                                          now.year, now.month, now.day);
 
-                          }
+                                    // if(index ==snapshot.data!.length - 1){
+                                    //   WidgetsBinding.instance.addPersistentFrameCallback((_) {
+                                    //     _controller.animateTo(
+                                    //         _controller.position.maxScrollExtent,
+                                    //         duration: const Duration(seconds: 1),
+                                    //         curve: Curves.easeOut);
+                                    //   });
+                                    // }
+
                           return MessageScreen(
                               message: ChatMessage(
                                   text: result.message,
@@ -125,8 +126,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                   messageType: ChatMessageType.text,
                                   messageStatus:
                                       MessageStatus.not_sent,
-                                  setTime:
-                                      result.createdAt.toString(),
+                                  setTime:result.createdAt.toString(),
+
                                   time:result.createdAt.toString()));
                         });
                   } else if (!snapshot.hasData) {

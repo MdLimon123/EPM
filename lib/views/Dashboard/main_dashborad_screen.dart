@@ -68,27 +68,39 @@ class MainDashboardScreen extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 25.w, vertical: 15.h),
-                                    child: Image.asset(
-                                      AppImage.total,
-                                      color: Colors.black,
-                                      height: 80.h,
-                                      width: 80.w,
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFFEB6526),
+                                        shape: BoxShape.circle,
+
+                                      ),
+                                      child: Image.asset(
+                                        AppImage.workOrderIcon,
+                                        color: Colors.white,
+                                        height: 80.h,
+                                        width: 80.w,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
                                     height: 10.h,
                                   ),
-                                  Text(
-                                    'Total Work Order',
-                                    style: CustomTextStyle.h3(
-                                        color: AppColor.deepOrange,
-                                        fontWeight: FontWeight.w600),
+                                  Padding(
+                                    padding:  EdgeInsets.symmetric(horizontal: 8.w),
+                                    child: Text(
+                                      'Total Work Order',
+                                      style: CustomTextStyle.h3(
+                                          color: AppColor.deepOrange,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                  Text(
-                                    "${workOrderController.searchData.length}",
-                                    style: CustomTextStyle.h3(
-                                        color: AppColor.blackColor,
-                                        fontWeight: FontWeight.w700),
+                                  Center(
+                                    child: Text(
+                                      "${workOrderController.searchData.length}",
+                                      style: CustomTextStyle.h3(
+                                          color: AppColor.blackColor,
+                                          fontWeight: FontWeight.w700),
+                                    ),
                                   )
                                 ],
                               )),

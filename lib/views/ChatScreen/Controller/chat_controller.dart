@@ -18,9 +18,9 @@ class ChatController extends GetxController {
 
   RxMap<DateTime, List<Chat>> timeGroup = <DateTime, List<Chat>>{}.obs;
 
-  late ScrollController scrollController;
 
-  var unreadCount = 0.obs;
+
+
 
   int id = 0;
 
@@ -78,34 +78,29 @@ class ChatController extends GetxController {
 
   @override
   void dispose() {
-    scrollController.dispose();
+
     messageController.dispose();
     super.dispose();
   }
 
-  void _scrollToBottom() {
-    scrollController.jumpTo(scrollController.position.maxScrollExtent);
-  }
+
 
 
 
   Stream<List<Chat>> getChatMessage(int id) async* {
-    while (true) {
+
+    while(true) {
       await Future.delayed(const Duration(seconds: 1));
+      var result = await ApiServices.getUserChatMessage(id: id);
+      userChatModel = result;
+      List<Chat> demoList = [];
+      for (var element in userChatModel.chats) {
+        demoList.add(element);
+        print(demoList.length);
+      }
 
+      yield demoList;
 
-        var result = await ApiServices.getUserChatMessage(id: id);
-        userChatModel = result;
-        List<Chat> demoList = [];
-        int value = 0;
-        for (var element in userChatModel.chats) {
-          value += element.message.length;
-          demoList.add(element);
-
-          print(demoList.length);
-        }
-        unreadCount.value = value;
-        yield demoList;
 
     }
   }
