@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/photo_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+
 
 class PhotoController extends GetxController {
   var isLoading = false.obs;
@@ -26,6 +29,7 @@ class PhotoController extends GetxController {
         photoModel = result;
         data.value =photoModel.data;
         debugPrint(photoModel.toString());
+
       }
     } on Exception catch (e) {
       debugPrint("Fetch error : $e");
@@ -33,6 +37,8 @@ class PhotoController extends GetxController {
       isLoading(false);
     }
   }
+
+
 
   // delete image
   Future<void> deleteImage(int id, int index) async {

@@ -16,56 +16,8 @@ class ChatController extends GetxController {
 
   RxMap<DateTime, List<Chat>> timeGroup = <DateTime, List<Chat>>{}.obs;
 
-  int id = 0;
 
-  // getMessage(int id) async {
-  //   var result = await ApiServices.getUserChatMessage(id: id);
-  //
-  //   isLoading(true);
-  //   try {
-  //     if (result.runtimeType == int) {
-  //       print("$result");
-  //     } else {
-  //       userChatModel = result;
-  //       for (var element in userChatModel.chats) {
-  //        // messageList.clear();
-  //         messageList.add(element);
-  //         print(messageList.length);
-  //       }
-  //       // messageList.value = userChatModel.chats;
-  //     }
-  //   } on Exception catch (e) {
-  //     if (kDebugMode) {
-  //       print('Message Fetch Error : $e');
-  //     }
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  // Future<void> fetchMessage(int id)async{
-  //   while(true) {
-  //     try {
-  //       await Future.delayed(const Duration(seconds: 1));
-  //       var fetchMessages = await ApiServices.getUserChatMessage(id: id);
-  //
-  //       userChatModel = fetchMessages;
-  //       for (var element in userChatModel.chats) {
-  //         message.add(element);
-  //       }
-  //
-  //
-  //       print(message);
-  //     } catch (e) {
-  //       print('Error Fetching message : $e');
-  //     }
-  //   }
-  // }
 
   @override
   void dispose() {

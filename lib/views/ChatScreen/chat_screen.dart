@@ -1,5 +1,6 @@
 import 'dart:async';
 
+
 import 'package:epm/controller/add_image_controller.dart';
 import 'package:epm/utils/app_image.dart';
 import 'package:epm/views/ChatScreen/Controller/chat_controller.dart';
@@ -7,7 +8,7 @@ import 'package:epm/views/ChatScreen/Models/chat_message.dart';
 import 'package:epm/views/ChatScreen/Models/user_chat_model.dart';
 import 'package:epm/views/ChatScreen/component/message_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -66,7 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
               width: 10.w,
             ),
             Text(
-              'Md Limon',
+              orderData.workOrder,
               style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
@@ -81,26 +82,6 @@ class _ChatScreenState extends State<ChatScreen> {
               child: Padding(
                   padding: EdgeInsets.only(left: 10.w),
                   child:
-                      // Obx(
-                      //   () => _chatController.isLoading.value
-                      //       ? const Center(
-                      //           child: CircularProgressIndicator(),
-                      //         )
-                      //       : ListView.builder(
-                      //           itemCount: _chatController.message.length,
-                      //           itemBuilder: (context, index) {
-                      //             var result = _chatController.message[index];
-                      //             return MessageScreen(
-                      //                 message: ChatMessage(
-                      //                     text: result.message,
-                      //                     isSender:
-                      //                         result.memberId == result.vendorId ? false : true,
-                      //                     messageType: ChatMessageType.text,
-                      //                     messageStatus: MessageStatus.not_view,
-                      //                     setTime: result.createdAt.toString(),
-                      //                     time: result.createdAt.toString()));
-                      //           }),
-                      // ),
 
                       StreamBuilder<List<Chat>>(
                           stream: _chatController.getChatMessage(id),
@@ -119,19 +100,6 @@ class _ChatScreenState extends State<ChatScreen> {
                                     if (index == snapshot.data!.length - 1) {
                                       print(
                                           "=======> scroll index $index = ${snapshot.data!.length}");
-                                      // SchedulerBinding.instance
-                                      //     .addPersistentFrameCallback((_) {
-                                      //   if (_controller.position.pixels ==
-                                      //       _controller
-                                      //           .position.maxScrollExtent) {
-                                      //     _controller.animateTo(
-                                      //         _controller
-                                      //             .position.maxScrollExtent,
-                                      //         duration: const Duration(
-                                      //             milliseconds: 500),
-                                      //         curve: Curves.easeOut);
-                                      //   }
-                                      // });
 
                                       Timer(const Duration(milliseconds: 100),
                                           () {
@@ -144,13 +112,14 @@ class _ChatScreenState extends State<ChatScreen> {
                                     return MessageScreen(
                                         message: ChatMessage(
                                             text: result.message,
-                                            isSender: result.memberId ==
-                                                    result.vendorId
-                                                ? false
-                                                : true,
+
+                                            isSender: result.memberId == result.vendorId
+                                                ? true
+                                                : false,
                                             messageType: ChatMessageType.text,
                                             messageStatus:
                                                 MessageStatus.not_sent,
+                                            name: result.member.name,
                                             setTime:
                                                 result.createdAt.toString(),
                                             time: result.createdAt.toString()));

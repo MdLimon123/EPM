@@ -48,20 +48,132 @@ class AddImageScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ListTile(
-                        onTap: () {
-                          // _photoController.isAllChecked.value =
-                          //     !_photoController.isAllChecked.value;
-                        },
-                        dense: true,
-                        title: Text(
+                    // ListTile(
+                    //     onTap: () {
+                    //       // _photoController.isAllChecked.value =
+                    //       //     !_photoController.isAllChecked.value;
+                    //     },
+                    //     dense: true,
+                    //     title: Text(
+                    //       'Select All',
+                    //       style: TextStyle(
+                    //           fontSize: 18.sp,
+                    //           fontWeight: FontWeight.w500,
+                    //           color: const Color(0xFF000000)),
+                    //     ),
+                    //     trailing: InkWell(
+                    //       onTap: () {
+                    //         showDialog(
+                    //             barrierDismissible: true,
+                    //             context: context,
+                    //             builder: (context) {
+                    //               return AlertDialog(
+                    //                 title: Text(
+                    //                   'Delete Image',
+                    //                   style: CustomTextStyle.h1(
+                    //                       color: AppColor.deepOrange,
+                    //                       fontWeight: FontWeight.w600),
+                    //                 ),
+                    //                 content: Text(
+                    //                   'Are you sure you want to delete All Image!',
+                    //                   style: CustomTextStyle.h3(
+                    //                       fontWeight: FontWeight.w400),
+                    //                 ),
+                    //                 actions: [
+                    //                   TextButton(
+                    //                       onPressed: () {
+                    //                         Get.back();
+                    //                       },
+                    //                       child: Text(
+                    //                         'Cancel',
+                    //                         style: CustomTextStyle.h3(
+                    //                             fontWeight: FontWeight.w400),
+                    //                       )),
+                    //                   TextButton(
+                    //                       onPressed: () {
+                    //                         // _photoController.deleteImage(
+                    //                         //     _photoController.data[index].id,
+                    //                         //     index);
+                    //                         // Get.back();
+                    //
+                    //                         for(var i=0; i<_photoController.data.length; i++){
+                    //                           _photoController.deleteImage(data[i], data[i]);
+                    //
+                    //                         }
+                    //                       },
+                    //                       child: Text(
+                    //                         'Ok',
+                    //                         style: CustomTextStyle.h3(
+                    //                             fontWeight: FontWeight.w400),
+                    //                       )),
+                    //                 ],
+                    //               );
+                    //             });
+                    //       },
+                    //       child: Container(
+                    //         height: 28.h,
+                    //         width: 81.w,
+                    //         decoration: BoxDecoration(
+                    //             borderRadius:
+                    //                 BorderRadius.all(Radius.circular(4.r)),
+                    //             border:
+                    //                 Border.all(color: const Color(0xFFEB6526))),
+                    //         child: Center(
+                    //           child: Text(
+                    //             'Delete All',
+                    //             style: TextStyle(
+                    //                 fontWeight: FontWeight.w500,
+                    //                 fontSize: 14.sp,
+                    //                 color: const Color(0xFFEB6526)),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     leading: Checkbox(
+                    //       focusColor: AppColor.deepOrange,
+                    //         checkColor: Colors.white,
+                    //         activeColor: AppColor.deepOrange,
+                    //         value: _photoController.isAllChecked.value,
+                    //         onChanged: (value) {
+                    //           _photoController.isAllChecked.value = value!;
+                    //           for (int i = 0;
+                    //               i < _photoController.data.length;
+                    //               i++) {
+                    //             _photoController.data[i].url = "$value";
+                    //           }
+                    //         },
+                    //       ),
+                    //     ),
+
+                    Row(
+                      children: [
+                        Checkbox(
+                          focusColor: AppColor.deepOrange,
+                          checkColor: Colors.white,
+                          activeColor: AppColor.deepOrange,
+                          value: _photoController.isAllChecked.value,
+                          onChanged: (value) {
+                            _photoController.isAllChecked.value = value!;
+                            for (int i = 0;
+                            i < _photoController.data.length;
+                            i++) {
+                              _photoController.data[i].url = "$value";
+                            }
+                          },
+                        ),
+                        //SizedBox(width: 5.w,),
+                        Text(
                           'Select All',
                           style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w500,
                               color: const Color(0xFF000000)),
                         ),
-                        trailing: InkWell(
+
+                        SizedBox(width: 180.w,),
+
+                        SizedBox(width: 20.w,),
+                        InkWell(
                           onTap: () {
                             showDialog(
                                 barrierDismissible: true,
@@ -97,6 +209,7 @@ class AddImageScreen extends StatelessWidget {
                                             // Get.back();
 
                                             for(var i=0; i<_photoController.data.length; i++){
+
                                               _photoController.deleteImage(data[i], data[i]);
 
                                             }
@@ -115,9 +228,9 @@ class AddImageScreen extends StatelessWidget {
                             width: 81.w,
                             decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(4.r)),
+                                BorderRadius.all(Radius.circular(4.r)),
                                 border:
-                                    Border.all(color: const Color(0xFFEB6526))),
+                                Border.all(color: const Color(0xFFEB6526))),
                             child: Center(
                               child: Text(
                                 'Delete All',
@@ -129,21 +242,10 @@ class AddImageScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        leading: Checkbox(
-                          focusColor: AppColor.deepOrange,
-                            checkColor: Colors.white,
-                            activeColor: AppColor.deepOrange,
-                            value: _photoController.isAllChecked.value,
-                            onChanged: (value) {
-                              _photoController.isAllChecked.value = value!;
-                              for (int i = 0;
-                                  i < _photoController.data.length;
-                                  i++) {
-                                _photoController.data[i].url = "$value";
-                              }
-                            },
-                          ),
-                        ),
+
+
+                      ],
+                    ),
                     Expanded(
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -326,102 +428,7 @@ class AddImageScreen extends StatelessWidget {
                   ],
                 )
 
-          // : ListView.builder(
-          //     physics: const BouncingScrollPhysics(),
-          //     itemCount: _photoController.data.length,
-          //     itemBuilder: (context, index) {
-          //       var image = _photoController.data[index].url;
-          //       var imageUrl =
-          //           "https://${_photoController.photoModel.hostName}/$image";
-          //
-          //       return Padding(
-          //         padding: EdgeInsets.only(left: 10.w, right: 10.w),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             Container(
-          //               height: 250.h,
-          //               width: 300.w,
-          //               margin: EdgeInsets.only(top: 20.h),
-          //               child: CachedNetworkImage(
-          //                 imageUrl: imageUrl,
-          //                 imageBuilder: (context, imageProvider) => Container(
-          //                   decoration: BoxDecoration(
-          //                       borderRadius: BorderRadius.circular(8.r),
-          //                       image: DecorationImage(
-          //                           image: imageProvider, fit: BoxFit.cover)),
-          //                 ),
-          //                 errorWidget: (context, url, error) =>
-          //                     const Icon(Icons.error),
-          //                 placeholder: (context, url) => Center(
-          //                     child: CircularProgressIndicator(
-          //                   color: AppColor.deepOrange,
-          //                 )),
-          //               ),
-          //             ),
-          //             InkWell(
-          //               onTap: () {
-          //                 // _photoController.deleteImage(
-          //                 //     _photoController.data[index].id, index);
-          //                 showDialog(
-          //                     barrierDismissible: true,
-          //                     context: context,
-          //                     builder: (context) {
-          //                       return AlertDialog(
-          //                         title: Text(
-          //                           'Delete Image',
-          //                           style: CustomTextStyle.h1(
-          //                               color: AppColor.deepOrange,
-          //                               fontWeight: FontWeight.w600),
-          //                         ),
-          //                         content: Text(
-          //                           'Are you sure you want to delete Image!',
-          //                           style: CustomTextStyle.h3(
-          //                               fontWeight: FontWeight.w400),
-          //                         ),
-          //                         actions: [
-          //                           TextButton(
-          //                               onPressed: () {
-          //                                 Get.back();
-          //                               },
-          //                               child: Text(
-          //                                 'Cancel',
-          //                                 style: CustomTextStyle.h3(
-          //                                     fontWeight: FontWeight.w400),
-          //                               )),
-          //                           TextButton(
-          //                               onPressed: () {
-          //                                 _photoController.deleteImage(
-          //                                     _photoController.data[index].id,
-          //                                     index);
-          //                                 Get.back();
-          //                               },
-          //                               child: Text(
-          //                                 'Ok',
-          //                                 style: CustomTextStyle.h3(
-          //                                     fontWeight: FontWeight.w400),
-          //                               )),
-          //                         ],
-          //                       );
-          //                     });
-          //               },
-          //               child: Container(
-          //                   height: 50.h,
-          //                   width: 60.w,
-          //                   margin: EdgeInsets.only(left: 15.w, top: 15.w),
-          //                   decoration: BoxDecoration(
-          //                       color: AppColor.deepOrange,
-          //                       borderRadius: BorderRadius.circular(8.r)),
-          //                   child: Icon(
-          //                     Icons.delete,
-          //                     color: AppColor.textColorWhite,
-          //                   )),
-          //             )
-          //           ],
-          //         ),
-          //       );
-          //     }),
-          ),
+      ),
     );
   }
 

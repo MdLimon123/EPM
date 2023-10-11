@@ -2,10 +2,10 @@
 //
 //     final userChatModel = userChatModelFromJson(jsonString);
 
+
 import 'dart:convert';
 
-UserChatModel userChatModelFromJson(String str) =>
-    UserChatModel.fromJson(json.decode(str));
+UserChatModel userChatModelFromJson(String str) => UserChatModel.fromJson(json.decode(str));
 
 String userChatModelToJson(UserChatModel data) => json.encode(data.toJson());
 
@@ -21,16 +21,16 @@ class UserChatModel {
   });
 
   factory UserChatModel.fromJson(Map<String, dynamic> json) => UserChatModel(
-        status: json["status"],
-        message: json["message"],
-        chats: List<Chat>.from(json["chats"].map((x) => Chat.fromJson(x))),
-      );
+    status: json["status"],
+    message: json["message"],
+    chats: List<Chat>.from(json["chats"].map((x) => Chat.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "chats": List<dynamic>.from(chats.map((x) => x.toJson())),
-      };
+    "status": status,
+    "message": message,
+    "chats": List<dynamic>.from(chats.map((x) => x.toJson())),
+  };
 }
 
 class Chat {
@@ -41,6 +41,7 @@ class Chat {
   String message;
   DateTime createdAt;
   DateTime updatedAt;
+  Member member;
 
   Chat({
     required this.id,
@@ -50,25 +51,50 @@ class Chat {
     required this.message,
     required this.createdAt,
     required this.updatedAt,
+    required this.member,
   });
 
   factory Chat.fromJson(Map<String, dynamic> json) => Chat(
-        id: json["id"],
-        workOrderId: json["work_order_id"],
-        memberId: json["member_id"],
-        vendorId: json["vendor_id"],
-        message: json["message"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
+    id: json["id"],
+    workOrderId: json["work_order_id"],
+    memberId: json["member_id"],
+    vendorId: json["vendor_id"],
+    message: json["message"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    member: Member.fromJson(json["member"]),
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "work_order_id": workOrderId,
-        "member_id": memberId,
-        "vendor_id": vendorId,
-        "message": message,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-      };
+    "id": id,
+    "work_order_id": workOrderId,
+    "member_id": memberId,
+    "vendor_id": vendorId,
+    "message": message,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+    "member": member.toJson(),
+  };
 }
+
+class Member {
+  int id;
+  String name;
+
+  Member({
+    required this.id,
+    required this.name,
+  });
+
+  factory Member.fromJson(Map<String, dynamic> json) => Member(
+    id: json["id"],
+    name: json["name"] ,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+  };
+}
+
+

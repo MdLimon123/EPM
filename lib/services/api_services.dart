@@ -56,16 +56,7 @@ class ApiServices {
       } else {
         return 1;
       }
-      // var request = http.Request('GET', Uri.parse(workOrder));
-      // request.headers.addAll(headers);
 
-      // http.StreamedResponse response = await request.send();
-      // if (response.statusCode == 200) {
-      //   var data = await response.stream.bytesToString();
-      //   return workOrderModelFromJson(data);
-      // } else {
-      //   return response.statusCode;
-      // }
     } on Exception catch (e) {
       if (kDebugMode) {
         debugPrint('Work orders fetch Error. Reason ${e.toString()}');
@@ -311,7 +302,7 @@ class ApiServices {
 
     var headers = {
       'Authorization': 'Bearer $accessToken',
-      "HttpHeaders.contentTypeHeader": "application/json"
+      'Content-Type': 'application/json'
     };
 
     try {

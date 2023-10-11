@@ -4,14 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:jiffy/jiffy.dart';
 
-
 class MessageScreen extends StatelessWidget {
-   MessageScreen({super.key, required this.message});
+  MessageScreen({super.key, required this.message});
 
   final ChatMessage message;
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +23,17 @@ class MessageScreen extends StatelessWidget {
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.start,
           children: [
-
             Padding(
               padding: message.isSender
                   ? EdgeInsets.only(right: 14.w)
                   : EdgeInsets.only(right: 14.w),
               child: Center(
-                child: Text(
-                    Jiffy.parse(message.setTime).yMMMd
-                ),
+                child: Text(Jiffy.parse(message.setTime).yMMMd),
               ),
             ),
-
+            SizedBox(
+              height: 8.h,
+            ),
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
@@ -47,15 +42,16 @@ class MessageScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                 constraints: BoxConstraints(maxWidth: 267.w),
                 decoration: BoxDecoration(
-                    color: message.isSender? const Color(0xFFCCF7FF):const Color(0xFFF1F1F1),
+                    color: message.isSender
+                        ? const Color(0xFFCCF7FF)
+                        : const Color(0xFFF1F1F1),
                     borderRadius: BorderRadius.circular(6.r)),
                 child: HtmlWidget(
                   message.text,
                   textStyle: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xFF000000)
-                  ),
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xFF000000)),
                 ),
               ),
             ),
@@ -64,10 +60,25 @@ class MessageScreen extends StatelessWidget {
                   ? EdgeInsets.only(right: 14.w)
                   : EdgeInsets.only(right: 14.w),
               child: Text(
-                  Jiffy.parse(message.setTime).Hm,
+                Jiffy.parse(message.setTime).Hm,
                 textAlign: TextAlign.center,
               ),
             ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Padding(
+              padding: message.isSender
+                  ? EdgeInsets.only(right: 14.w)
+                  : EdgeInsets.only(right: 14.w),
+              child: Text(
+                message.name,
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            )
           ],
         )
       ],
