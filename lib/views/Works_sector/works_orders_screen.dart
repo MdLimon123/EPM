@@ -243,7 +243,7 @@ class WorksOrdersScreen extends StatelessWidget {
                                               },
                                               icon: Icon(
                                                 Icons.camera_alt,
-                                                color: AppColor.deepOrange,
+                                                color: const Color(0xFFF57F17),
                                                 size: 50.w,
                                               )),
                                           Positioned(

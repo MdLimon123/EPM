@@ -169,79 +169,43 @@ class AddImageScreen extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               color: const Color(0xFF000000)),
                         ),
+                        SizedBox(width: 190.w
+                          ,),
 
-                        SizedBox(width: 180.w,),
 
-                        SizedBox(width: 20.w,),
                         InkWell(
-                          onTap: () {
-                            showDialog(
-                                barrierDismissible: true,
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text(
-                                      'Delete Image',
-                                      style: CustomTextStyle.h1(
-                                          color: AppColor.deepOrange,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    content: Text(
-                                      'Are you sure you want to delete All Image!',
-                                      style: CustomTextStyle.h3(
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          child: Text(
-                                            'Cancel',
-                                            style: CustomTextStyle.h3(
-                                                fontWeight: FontWeight.w400),
-                                          )),
-                                      TextButton(
-                                          onPressed: () {
-                                            // _photoController.deleteImage(
-                                            //     _photoController.data[index].id,
-                                            //     index);
-                                            // Get.back();
+                          onTap: (){
 
-                                            for(var i=0; i<_photoController.data.length; i++){
+                            for(var url in _photoController.data){
+                              var image = url.url;
+                              var imageUrl =
+                                  "https://${_photoController.photoModel.hostName}/$image";
 
-                                              _photoController.deleteImage(data[i], data[i]);
+                              downloadFile(imageUrl, context);
+                            }
 
-                                            }
-                                          },
-                                          child: Text(
-                                            'Ok',
-                                            style: CustomTextStyle.h3(
-                                                fontWeight: FontWeight.w400),
-                                          )),
-                                    ],
-                                  );
-                                });
                           },
                           child: Container(
                             height: 28.h,
-                            width: 81.w,
+                            width: 100.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                 BorderRadius.all(Radius.circular(4.r)),
                                 border:
                                 Border.all(color: const Color(0xFFEB6526))),
                             child: Center(
-                              child: Text(
-                                'Delete All',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
-                                    color: const Color(0xFFEB6526)),
+                              child: Center(
+                                child: Text(
+                                  'Download All',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14.sp,
+                                      color: const Color(0xFFEB6526)),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        )
 
 
                       ],
@@ -467,18 +431,23 @@ class AddImageScreen extends StatelessWidget {
  //   }
  // }
 
+
+
   void downloadFile(String imageUrl,BuildContext context )async{
 
     var time = DateTime.now().millisecondsSinceEpoch;
 
-    var path = "/storage/emulated/0/Download/$time.jpg";
+
+
+    var path = "/storage/emulated/0/Download/$time.png";
     var file = File(path);
     var res = await get(Uri.parse(imageUrl));
     file.writeAsBytes(res.bodyBytes);
 
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: const Text('Download Complete'),
-          duration: const Duration(seconds: 10),
+          duration: const Duration(seconds: 2),
           action: SnackBarAction(
             label: '',
             onPressed: ()async{

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:epm/services/api_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,7 @@ import 'package:get/get.dart';
 
 import '../model/photo_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+
 
 
 class PhotoController extends GetxController {
@@ -38,6 +40,20 @@ class PhotoController extends GetxController {
     }
   }
 
+
+  Future<void>downloadImages(List<String> imageUrl)async{
+
+    for(var url in imageUrl){
+      try {
+        var response = await http.get(Uri.parse(url));
+        List<int> bytes = response.bodyBytes;
+        String imageName = url.split('/').last;
+        await File('path_to_save/$imageName').writeAsBytes(bytes);
+      } on Exception catch (e) {
+        print("Error downloading image: $e");
+      }
+    }
+  }
 
 
   // delete image
