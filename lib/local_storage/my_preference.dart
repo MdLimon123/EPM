@@ -12,9 +12,20 @@ class MyPreference {
     prefs.setString(Constance.accessToken, accessToken);
   }
 
-  static Future<void> setString({required String key, value}) async {
+  static Future<void> setString(
+      {required String key, required String value}) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);
+  }
+
+  static Future<void> setInt({required String key, required int value}) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setInt(key, value);
+  }
+
+  static Future<int> getInt({required String key}) async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(key) ?? (-1);
   }
 
   static Future<String> getToken() async {
@@ -49,4 +60,6 @@ class Constance {
   static String accessToken = "";
   static String isLoggedEmail = "isLoggedEmail";
   static String isLoggedPassword = "isLoggedPassword";
+  static String userId = "user_id";
+  static String role = "role";
 }
