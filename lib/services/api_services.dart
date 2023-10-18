@@ -302,7 +302,7 @@ class ApiServices {
 
     var headers = {
       'Authorization': 'Bearer $accessToken',
-      'Content-Type': 'application/json'
+      'HttpHeaders.contentTypeHeader': 'application/json'
     };
 
     try {

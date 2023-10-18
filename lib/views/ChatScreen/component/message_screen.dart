@@ -14,8 +14,7 @@ class MessageScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment:
           message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
-      crossAxisAlignment:
-          message.isSender ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -23,14 +22,7 @@ class MessageScreen extends StatelessWidget {
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: message.isSender
-                  ? EdgeInsets.only(right: 14.w)
-                  : EdgeInsets.only(right: 14.w),
-              child: Center(
-                child: Text(Jiffy.parse(message.setTime).yMMMd),
-              ),
-            ),
+
             SizedBox(
               height: 8.h,
             ),
@@ -59,9 +51,16 @@ class MessageScreen extends StatelessWidget {
               padding: message.isSender
                   ? EdgeInsets.only(right: 14.w)
                   : EdgeInsets.only(right: 14.w),
-              child: Text(
-                Jiffy.parse(message.setTime).Hm,
-                textAlign: TextAlign.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    Jiffy.parse(message.setTime).Hm,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(width: 20.w,),
+                  Text(Jiffy.parse(message.setTime).yMMMd),
+                ],
               ),
             ),
             SizedBox(

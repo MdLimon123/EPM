@@ -244,13 +244,16 @@ class WorksOrdersScreen extends StatelessWidget {
                                               icon: Icon(
                                                 Icons.camera_alt,
                                                 color: const Color(0xFFF57F17),
-                                                size: 50.w,
+                                                size: 30.w,
                                               )),
+
+
+
                                           Positioned(
                                               right: 2.w,
                                               top: 1.w,
                                               child: CircleAvatar(
-                                                radius: 16.w,
+                                                radius: 10.r,
                                                 backgroundColor: const Color(0xFFEB6526),
                                                 child: Center(
                                                   child: Text(

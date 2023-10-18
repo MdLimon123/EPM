@@ -109,7 +109,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                       });
                                     }
 
-                                    return MessageScreen(
+                                    return
+
+                                      MessageScreen(
                                         message: ChatMessage(
                                             text: result.message,
 
@@ -123,6 +125,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                             setTime:
                                                 result.createdAt.toString(),
                                             time: result.createdAt.toString()));
+
+
                                   });
                             } else if (!snapshot.hasData) {
                               return Center(

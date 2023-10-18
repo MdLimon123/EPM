@@ -44,7 +44,7 @@ dependencies:
   path: ^1.8.3
   pdf: ^3.10.4
   printing: ^5.11.0
-  http: ^1.1.0
+  http: 0.13.6
   fluttertoast: ^8.2.2
   jiffy: ^6.2.1
   path_provider: ^2.0.15
@@ -53,7 +53,9 @@ dependencies:
   easy_pdf_viewer: ^1.0.7
   change_app_package_name: ^1.1.0
   flutter_widget_from_html: ^0.10.5+3
-  image_gallery_saver: ^2.0.3
+  gallery_saver: ^2.3.2
+  badges: ^3.1.2
+
 
 
 
