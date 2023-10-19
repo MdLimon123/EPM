@@ -10,12 +10,12 @@ class ChatMessage {
   final String time;
   final String name;
   final bool isSender;
-  final bool isReceiver;
+
 
   ChatMessage({
     required this.text,
-    this.isSender = true,
-    this.isReceiver = true,
+    this.isSender = false,
+
     required this.name,
     required this.messageType,
     required this.messageStatus,

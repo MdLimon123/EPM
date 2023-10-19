@@ -2,18 +2,23 @@ import 'package:epm/views/ChatScreen/Models/chat_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:get/get.dart';
 import 'package:jiffy/jiffy.dart';
+
+import '../../../model/work_order_model.dart';
 
 class MessageScreen extends StatelessWidget {
   MessageScreen({super.key, required this.message});
 
   final ChatMessage message;
 
+
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment:
-          message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+          message.isSender ? MainAxisAlignment.start : MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
