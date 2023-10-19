@@ -18,6 +18,15 @@ class PhotoController extends GetxController {
 
   RxBool isAllChecked = false.obs;
 
+  RxList<String> selectedImages = <String>[].obs;
+
+  void addImage(String imagePath) {
+    selectedImages.add(imagePath);
+  }
+
+  void removeImage(String imagePath) {
+    selectedImages.remove(imagePath);
+  }
 
 
 // fetch image

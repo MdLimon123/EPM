@@ -76,17 +76,20 @@ class WorkOrderDetailsScreen extends StatelessWidget {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Get.toNamed(Routes.addWorkOrderScreen);
-                    },
-                    child: Text(
-                      'EST.',
-                      style: CustomTextStyle.h3(
-                          color: AppColor.textColorWhite,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
+
+                  // InkWell(
+                  //   onTap: () {
+                  //     Get.toNamed(Routes.addWorkOrderScreen);
+                  //   },
+                  //   child: Text(
+                  //     'EST.',
+                  //     style: CustomTextStyle.h3(
+                  //         color: AppColor.textColorWhite,
+                  //         fontWeight: FontWeight.w500),
+                  //   ),
+                  // ),
+
+
                   InkWell(
                     onTap: () {
                       Get.toNamed(Routes.chatScreen, arguments: data);

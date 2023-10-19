@@ -1,7 +1,8 @@
 import 'dart:async';
 
-
 import 'package:epm/controller/add_image_controller.dart';
+import 'package:epm/controller/common_controller.dart';
+import 'package:epm/local_storage/my_preference.dart';
 import 'package:epm/utils/app_image.dart';
 import 'package:epm/views/ChatScreen/Controller/chat_controller.dart';
 import 'package:epm/views/ChatScreen/Models/chat_message.dart';
@@ -22,6 +23,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _chatController = Get.put(ChatController());
+  final CommonController _commonController = Get.find<CommonController>();
 
   final _addImageController = Get.put(AddImageController());
 
@@ -29,11 +31,18 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
+    getId();
     _chatController.scrollController =
         ScrollController(initialScrollOffset: 0.0);
     _chatController.isScroll(false);
 
     super.initState();
+  }
+
+  var userId;
+
+  getId() async {
+    userId = await MyPreference.getInt(key: Constance.userId);
   }
 
   @override
@@ -49,6 +58,8 @@ class _ChatScreenState extends State<ChatScreen> {
     int id = _addImageController.id;
     //_chatController.fetchMessage(id);
 
+    print("======> user Id : ${_commonController.userId.value}");
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -61,11 +72,10 @@ class _ChatScreenState extends State<ChatScreen> {
             )),
         title: Row(
           children: [
-            CircleAvatar(
-                radius: 20.r, backgroundImage: AssetImage(AppImage.person)),
-            SizedBox(
-              width: 10.w,
-            ),
+           Text("WO# ",
+           style: TextStyle(fontSize: 18.sp,
+           fontWeight: FontWeight.w700,
+           color: const Color(0xFF000000)),),
             Text(
               orderData.workOrder,
               style: TextStyle(
@@ -81,68 +91,50 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
               child: Padding(
                   padding: EdgeInsets.only(left: 10.w),
-                  child:
+                  child: StreamBuilder<List<Chat>>(
+                      stream: _chatController.getChatMessage(id),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<Chat>> snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              controller: _chatController.scrollController,
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                var result = snapshot.data![index];
 
-                      StreamBuilder<List<Chat>>(
-                          stream: _chatController.getChatMessage(id),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<Chat>> snapshot) {
-                            if (snapshot.hasData) {
-                              return ListView.builder(
-                                  physics:
-                                      const AlwaysScrollableScrollPhysics(),
-                                  controller: _chatController.scrollController,
-                                  shrinkWrap: true,
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (context, index) {
-                                    var result = snapshot.data![index];
+                                if (index == snapshot.data!.length - 1) {
+                                  print(
+                                      "=======> scroll index $index = ${snapshot.data!.length}");
 
-                                    if (index == snapshot.data!.length - 1) {
-                                      print(
-                                          "=======> scroll index $index = ${snapshot.data!.length}");
-
-                                      Timer(const Duration(milliseconds: 100),
-                                          () {
-                                        _chatController.scrollController.jumpTo(
-                                            _chatController.scrollController
-                                                .position.maxScrollExtent);
-                                      });
-                                    }
-
-                                    return
-
-                                      MessageScreen(
-                                        message: ChatMessage(
-                                            text: result.message,
-
-                                            isSender: result.memberId == result.vendorId
-                                                ? true
-                                                : false,
-                                            messageType: ChatMessageType.text,
-                                            messageStatus:
-                                                MessageStatus.not_sent,
-                                            name: result.member.name,
-                                            setTime:
-                                                result.createdAt.toString(),
-                                            time: result.createdAt.toString()));
-
-
+                                  Timer(const Duration(milliseconds: 100), () {
+                                    _chatController.scrollController.jumpTo(
+                                        _chatController.scrollController
+                                            .position.maxScrollExtent);
                                   });
-                            } else if (!snapshot.hasData) {
-                              return Center(
-                                child: Text(
-                                  'Loading....',
-                                  style: TextStyle(fontSize: 16.sp),
-                                ),
-                              );
-                            } else {
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  color: AppColor.deepOrange,
-                                ),
-                              );
-                            }
-                          }))),
+                                }
+
+                                return MessageScreen(
+                                  message: result,
+                                  isSender: userId == result.member.id,
+                                );
+                              });
+                        } else if (!snapshot.hasData) {
+                          return Center(
+                            child: Text(
+                              'Loading....',
+                              style: TextStyle(fontSize: 16.sp),
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: AppColor.deepOrange,
+                            ),
+                          );
+                        }
+                      }))),
           Row(
             children: [
               Expanded(

@@ -156,7 +156,10 @@ class AddImageScreen extends StatelessWidget {
                             for (int i = 0;
                             i < _photoController.data.length;
                             i++) {
-                              _photoController.data[i].url = "$value";
+                              var image = _photoController.data[i].url;
+                              var imageUrl =
+                                  "https://${_photoController.photoModel.hostName}/$image";
+                              imageUrl = "$value";
                             }
                           },
                         ),
@@ -169,7 +172,7 @@ class AddImageScreen extends StatelessWidget {
                               color: const Color(0xFF000000)),
                         ),
                         SizedBox(width: 190.w
-                          ,),
+                          ),
 
 
                         InkWell(
@@ -179,8 +182,6 @@ class AddImageScreen extends StatelessWidget {
                               var image = url.url;
                               var imageUrl =
                                   "https://${_photoController.photoModel.hostName}/$image";
-
-
                               imageDownload(imageUrl, context);
                             }
 
@@ -223,6 +224,7 @@ class AddImageScreen extends StatelessWidget {
                           var image = _photoController.data[index].url;
                           var imageUrl =
                               "https://${_photoController.photoModel.hostName}/$image";
+
                           return GridTile(
                             child: InkWell(
                               onTap: () {
@@ -255,11 +257,14 @@ class AddImageScreen extends StatelessWidget {
                                               value:
                                                   _photoController.isAllChecked.value,
                                               onChanged: (value) {
-                                                _photoController.isAllChecked.value =
-                                                    value!;
-                                                image = "$value";
+                                                imageUrl = "$value";
+
+
+
                                               }),
-                                        
+
+
+
                                         IconButton(
                                             onPressed: (){
                                               // downloadImage(imageUrl, context);

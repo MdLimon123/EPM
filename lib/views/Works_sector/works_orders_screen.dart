@@ -68,6 +68,7 @@ class WorksOrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF7F8F9),
       appBar: AppBar(
         backgroundColor: AppColor.bgColor,
         title: Text(
@@ -134,7 +135,7 @@ class WorksOrdersScreen extends StatelessWidget {
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
                       decoration:
-                          BoxDecoration(color: AppColor.greyColor, boxShadow: [
+                          BoxDecoration(color: Color(0xFFFFFFFF), boxShadow: [
                         BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 1,
@@ -187,13 +188,10 @@ class WorksOrdersScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 15.w, vertical: 10.h),
                           margin: EdgeInsets.only(top: 10.h),
-                          decoration: const BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                color: Colors.white,
-                                spreadRadius: 1,
-                                blurRadius: 5,
-                                offset: Offset(0, 3))
-                          ]),
+                          decoration:  BoxDecoration(
+                            color: const Color(0xFFFFFFFF),
+                              borderRadius: BorderRadius.circular(12.r),
+                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,7 +282,7 @@ class WorksOrdersScreen extends StatelessWidget {
                                     width: 5.w,
                                   ),
                                   Text(
-                                    "Due: $date",
+                                    "Due Date: $date",
                                     style: CustomTextStyle.h2(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 18.sp,

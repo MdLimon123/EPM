@@ -13,4 +13,7 @@ class AppImage {
   static String work = "assets/image/work.png";
   static String person = "assets/image/person.jpg";
   static String workOrderIcon = "assets/image/workordericon.png";
+  static String readyForWork = "assets/image/readyforwork.png";
+  static String calender = "assets/image/calendar.png";
+  static String totalProject = "assets/image/totalProject.png";
 }
