@@ -134,14 +134,15 @@ class WorksOrdersScreen extends StatelessWidget {
                       height: 80.h,
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      decoration:
-                          BoxDecoration(color: Color(0xFFFFFFFF), boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(0, 1))
-                      ]),
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFFFFFFF),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(0, 1))
+                          ]),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -170,6 +171,30 @@ class WorksOrdersScreen extends StatelessWidget {
                                 onChanged: (value) {
                                   workOrderController
                                       .setSelectedValue('$value');
+                                  switch (value) {
+                                    case "Expired":
+                                      {
+                                        print("expired");
+                                        workOrderController.sortAfterDay(
+                                            3, true);
+                                      }
+                                      break;
+                                    case "3 days":
+                                      workOrderController.sortAfterDay(
+                                          3, false);
+                                      break;
+                                    case "7 days":
+                                      workOrderController.sortAfterDay(
+                                          7, false);
+                                      break;
+                                    case "15 days":
+                                      workOrderController.sortAfterDay(
+                                          15, false);
+                                    case "more then 15 days":
+                                      workOrderController.sortAfterDay(
+                                          15, true);
+                                      break;
+                                  }
                                 }),
                           ),
                           //  )
@@ -178,9 +203,15 @@ class WorksOrdersScreen extends StatelessWidget {
                   Expanded(
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: workOrderController.searchData.length,
+                      itemCount:
+                          workOrderController.searchController.text.isNotEmpty
+                              ? workOrderController.searchData.length
+                              : workOrderController.afterDayList.length,
                       itemBuilder: (context, index) {
-                        var item = workOrderController.searchData[index];
+                        var item =
+                            workOrderController.searchController.text.isNotEmpty
+                                ? workOrderController.searchData[index]
+                                : workOrderController.afterDayList[index];
                         var date =
                             Jiffy.parse('${item.contractorDueDate}').yMMMd;
                         return Container(
@@ -188,10 +219,10 @@ class WorksOrdersScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 15.w, vertical: 10.h),
                           margin: EdgeInsets.only(top: 10.h),
-                          decoration:  BoxDecoration(
+                          decoration: BoxDecoration(
                             color: const Color(0xFFFFFFFF),
-                              borderRadius: BorderRadius.circular(12.r),
-                           ),
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,22 +275,23 @@ class WorksOrdersScreen extends StatelessWidget {
                                                 color: const Color(0xFFF57F17),
                                                 size: 30.w,
                                               )),
-
-
-
                                           Positioned(
                                               right: 2.w,
                                               top: 1.w,
                                               child: CircleAvatar(
                                                 radius: 10.r,
-                                                backgroundColor: const Color(0xFFEB6526),
+                                                backgroundColor:
+                                                    const Color(0xFFEB6526),
                                                 child: Center(
                                                   child: Text(
-                                                    item.photos.length.toString(),
+                                                    item.photos.length
+                                                        .toString(),
                                                     style: TextStyle(
-                                                        fontWeight: FontWeight.w500,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                         fontSize: 12.sp,
-                                                        color: const Color(0xFFFFFFFF)),
+                                                        color: const Color(
+                                                            0xFFFFFFFF)),
                                                   ),
                                                 ),
                                               ))

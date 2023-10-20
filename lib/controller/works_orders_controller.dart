@@ -13,6 +13,7 @@ class WorksOrderController extends GetxController {
   late WorkOrderModel workOrderModel;
 
   RxList<Data> data = <Data>[].obs;
+  RxList<Data> afterDayList = <Data>[].obs;
 
   RxList<Data> searchData = <Data>[].obs;
 
@@ -24,6 +25,19 @@ class WorksOrderController extends GetxController {
     '15 days',
     'more then 15 days'
   ];
+
+  sortAfterDay(int day, bool isExperd) {
+    searchController.clear();
+    DateTime dayAgo = DateTime.now().subtract(Duration(days: day));
+    List<Data> result = data.value.where((element) {
+      return isExperd
+          ? element.createdAt.isAfter(dayAgo)
+          : element.createdAt.isBefore(dayAgo);
+    }).toList();
+    afterDayList.value = result;
+    print("========> after list = ${result.length}");
+    afterDayList.refresh();
+  }
 
   void setSelectedValue(String value) {
     selectedValue.value = value;
@@ -49,6 +63,7 @@ class WorksOrderController extends GetxController {
       } else {
         workOrderModel = result;
         data.value = workOrderModel.data;
+        afterDayList.value = workOrderModel.data;
 
         if (kDebugMode) {
           print(workOrderModel);
@@ -73,11 +88,11 @@ class WorksOrderController extends GetxController {
 
   void searchWork(String workOrder) {
     List<Data> result = <Data>[].obs;
-
     if (workOrder.isEmpty) {
-      result = data;
+      result = afterDayList;
+      afterDayList.refresh();
     } else {
-      result = data
+      result = afterDayList
           .where((element) => element.workType.name
               .toString()
               .toLowerCase()
@@ -85,5 +100,6 @@ class WorksOrderController extends GetxController {
           .toList();
     }
     searchData.value = result;
+    searchData.refresh();
   }
 }

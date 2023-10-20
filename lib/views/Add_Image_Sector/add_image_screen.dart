@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:epm/utils/app_color.dart';
@@ -15,7 +14,6 @@ import 'package:get/get.dart';
 import '../../controller/add_image_controller.dart';
 import '../../controller/photo_controller.dart';
 
-
 class AddImageScreen extends StatelessWidget {
   AddImageScreen({super.key});
 
@@ -24,8 +22,6 @@ class AddImageScreen extends StatelessWidget {
   final _photoController = Get.put(PhotoController());
 
   final Map<String, dynamic> data = Get.arguments;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,403 +34,271 @@ class AddImageScreen extends StatelessWidget {
     return Scaffold(
       appBar: _appBar(context),
       body: Obx(() => _photoController.isLoading.value
-              ? Center(
-                  child: CircularProgressIndicator(
-                    color: AppColor.deepOrange,
-                  ),
-                )
-              : Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          ? Center(
+              child: CircularProgressIndicator(
+                color: AppColor.deepOrange,
+              ),
+            )
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   children: [
-                    // ListTile(
-                    //     onTap: () {
-                    //       // _photoController.isAllChecked.value =
-                    //       //     !_photoController.isAllChecked.value;
-                    //     },
-                    //     dense: true,
-                    //     title: Text(
-                    //       'Select All',
-                    //       style: TextStyle(
-                    //           fontSize: 18.sp,
-                    //           fontWeight: FontWeight.w500,
-                    //           color: const Color(0xFF000000)),
-                    //     ),
-                    //     trailing: InkWell(
-                    //       onTap: () {
-                    //         showDialog(
-                    //             barrierDismissible: true,
-                    //             context: context,
-                    //             builder: (context) {
-                    //               return AlertDialog(
-                    //                 title: Text(
-                    //                   'Delete Image',
-                    //                   style: CustomTextStyle.h1(
-                    //                       color: AppColor.deepOrange,
-                    //                       fontWeight: FontWeight.w600),
-                    //                 ),
-                    //                 content: Text(
-                    //                   'Are you sure you want to delete All Image!',
-                    //                   style: CustomTextStyle.h3(
-                    //                       fontWeight: FontWeight.w400),
-                    //                 ),
-                    //                 actions: [
-                    //                   TextButton(
-                    //                       onPressed: () {
-                    //                         Get.back();
-                    //                       },
-                    //                       child: Text(
-                    //                         'Cancel',
-                    //                         style: CustomTextStyle.h3(
-                    //                             fontWeight: FontWeight.w400),
-                    //                       )),
-                    //                   TextButton(
-                    //                       onPressed: () {
-                    //                         // _photoController.deleteImage(
-                    //                         //     _photoController.data[index].id,
-                    //                         //     index);
-                    //                         // Get.back();
-                    //
-                    //                         for(var i=0; i<_photoController.data.length; i++){
-                    //                           _photoController.deleteImage(data[i], data[i]);
-                    //
-                    //                         }
-                    //                       },
-                    //                       child: Text(
-                    //                         'Ok',
-                    //                         style: CustomTextStyle.h3(
-                    //                             fontWeight: FontWeight.w400),
-                    //                       )),
-                    //                 ],
-                    //               );
-                    //             });
-                    //       },
-                    //       child: Container(
-                    //         height: 28.h,
-                    //         width: 81.w,
-                    //         decoration: BoxDecoration(
-                    //             borderRadius:
-                    //                 BorderRadius.all(Radius.circular(4.r)),
-                    //             border:
-                    //                 Border.all(color: const Color(0xFFEB6526))),
-                    //         child: Center(
-                    //           child: Text(
-                    //             'Delete All',
-                    //             style: TextStyle(
-                    //                 fontWeight: FontWeight.w500,
-                    //                 fontSize: 14.sp,
-                    //                 color: const Color(0xFFEB6526)),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     leading: Checkbox(
-                    //       focusColor: AppColor.deepOrange,
-                    //         checkColor: Colors.white,
-                    //         activeColor: AppColor.deepOrange,
-                    //         value: _photoController.isAllChecked.value,
-                    //         onChanged: (value) {
-                    //           _photoController.isAllChecked.value = value!;
-                    //           for (int i = 0;
-                    //               i < _photoController.data.length;
-                    //               i++) {
-                    //             _photoController.data[i].url = "$value";
-                    //           }
-                    //         },
-                    //       ),
-                    //     ),
-
-                    Row(
-                      children: [
-                        Checkbox(
-                          focusColor: AppColor.deepOrange,
-                          checkColor: Colors.white,
-                          activeColor: AppColor.deepOrange,
-                          value: _photoController.isAllChecked.value,
-                          onChanged: (value) {
-                            _photoController.isAllChecked.value = value!;
-                            for (int i = 0;
-                            i < _photoController.data.length;
-                            i++) {
-                              var image = _photoController.data[i].url;
-                              var imageUrl =
-                                  "https://${_photoController.photoModel.hostName}/$image";
-                              imageUrl = "$value";
-                            }
-                          },
-                        ),
-                        //SizedBox(width: 5.w,),
-                        Text(
-                          'Select All',
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xFF000000)),
-                        ),
-                        SizedBox(width: 190.w
-                          ),
-
-
-                        InkWell(
-                          onTap: (){
-
-                            for(var url in _photoController.data){
-                              var image = url.url;
-                              var imageUrl =
-                                  "https://${_photoController.photoModel.hostName}/$image";
-                              imageDownload(imageUrl, context);
-                            }
-
-                          },
-                          child: Container(
-                            height: 28.h,
-                            width: 100.w,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(4.r)),
-                                border:
-                                Border.all(color: const Color(0xFFEB6526))),
-                            child: Center(
-                              child: Center(
-                                child: Text(
-                                  'Download All',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14.sp,
-                                      color: const Color(0xFFEB6526)),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-
-
-                      ],
-                    ),
-                    Expanded(
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 15.w,
-                            mainAxisSpacing: 23,
-                            mainAxisExtent: 300.h
-                        ),
-                        itemCount: _photoController.data.length,
-                        itemBuilder: (context, index) {
-                          var image = _photoController.data[index].url;
+                    Checkbox(
+                      focusColor: AppColor.deepOrange,
+                      checkColor: Colors.white,
+                      activeColor: AppColor.deepOrange,
+                      value: _photoController.isAllChecked.value,
+                      onChanged: (value) {
+                        _photoController.isAllChecked.value = value!;
+                        for (int i = 0; i < _photoController.data.length; i++) {
+                          var image = _photoController.data[i].url;
                           var imageUrl =
                               "https://${_photoController.photoModel.hostName}/$image";
+                          imageUrl = "$value";
+                        }
+                      },
+                    ),
+                    //SizedBox(width: 5.w,),
+                    Text(
+                      'Select All',
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xFF000000)),
+                    ),
+                    SizedBox(width: 190.w),
 
-                          return GridTile(
-                            child: InkWell(
-                              onTap: () {
-                                Get.to(ImageDetailsScreen(image: imageUrl));
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                margin: EdgeInsets.all(10.w),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 5.0,
-                                          spreadRadius: 1.0,
-                                          offset: Offset(1.0, 1.0))
-                                    ]),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                    InkWell(
+                      onTap: () {
+                        for (var url in _photoController.data) {
+                          var image = url.url;
+                          var imageUrl =
+                              "https://${_photoController.photoModel.hostName}/$image";
+                          imageDownload(imageUrl, context);
+                        }
+                      },
+                      child: Container(
+                        height: 28.h,
+                        width: 100.w,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.r)),
+                            border: Border.all(color: const Color(0xFFEB6526))),
+                        child: Center(
+                          child: Center(
+                            child: Text(
+                              'Download All',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.sp,
+                                  color: const Color(0xFFEB6526)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 15.w,
+                        mainAxisSpacing: 23,
+                        mainAxisExtent: 300.h),
+                    itemCount: _photoController.data.length,
+                    itemBuilder: (context, index) {
+                      var image = _photoController.data[index].url;
+                      var imageUrl =
+                          "https://${_photoController.photoModel.hostName}/$image";
+
+                      return GridTile(
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(ImageDetailsScreen(image: imageUrl));
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            margin: EdgeInsets.all(10.w),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8.r),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.grey,
+                                      blurRadius: 5.0,
+                                      spreadRadius: 1.0,
+                                      offset: Offset(1.0, 1.0))
+                                ]),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Checkbox(
-                                            focusColor: AppColor.deepOrange,
-                                            checkColor: Colors.white,
-                                            activeColor: AppColor.deepOrange,
-                                              value:
-                                                  _photoController.isAllChecked.value,
-                                              onChanged: (value) {
-                                                imageUrl = "$value";
+                                    Checkbox(
+                                        focusColor: AppColor.deepOrange,
+                                        checkColor: Colors.white,
+                                        activeColor: AppColor.deepOrange,
+                                        value:
+                                            _photoController.isAllChecked.value,
+                                        onChanged: (value) {
+                                          imageUrl = "$value";
+                                        }),
+                                    IconButton(
+                                        onPressed: () {
+                                          // downloadImage(imageUrl, context);
 
-
-
-                                              }),
-
-
-
-                                        IconButton(
-                                            onPressed: (){
-                                              // downloadImage(imageUrl, context);
-
-                                              imageDownload(imageUrl, context);
-                                            },
-                                            icon: const Icon(Icons.download))
-                                      ],
-                                    ),
-                                    Expanded(
-                                      child: CachedNetworkImage(
-                                        imageUrl: imageUrl,
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.r),
-                                              image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover)),
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            const Center(child: Icon(Icons.error)),
-                                        placeholder: (context, url) => Center(
-                                            child: CircularProgressIndicator(
-                                          color: AppColor.deepOrange,
-                                        )),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10.w),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Remove photo",
-                                            style: TextStyle(
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: const Color(0xFF000000)),
-                                          ),
-                                          InkWell(
-                                              onTap: () {
-                                                // _photoController.deleteImage(
-                                                //     _photoController.data[index].id, index);
-                                                showDialog(
-                                                    barrierDismissible: true,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return AlertDialog(
-                                                        title: Text(
-                                                          'Delete Image',
-                                                          style: CustomTextStyle.h1(
-                                                              color: AppColor
-                                                                  .deepOrange,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
-                                                        ),
-                                                        content: Text(
-                                                          'Are you sure you want to delete Image!',
-                                                          style: CustomTextStyle
-                                                              .h3(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400),
-                                                        ),
-                                                        actions: [
-                                                          TextButton(
-                                                              onPressed: () {
-                                                                Get.back();
-                                                              },
-                                                              child: Text(
-                                                                'Cancel',
-                                                                style: CustomTextStyle.h3(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400),
-                                                              )),
-                                                          TextButton(
-                                                              onPressed: () {
-                                                                _photoController
-                                                                    .deleteImage(
-                                                                        _photoController
-                                                                            .data[index]
-                                                                            .id,
-                                                                        index);
-                                                                Get.back();
-                                                              },
-                                                              child: Text(
-                                                                'Ok',
-                                                                style: CustomTextStyle.h3(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400),
-                                                              )),
-                                                        ],
-                                                      );
-                                                    });
-                                              },
-                                              child: Container(
-                                                  height: 35.h,
-                                                  width: 35.w,
-                                                  margin: EdgeInsets.only(
-                                                      left: 15.w,
-                                                      top: 15.w,
-                                                      bottom: 5.w),
-                                                  decoration: BoxDecoration(
-                                                      color:
-                                                          AppColor.deepOrange,
-                                                      shape: BoxShape.circle),
-                                                  child: Icon(
-                                                    Icons.delete,
-                                                    color:
-                                                        AppColor.textColorWhite,
-                                                  ))),
-                                        ],
-                                      ),
-                                    )
+                                          imageDownload(imageUrl, context);
+                                        },
+                                        icon: const Icon(Icons.download))
                                   ],
                                 ),
-                              ),
+                                Expanded(
+                                  child: CachedNetworkImage(
+                                    imageUrl: imageUrl,
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8.r),
+                                          image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover)),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const Center(child: Icon(Icons.error)),
+                                    placeholder: (context, url) => Center(
+                                        child: CircularProgressIndicator(
+                                      color: AppColor.deepOrange,
+                                    )),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Remove photo",
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xFF000000)),
+                                      ),
+                                      InkWell(
+                                          onTap: () {
+                                            // _photoController.deleteImage(
+                                            //     _photoController.data[index].id, index);
+                                            showDialog(
+                                                barrierDismissible: true,
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                      'Delete Image',
+                                                      style: CustomTextStyle.h1(
+                                                          color: AppColor
+                                                              .deepOrange,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                    content: Text(
+                                                      'Are you sure you want to delete Image!',
+                                                      style: CustomTextStyle.h3(
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            Get.back();
+                                                          },
+                                                          child: Text(
+                                                            'Cancel',
+                                                            style: CustomTextStyle.h3(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
+                                                          )),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            _photoController
+                                                                .deleteImage(
+                                                                    _photoController
+                                                                        .data[
+                                                                            index]
+                                                                        .id,
+                                                                    index);
+                                                            Get.back();
+                                                          },
+                                                          child: Text(
+                                                            'Ok',
+                                                            style: CustomTextStyle.h3(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
+                                                          )),
+                                                    ],
+                                                  );
+                                                });
+                                          },
+                                          child: Container(
+                                              height: 35.h,
+                                              width: 35.w,
+                                              margin: EdgeInsets.only(
+                                                  left: 15.w,
+                                                  top: 15.w,
+                                                  bottom: 5.w),
+                                              decoration: BoxDecoration(
+                                                  color: AppColor.deepOrange,
+                                                  shape: BoxShape.circle),
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: AppColor.textColorWhite,
+                                              ))),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                )
-
-      ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            )),
     );
   }
 
-
-
-
-  void imageDownload(String imageUrl, BuildContext context)async{
-
-
+  void imageDownload(String imageUrl, BuildContext context) async {
     try {
       String path = imageUrl;
-      await GallerySaver.saveImage(path,
-          albumName: 'Downloads Photos').then(( success) {
-        if(success != null && success ){
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: const Text('Download Complete'),
-                duration: const Duration(seconds: 2),
-                action: SnackBarAction(
-                  label: '',
-                  onPressed: ()async{
-
-
-                  },
-                ),)
-          );
+      await GallerySaver.saveImage(path, albumName: 'Downloads Photos')
+          .then((success) {
+        if (success != null && success) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: const Text('Download Complete'),
+            duration: const Duration(seconds: 2),
+            action: SnackBarAction(
+              label: '',
+              onPressed: () async {},
+            ),
+          ));
         }
       });
     } on Exception catch (e) {
       print('Error while saving image : $e');
     }
-
-
-
   }
-
-
 
   _appBar(BuildContext context) {
     return AppBar(
