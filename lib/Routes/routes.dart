@@ -1,15 +1,18 @@
 import 'package:epm/views/Add_Image_Sector/add_image_screen.dart';
-import 'package:epm/views/Add_Image_Sector/image_details_screen.dart';
+
 
 import 'package:epm/views/Auth_Sector/login_screen.dart';
 import 'package:epm/views/ChatScreen/chat_screen.dart';
 import 'package:epm/views/Dashboard/main_dashborad_screen.dart';
 import 'package:epm/views/Document_Sector/document_screen.dart';
 
-import 'package:epm/views/Works_Sector/add_work_orders_screen.dart';
+
 import 'package:epm/views/Works_Sector/work_order_details_screen.dart';
 import 'package:epm/views/Works_Sector/works_orders_screen.dart';
 import 'package:get/get.dart';
+
+import '../views/Add_Work_List/add_work_orders_screen.dart';
+import '../views/Add_Work_List/work_add_screen.dart';
 
 class Routes {
   static String loginScreen = "/loginScreen";
@@ -22,6 +25,7 @@ class Routes {
   static String mainDashboardScreen = "/mainDashboardScreen";
   static String imageDetailsScreen = "/imageDetailsScreen";
   static String chatScreen = "/chatScreen";
+  static String workAddScreen = "/workAddScreen";
 }
 
 List<GetPage> getPage = [
@@ -34,5 +38,6 @@ List<GetPage> getPage = [
   GetPage(name: Routes.addWorkOrderScreen, page: () => AddWorkOrderScreen()),
   GetPage(name: Routes.documentScreen, page: () => DocumentScreen()),
   GetPage(name: Routes.mainDashboardScreen, page: () => MainDashboardScreen()),
-  GetPage(name: Routes.chatScreen, page: () => ChatScreen())
+  GetPage(name: Routes.chatScreen, page: () => ChatScreen()),
+  GetPage(name: Routes.workAddScreen, page: ()=> WorkAddScreen())
 ];

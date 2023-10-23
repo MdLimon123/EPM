@@ -1,14 +1,9 @@
-import 'dart:io';
-
 import 'package:epm/services/api_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/photo_model.dart';
-import 'package:http/http.dart' as http;
-
-
 
 class PhotoController extends GetxController {
   var isLoading = false.obs;
@@ -16,17 +11,9 @@ class PhotoController extends GetxController {
   late PhotoModel photoModel;
   RxList<Datum> data = <Datum>[].obs;
 
-  RxBool isAllChecked = false.obs;
 
-  RxList<String> selectedImages = <String>[].obs;
 
-  void addImage(String imagePath) {
-    selectedImages.add(imagePath);
-  }
-
-  void removeImage(String imagePath) {
-    selectedImages.remove(imagePath);
-  }
+  var isAllSelectedData = false.obs;
 
 
 // fetch image
@@ -38,9 +25,11 @@ class PhotoController extends GetxController {
         debugPrint('Photo Error :$result');
       } else {
         photoModel = result;
-        data.value =photoModel.data;
+        data.value = photoModel.data;
+        data.value.forEach((element) {
+          print(element.isSelected);
+        });
         debugPrint(photoModel.toString());
-
       }
     } on Exception catch (e) {
       debugPrint("Fetch error : $e");
@@ -50,20 +39,29 @@ class PhotoController extends GetxController {
   }
 
 
-  Future<void>downloadImages(List<String> imageUrl)async{
 
-    for(var url in imageUrl){
-      try {
-        var response = await http.get(Uri.parse(url));
-        List<int> bytes = response.bodyBytes;
-        String imageName = url.split('/').last;
-        await File('path_to_save/$imageName').writeAsBytes(bytes);
-      } on Exception catch (e) {
-        print("Error downloading image: $e");
-      }
+  isSelected(int index, bool dataSelected) {
+    data.value[index].isSelected = !dataSelected;
+
+    data.refresh();
+  }
+
+  isAllSelected() {
+    for (var i = 0; i < data.value.length; i++) {
+      data.value[i].isSelected = true;
+      isAllSelectedData.value = true;
+      print(data.value[i].isSelected);
+      data.refresh();
     }
   }
 
+  isAllUnSelected() {
+    for (var i = 0; i < data.value.length; i++) {
+      data.value[i].isSelected = false;
+      isAllSelectedData.value = false;
+      data.refresh();
+    }
+  }
 
   // delete image
   Future<void> deleteImage(int id, int index) async {
@@ -74,7 +72,7 @@ class PhotoController extends GetxController {
           print('Delete Failed : $result');
         }
       } else {
-         data.removeAt(index);
+        data.removeAt(index);
 
         Get.snackbar('Delete Image', 'Success', backgroundColor: Colors.white);
       }
@@ -84,7 +82,4 @@ class PhotoController extends GetxController {
       }
     }
   }
-
-
-
 }

@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:epm/model/photo_model.dart';
+
 
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
@@ -14,14 +16,22 @@ import 'package:get/get.dart';
 import '../../controller/add_image_controller.dart';
 import '../../controller/photo_controller.dart';
 
-class AddImageScreen extends StatelessWidget {
+
+class AddImageScreen extends StatefulWidget {
   AddImageScreen({super.key});
 
+  @override
+  State<AddImageScreen> createState() => _AddImageScreenState();
+}
+
+class _AddImageScreenState extends State<AddImageScreen> {
   final _addImageController = Get.put(AddImageController());
 
   final _photoController = Get.put(PhotoController());
 
   final Map<String, dynamic> data = Get.arguments;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +59,12 @@ class AddImageScreen extends StatelessWidget {
                       focusColor: AppColor.deepOrange,
                       checkColor: Colors.white,
                       activeColor: AppColor.deepOrange,
-                      value: _photoController.isAllChecked.value,
+                      value: _photoController.isAllSelectedData.value,
                       onChanged: (value) {
-                        _photoController.isAllChecked.value = value!;
-                        for (int i = 0; i < _photoController.data.length; i++) {
-                          var image = _photoController.data[i].url;
-                          var imageUrl =
-                              "https://${_photoController.photoModel.hostName}/$image";
-                          imageUrl = "$value";
+                        if (_photoController.isAllSelectedData.value) {
+                          _photoController.isAllUnSelected();
+                        } else {
+                          _photoController.isAllSelected();
                         }
                       },
                     ),
@@ -64,37 +72,74 @@ class AddImageScreen extends StatelessWidget {
                     Text(
                       'Select All',
                       style: TextStyle(
-                          fontSize: 18.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
                           color: const Color(0xFF000000)),
                     ),
-                    SizedBox(width: 190.w),
+                    SizedBox(width: 70.w),
 
+                          InkWell(
+                            onTap: () async{
+
+                              for(var i=0; i<_photoController.data.value.length - 1; i++){
+                                var image = _photoController.data.value[i].url;
+                                var imageUrl =  "https://${_photoController.photoModel.hostName}/$image";
+                                if(_photoController.data.value[i].isSelected == true){
+                                  await imageDownloadOneByOne(imageUrl, context, _photoController.data.value[i].isSelected);
+                                }
+
+                              }
+
+                            },
+                            child: Container(
+                              height: 28.h,
+                              width: 100.w,
+
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(4.r)),
+                                  border: Border.all(color: const Color(0xFF000000))),
+                              child: Center(
+                                child: Text(
+                                  'Download',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14.sp,
+                                      color: const Color(0xFF000000)),
+                                ),
+                              ),
+                            ),
+                          ),
+
+
+
+
+                    SizedBox(width: 10.h,),
                     InkWell(
                       onTap: () {
                         for (var url in _photoController.data) {
                           var image = url.url;
                           var imageUrl =
                               "https://${_photoController.photoModel.hostName}/$image";
+
                           imageDownload(imageUrl, context);
                         }
                       },
                       child: Container(
                         height: 28.h,
                         width: 100.w,
+
                         decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(4.r)),
-                            border: Border.all(color: const Color(0xFFEB6526))),
+                            border: Border.all(color: const Color(0xFF000000))),
                         child: Center(
-                          child: Center(
-                            child: Text(
-                              'Download All',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                  color: const Color(0xFFEB6526)),
-                            ),
+                          child: Text(
+                            'Download All',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                                color: const Color(0xFF000000)),
                           ),
                         ),
                       ),
@@ -144,15 +189,20 @@ class AddImageScreen extends StatelessWidget {
                                         focusColor: AppColor.deepOrange,
                                         checkColor: Colors.white,
                                         activeColor: AppColor.deepOrange,
-                                        value:
-                                            _photoController.isAllChecked.value,
+                                        value: _photoController
+                                            .data.value[index].isSelected,
                                         onChanged: (value) {
-                                          imageUrl = "$value";
+                                          if (_photoController
+                                                  .isAllSelectedData.value !=
+                                              true) {
+                                            _photoController.isSelected(
+                                                index,
+                                                _photoController.data
+                                                    . value[index].isSelected!);
+                                          }
                                         }),
                                     IconButton(
                                         onPressed: () {
-                                          // downloadImage(imageUrl, context);
-
                                           imageDownload(imageUrl, context);
                                         },
                                         icon: const Icon(Icons.download))
@@ -194,8 +244,6 @@ class AddImageScreen extends StatelessWidget {
                                       ),
                                       InkWell(
                                           onTap: () {
-                                            // _photoController.deleteImage(
-                                            //     _photoController.data[index].id, index);
                                             showDialog(
                                                 barrierDismissible: true,
                                                 context: context,
@@ -279,6 +327,27 @@ class AddImageScreen extends StatelessWidget {
     );
   }
 
+   imageDownloadOneByOne(String imageUrl, BuildContext context, bool? isSelected) async {
+    try {
+      String path = imageUrl;
+      await GallerySaver.saveImage(path, albumName: 'Downloads Photos')
+          .then((success) {
+        if (success != null && success) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: const Text('Download Complete'),
+            duration: const Duration(seconds: 2),
+            action: SnackBarAction(
+              label: '',
+              onPressed: () async {},
+            ),
+          ));
+        }
+      });
+    } on Exception catch (e) {
+      debugPrint('Error while saving image : $e');
+    }
+  }
+
   void imageDownload(String imageUrl, BuildContext context) async {
     try {
       String path = imageUrl;
@@ -296,27 +365,26 @@ class AddImageScreen extends StatelessWidget {
         }
       });
     } on Exception catch (e) {
-      print('Error while saving image : $e');
+      debugPrint('Error while saving image : $e');
     }
   }
 
   _appBar(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColor.bgColor,
+      backgroundColor: const Color(0xFFFFFFFF),
       leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
-            color: AppColor.textColorWhite,
+            color: Color(0xFF000000),
           )),
       title: Text(
         'Photos',
-        style: CustomTextStyle.h1(
-            color: AppColor.textColorWhite,
-            fontSize: 22.sp,
-            fontWeight: FontWeight.w600),
+     style: CustomTextStyle.h1(color: const Color(0xFFEB6526),
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w600),
       ),
       centerTitle: true,
       actions: [
@@ -403,7 +471,7 @@ class AddImageScreen extends StatelessWidget {
             },
             icon: Icon(
               Icons.adaptive.more,
-              color: AppColor.textColorWhite,
+              color: const Color(0xFF000000),
             ))
       ],
     );

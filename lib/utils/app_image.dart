@@ -16,4 +16,5 @@ class AppImage {
   static String readyForWork = "assets/image/readyforwork.png";
   static String calender = "assets/image/calendar.png";
   static String totalProject = "assets/image/totalProject.png";
+  static String pdf1 = "assets/image/pdf1.png";
 }

@@ -17,10 +17,13 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColor.bgColor,
+        backgroundColor:const Color(0xFFFFFFFF),
+        automaticallyImplyLeading: false,
         title: Text(
           'User Login',
-          style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+          style: CustomTextStyle.h1(color: const Color(0xFFEB6526),
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -35,7 +38,9 @@ class LoginScreen extends StatelessWidget {
               children: [
                 Text(
                   'Email',
-                  style: CustomTextStyle.h3(color: AppColor.deepOrange),
+                  style: CustomTextStyle.h3(color: const Color(0xFFAAAAAA),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16.sp),
                 ),
                 SizedBox(
                   height: 15.h,
@@ -58,7 +63,9 @@ class LoginScreen extends StatelessWidget {
                 ),
                 Text(
                   'Password',
-                  style: CustomTextStyle.h3(color: AppColor.deepOrange),
+                  style: CustomTextStyle.h3(color: const Color(0xFFAAAAAA),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.sp),
                 ),
                 SizedBox(
                   height: 15.h,

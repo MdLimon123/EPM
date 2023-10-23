@@ -36,6 +36,7 @@ class Datum {
     int id;
     String photo;
     String? url;
+    bool isSelected;
     String workOrderId;
     String vendorId;
     DateTime createdAt;
@@ -45,6 +46,7 @@ class Datum {
         required this.id,
         required this.photo,
         this.url,
+        this.isSelected= false,
         required this.workOrderId,
         required this.vendorId,
         required this.createdAt,

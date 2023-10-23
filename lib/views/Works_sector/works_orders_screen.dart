@@ -68,30 +68,33 @@ class WorksOrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF7F8F9),
+      backgroundColor: const Color(0xFFF7F8F9),
       appBar: AppBar(
-        backgroundColor: AppColor.bgColor,
+        backgroundColor: const Color(0xFFFFFFFF),
         title: Text(
           'Work Orders',
-          style: CustomTextStyle.h1(color: AppColor.textColorWhite),
+          style: CustomTextStyle.h1(color: const Color(0xFFEB6526),
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
               Get.back();
+
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
-              color: AppColor.textColorWhite,
+              color: Color(0xFF000000),
             )),
         actions: [
           IconButton(
               onPressed: () {
                 _logout(context);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.logout,
-                color: AppColor.textColorWhite,
+                color: Color(0xFF000000),
               ))
         ],
         bottom: PreferredSize(
@@ -106,17 +109,17 @@ class WorksOrdersScreen extends StatelessWidget {
                   constraints: BoxConstraints(maxHeight: 60.h),
                   hintText: 'Search',
                   hintStyle: CustomTextStyle.h2(
-                      color: AppColor.textColorWhite,
+                      color: Colors.grey.shade700,
                       fontWeight: FontWeight.w500),
-                  suffixIcon: Icon(
+                  prefixIcon: Icon(
                     Icons.search,
-                    color: AppColor.textColorWhite,
+                      color: Colors.grey.shade700,
                   ),
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.textColorWhite),
+                      borderSide: BorderSide(color: Colors.grey.shade400,),
                       borderRadius: BorderRadius.circular(4.r)),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.textColorWhite))),
+                      borderSide: BorderSide(color: Colors.grey.shade400,))),
             ),
           ),
         ),

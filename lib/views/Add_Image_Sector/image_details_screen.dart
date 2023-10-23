@@ -1,3 +1,4 @@
+import 'package:epm/utils/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,19 +17,19 @@ final String image;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  AppBar(
-        backgroundColor: AppColor.bgColor,
+        backgroundColor: const Color(0xFFF7F8F9),
         leading: IconButton(
             onPressed: () {
               Get.back();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
-              color: AppColor.textColorWhite,
+              color: Color(0xFF000000),
             )),
         title: Text(
           'Image',
-          style: CustomTextStyle.h1(color: AppColor.textColorWhite,
-              fontSize: 22.sp,
+          style: CustomTextStyle.h1(color: const Color(0xFFEB6526),
+              fontSize: 20.sp,
               fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
@@ -54,20 +55,22 @@ final String image;
             ),
             SizedBox(height: 10.h,),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Date Due:',
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF000000)
-                ),),
-
+               Container(
+                 height: 45.h,
+                 width: 45.h,
+                 decoration:  BoxDecoration(
+                   shape: BoxShape.circle,
+                   color: const Color(0xFFEB6526),
+                   image: DecorationImage(image: AssetImage(AppImage.calender))
+                 ),
+               ),
+                SizedBox(width: 5.w,),
                 Text('03-10-2023',
                   style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
-                      color: const Color(0xFF6A6868)
+                      color: const Color(0xFF000000)
                   ),)
               ],
             )
