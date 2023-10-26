@@ -1,18 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:epm/model/photo_model.dart';
-
-
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Add_Image_Sector/image_details_screen.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-
 import 'package:get/get.dart';
-
+import 'package:path/path.dart';
 import '../../controller/add_image_controller.dart';
 import '../../controller/photo_controller.dart';
 
@@ -33,6 +28,8 @@ class _AddImageScreenState extends State<AddImageScreen> {
 
 
 
+
+
   @override
   Widget build(BuildContext context) {
     _addImageController.id = data["id"];
@@ -40,6 +37,8 @@ class _AddImageScreenState extends State<AddImageScreen> {
 
     int id = _addImageController.id;
     _photoController.getPhoto(id);
+
+
 
     return Scaffold(
       appBar: _appBar(context),
@@ -78,14 +77,15 @@ class _AddImageScreenState extends State<AddImageScreen> {
                     ),
                     SizedBox(width: 70.w),
 
+                          _photoController.isVisible.value.isNotEmpty?
                           InkWell(
                             onTap: () async{
 
-                              for(var i=0; i<_photoController.data.value.length - 1; i++){
+                              for(var i=0; i<_photoController.data.value.length; i++){
                                 var image = _photoController.data.value[i].url;
                                 var imageUrl =  "https://${_photoController.photoModel.hostName}/$image";
                                 if(_photoController.data.value[i].isSelected == true){
-                                  await imageDownloadOneByOne(imageUrl, context, _photoController.data.value[i].isSelected);
+                                  await imageDownload(imageUrl, context);
                                 }
 
                               }
@@ -94,7 +94,6 @@ class _AddImageScreenState extends State<AddImageScreen> {
                             child: Container(
                               height: 28.h,
                               width: 100.w,
-
                               decoration: BoxDecoration(
                                   borderRadius:
                                   BorderRadius.all(Radius.circular(4.r)),
@@ -109,20 +108,20 @@ class _AddImageScreenState extends State<AddImageScreen> {
                                 ),
                               ),
                             ),
+                          ):SizedBox(
+                            height: 28.h,
+                            width: 100.w,
                           ),
-
-
-
 
                     SizedBox(width: 10.h,),
                     InkWell(
-                      onTap: () {
+                      onTap: ()async {
                         for (var url in _photoController.data) {
                           var image = url.url;
                           var imageUrl =
                               "https://${_photoController.photoModel.hostName}/$image";
 
-                          imageDownload(imageUrl, context);
+                         await imageDownload(imageUrl, context);
                         }
                       },
                       child: Container(
@@ -198,7 +197,8 @@ class _AddImageScreenState extends State<AddImageScreen> {
                                             _photoController.isSelected(
                                                 index,
                                                 _photoController.data
-                                                    . value[index].isSelected!);
+                                                    . value[index].isSelected!,_photoController.data
+                                                . value[index].url!);
                                           }
                                         }),
                                     IconButton(
@@ -327,28 +327,28 @@ class _AddImageScreenState extends State<AddImageScreen> {
     );
   }
 
-   imageDownloadOneByOne(String imageUrl, BuildContext context, bool? isSelected) async {
-    try {
-      String path = imageUrl;
-      await GallerySaver.saveImage(path, albumName: 'Downloads Photos')
-          .then((success) {
-        if (success != null && success) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: const Text('Download Complete'),
-            duration: const Duration(seconds: 2),
-            action: SnackBarAction(
-              label: '',
-              onPressed: () async {},
-            ),
-          ));
-        }
-      });
-    } on Exception catch (e) {
-      debugPrint('Error while saving image : $e');
-    }
-  }
+  //  imageDownloadOneByOne(String imageUrl, BuildContext context, ) async {
+  //   try {
+  //     String path = imageUrl;
+  //     await GallerySaver.saveImage(path, albumName: 'Downloads Photos')
+  //         .then((success) {
+  //       if (success != null && success) {
+  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //           content: const Text('Download Complete'),
+  //           duration: const Duration(seconds: 2),
+  //           action: SnackBarAction(
+  //             label: '',
+  //             onPressed: () async {},
+  //           ),
+  //         ));
+  //       }
+  //     });
+  //   } on Exception catch (e) {
+  //     debugPrint('Error while saving image : $e');
+  //   }
+  // }
 
-  void imageDownload(String imageUrl, BuildContext context) async {
+   imageDownload(String imageUrl, BuildContext context) async {
     try {
       String path = imageUrl;
       await GallerySaver.saveImage(path, albumName: 'Downloads Photos')

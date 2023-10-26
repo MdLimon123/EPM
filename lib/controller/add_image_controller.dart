@@ -37,6 +37,7 @@ class AddImageController extends GetxController {
       var result = await ApiServices.uploadPhoto(
           imagePath: imagePth, workOrderName: workOrder, workOrderId: id);
       if (!result) {
+
         if (kDebugMode) {
           debugPrint("$result");
           Get.snackbar('Error', "Image Upload Failed",

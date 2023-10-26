@@ -26,6 +26,7 @@ class Routes {
   static String imageDetailsScreen = "/imageDetailsScreen";
   static String chatScreen = "/chatScreen";
   static String workAddScreen = "/workAddScreen";
+  static String addWorkOrder = "/addWorkOrder";
 }
 
 List<GetPage> getPage = [
@@ -39,5 +40,6 @@ List<GetPage> getPage = [
   GetPage(name: Routes.documentScreen, page: () => DocumentScreen()),
   GetPage(name: Routes.mainDashboardScreen, page: () => MainDashboardScreen()),
   GetPage(name: Routes.chatScreen, page: () => ChatScreen()),
-  GetPage(name: Routes.workAddScreen, page: ()=> WorkAddScreen())
+  GetPage(name: Routes.workAddScreen, page: ()=> WorkAddScreen()),
+  GetPage(name: Routes.addWorkOrder, page: ()=> AddWorkOrderScreen())
 ];

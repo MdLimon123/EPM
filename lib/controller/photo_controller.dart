@@ -2,6 +2,7 @@ import 'package:epm/services/api_services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 import '../model/photo_model.dart';
 
@@ -12,8 +13,8 @@ class PhotoController extends GetxController {
   RxList<Datum> data = <Datum>[].obs;
 
 
-
   var isAllSelectedData = false.obs;
+
 
 
 // fetch image
@@ -38,10 +39,16 @@ class PhotoController extends GetxController {
     }
   }
 
+  RxList<String> isVisible = <String>[].obs;
 
 
-  isSelected(int index, bool dataSelected) {
+  isSelected(int index, bool dataSelected, String url) {
     data.value[index].isSelected = !dataSelected;
+    if(dataSelected){
+      isVisible.value.remove(url);
+    }else{
+      isVisible.value.add(url);
+    }
 
     data.refresh();
   }
@@ -50,7 +57,9 @@ class PhotoController extends GetxController {
     for (var i = 0; i < data.value.length; i++) {
       data.value[i].isSelected = true;
       isAllSelectedData.value = true;
-      print(data.value[i].isSelected);
+      if(data.value[i].isSelected == false){
+        isVisible.value.add(data.value[i].url!);
+      }
       data.refresh();
     }
   }
@@ -59,6 +68,9 @@ class PhotoController extends GetxController {
     for (var i = 0; i < data.value.length; i++) {
       data.value[i].isSelected = false;
       isAllSelectedData.value = false;
+      if(data.value[i].isSelected == false){
+        isVisible.value.remove(data.value[i].url!);
+      }
       data.refresh();
     }
   }

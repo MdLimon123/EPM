@@ -2,6 +2,7 @@
 import 'package:epm/Routes/routes.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
+import 'package:epm/views/Add_Work_List/Controller/add_work_controller.dart';
 
 import 'package:epm/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -11,37 +12,14 @@ import 'package:get/get.dart';
 
 
 import '../../../widgets/input_decoration.dart';
+import '../../model/work_order_model.dart';
 
-class AddWorkOrderScreen extends StatefulWidget {
+class AddWorkOrderScreen extends StatelessWidget {
   AddWorkOrderScreen({super.key});
 
-  @override
-  State<AddWorkOrderScreen> createState() => _AddWorkOrderScreenState();
-}
+  final Data orderData = Get.arguments;
 
-class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
-  final TextEditingController _itemController = TextEditingController();
-
-  final TextEditingController _qntController = TextEditingController();
-
-  final TextEditingController _priceController = TextEditingController();
-
-  final TextEditingController _comController = TextEditingController();
-
-  final TextEditingController _totalController = TextEditingController();
-
-
-
-  void updateTotal(){
-    int quantity = int.tryParse(_qntController.text)?? 0;
-    double price = double.tryParse(_priceController.text)??0;
-
-     double totalPrice = quantity * price;
-
-     _totalController.text = totalPrice.toStringAsFixed(2);
-
-
-  }
+  final _addWorkController = Get.put(AddWorkController());
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +65,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 height: 5.h,
               ),
               CustomTextField(
-                controller: _itemController,
+                controller: _addWorkController.itemController,
                 hintText: 'Item name',
               ),
               SizedBox(
@@ -98,9 +76,9 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 height: 5.h,
               ),
               CustomTextField(
-                controller: _qntController,
+                controller:_addWorkController. qntController,
                 hintText: 'Quantity',
-                onChanged: (_)=> updateTotal(),
+                onChanged: (_)=> _addWorkController.updateTotal(),
 
               ),
               SizedBox(
@@ -111,25 +89,25 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 height: 5.h,
               ),
               CustomTextField(
-                controller: _priceController,
+                controller:_addWorkController.priceController,
                 hintText: 'Price',
-                onChanged: (_)=> updateTotal(),
+                onChanged: (_)=>_addWorkController.updateTotal(),
               ),
               SizedBox(
                 height: 15.h,
               ),
-              _titleText('Comment'),
+              _titleText('Additional Instruction'),
               SizedBox(
                 height: 5.h,
               ),
               TextFormField(
-                maxLines: 4,
-                controller: _comController,
+
+                controller: _addWorkController.comController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     fillColor: AppColor.textColor.withOpacity(.1),
                     filled: true,
-                    hintText: 'comment',
+                    hintText: 'Additional Instruction',
                     hintStyle: CustomTextStyle.h4(
                         color: const Color(0xFF000000)),
                     border: border(false),
@@ -144,7 +122,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 height: 5.h,
               ),
               CustomTextField(
-                controller: _totalController,
+                controller:_addWorkController.totalController,
                 readOnly: true,
 
               ),
@@ -154,7 +132,8 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
 
               InkWell(
                 onTap: (){
-                  Get.toNamed(Routes.workAddScreen);
+                  _addWorkController.uploadData(orderData.id);
+
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -165,12 +144,35 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                     borderRadius: BorderRadius.circular(8.r)
 
                   ),
-                  child: Text('Save',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFFFFFFFF)
-                  ),),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Save',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFFFFFFFF)
+                      ),),
+                      SizedBox(
+                        width: _addWorkController.isLoading.value ? 15.w : 0,
+                      ),
+
+                      Obx(() {
+                        if (_addWorkController.isLoading.value) {
+                          return SizedBox(
+                            height: 15.sp,
+                            width: 15.sp,
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 3,
+                            ),
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      })
+                    ],
+                  ),
                 ),
               ),
 
@@ -183,149 +185,6 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
   }
 
   // void printOrSaveAsDocument(BuildContext context) async {
-  //   final itemName = _itemController.text;
-  //   final qntText = _qntController.text;
-  //   final priceText = _priceController.text;
-  //   final comText = _comController.text;
-  //   final totalText = _totalController.text;
-  //
-  //   if (itemName.isNotEmpty ||
-  //       qntText.isNotEmpty ||
-  //       priceText.isNotEmpty ||
-  //       comText.isNotEmpty ||
-  //       totalText.isNotEmpty) {
-  //     final pdf = await _generatePdf(
-  //         itemname: itemName,
-  //         quantity: qntText,
-  //         price: priceText,
-  //         comment: comText,
-  //         totalPrice: totalText);
-  //
-  //     _printOrSavePdf(pdf);
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(content: Text('Please enter text to print or save')));
-  //   }
-  // }
-
-  // Future<pw.Document> _generatePdf(
-  //     {required String itemname,
-  //     required String quantity,
-  //     required String price,
-  //     required String comment,
-  //     required String totalPrice}) async {
-  //   final pdf = pw.Document();
-  //   final font = await PdfGoogleFonts.nunitoExtraLight();
-  //
-  //   pdf.addPage(pw.Page(
-  //     build: (context) {
-  //       return pw.Column(
-  //           mainAxisAlignment: pw.MainAxisAlignment.start,
-  //           crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //           children: [
-  //             pw.Text('Estimation # 111',
-  //                 style: pw.TextStyle(
-  //                     font: font,
-  //                     fontSize: 30.sp,
-  //                     color: const PdfColor.fromInt(0xFF000000),
-  //                     fontWeight: pw.FontWeight.bold)),
-  //             pw.SizedBox(height: 20.h),
-  //             pw.Row(
-  //                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-  //                 crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //                 children: [
-  //                   pw.Text('Essential Infotech',
-  //                       style: pw.TextStyle(
-  //                           font: font,
-  //                           fontSize: 28.sp,
-  //                           color: const PdfColor.fromInt(0xFF000000),
-  //                           fontWeight: pw.FontWeight.bold)),
-  //                   pw.Column(
-  //                       mainAxisAlignment: pw.MainAxisAlignment.start,
-  //                       crossAxisAlignment: pw.CrossAxisAlignment.start,
-  //                       children: [
-  //                         pw.Text('Work Order Info',
-  //                             style: pw.TextStyle(
-  //                                 font: font,
-  //                                 fontSize: 28.sp,
-  //                                 color: const PdfColor.fromInt(0xFF000000),
-  //                                 fontWeight: pw.FontWeight.bold)),
-  //                         pw.Text('Property: Captain Planet',
-  //                             style: pw.TextStyle(
-  //                                 font: font,
-  //                                 fontSize: 24.sp,
-  //                                 color: const PdfColor.fromInt(0xFF000000),
-  //                                 fontWeight: pw.FontWeight.bold)),
-  //                         pw.Text('WO # 111',
-  //                             style: pw.TextStyle(
-  //                                 font: font,
-  //                                 fontSize: 28.sp,
-  //                                 color: const PdfColor.fromInt(0xFF000000),
-  //                                 fontWeight: pw.FontWeight.bold)),
-  //                         pw.Text('Sector 13, Uttara',
-  //                             style: pw.TextStyle(
-  //                                 font: font,
-  //                                 color: const PdfColor.fromInt(0xFF000000),
-  //                                 fontSize: 28.sp,
-  //                                 fontWeight: pw.FontWeight.bold)),
-  //                       ])
-  //                 ]),
-  //             pw.SizedBox(height: 20.h),
-  //             pw.Text('Item Description:',
-  //                 style: pw.TextStyle(font: font, fontSize: 24.sp)),
-  //             pw.Text(itemname,
-  //                 style: pw.TextStyle(font: font, fontSize: 20.sp)),
-  //             pw.SizedBox(height: 8.h),
-  //             pw.Text('Quantity:',
-  //                 style: pw.TextStyle(font: font, fontSize: 24.sp)),
-  //             pw.Text(quantity,
-  //                 style: pw.TextStyle(font: font, fontSize: 20.sp)),
-  //             pw.SizedBox(height: 8.h),
-  //             pw.Text('Price:',
-  //                 style: pw.TextStyle(font: font, fontSize: 24.sp)),
-  //             pw.Text(price, style: pw.TextStyle(font: font, fontSize: 20.sp)),
-  //             pw.SizedBox(height: 8.h),
-  //             pw.Text('Comment:',
-  //                 style: pw.TextStyle(font: font, fontSize: 24.sp)),
-  //             pw.Text(comment,
-  //                 style: pw.TextStyle(font: font, fontSize: 20.sp)),
-  //             pw.SizedBox(height: 8.h),
-  //             pw.Text('Total Price:',
-  //                 style: pw.TextStyle(font: font, fontSize: 24.sp)),
-  //             pw.Text(totalPrice,
-  //                 style: pw.TextStyle(font: font, fontSize: 20.sp)),
-  //             pw.SizedBox(height: 20.h),
-  //             pw.Row(
-  //                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-  //                 children: [
-  //                   pw.Text('Thank you!',
-  //                       style: pw.TextStyle(
-  //                         font: font,
-  //                         fontWeight: pw.FontWeight.bold,
-  //                         fontSize: 25.sp,
-  //                         color: const PdfColor.fromInt(0xFF000000),
-  //                       )),
-  //                   pw.Text('https://essential-infotech.com',
-  //                       style: pw.TextStyle(
-  //                         font: font,
-  //                         fontWeight: pw.FontWeight.bold,
-  //                         fontSize: 25.sp,
-  //                         color: const PdfColor.fromInt(0xFF000000),
-  //                       )),
-  //                 ])
-  //           ]);
-  //     },
-  //   ));
-  //
-  //   return pdf;
-  // }
-
-  // void _printOrSavePdf(pw.Document pdf) async {
-  //   await Printing.layoutPdf(
-  //       onLayout: (PdfPageFormat format) async => pdf.save(),
-  //       name: 'fileName.pdf');
-  // }
-
   _titleText(String title) {
     return Text(
       title,

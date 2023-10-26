@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/work_order_model.dart';
+import '../views/Add_Work_List/Models/add_work_model.dart';
 
 class WorksOrderController extends GetxController {
   final TextEditingController searchController = TextEditingController();
@@ -16,6 +17,13 @@ class WorksOrderController extends GetxController {
   RxList<Data> afterDayList = <Data>[].obs;
 
   RxList<Data> searchData = <Data>[].obs;
+
+
+  late AddWorkModel addWorkModel;
+
+  RxList<Chat> workData = <Chat>[].obs;
+
+
 
   var selectedValue = 'selected'.obs;
   var dropdownList = [
@@ -47,7 +55,32 @@ class WorksOrderController extends GetxController {
   void onInit() {
     getDataForWork();
     searchData.value = data;
+
     super.onInit();
+  }
+
+
+  fetchData(String id)async{
+    isLoading(true);
+    try {
+      var result = await ApiServices.getEstimation(int.parse(id));
+
+      if(result.runtimeType == int){
+        debugPrint('Data Error $result');
+      }else{
+        addWorkModel = result;
+        workData.value = addWorkModel.chats;
+
+        debugPrint(addWorkModel.toString());
+      }
+    } on Exception catch (e) {
+      debugPrint("Fetch error : $e");
+    }finally{
+      isLoading(false);
+    }
+
+
+
   }
 
 // user work order data
