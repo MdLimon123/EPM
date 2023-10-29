@@ -59,15 +59,7 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // InkWell(
-                    //   onTap: () {},
-                    //   child: Text(
-                    //     'Chat',
-                    //     style: CustomTextStyle.h3(
-                    //         color: AppColor.textColorWhite,
-                    //         fontWeight: FontWeight.w500),
-                    //   ),
-                    // ),
+
                     InkWell(
                       onTap: () {
                         Get.toNamed(Routes.addImageScreen, arguments: {
@@ -212,9 +204,9 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
                       )),
                 ),
               ),
-              SizedBox(
-                height: 20.h,
-              ),
+          SizedBox(
+            height: 6.h,
+          ),
               Padding(
                 padding: EdgeInsets.only(left: 20.w),
                 child: Text(
@@ -234,9 +226,9 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
                 height: 2.h,
                 thickness: 2,
               ),
-              SizedBox(
-                height: 10.h,
-              ),
+          SizedBox(
+            height: 6.h,
+          ),
               Padding(
                 padding: EdgeInsets.only(left: 15.w),
                 child: Column(
@@ -267,38 +259,38 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
                 ),
               ),
               SizedBox(
-                height: 10.h,
+                height: 6.h,
               ),
               _customText(
                   title: 'WO#', subtitle: data.workOrder, image: AppImage.work),
               SizedBox(
-                height: 10.h,
+                height: 6.h,
               ),
               _customText(
                   title: 'PPW#', subtitle: data.workTypeId, image: AppImage.city),
               SizedBox(
-                height: 10.h,
+                height: 6.h,
               ),
               _customText(
                   title: 'Work Type',
                   subtitle: data.workType.name,
                   image: AppImage.work),
               SizedBox(
-                height: 10.h,
+                height: 6.h,
               ),
               _customText(
                   title: 'Address',
                   subtitle: data.property.address,
                   image: AppImage.address),
               SizedBox(
-                height: 10.h,
+                height: 6.h,
               ),
               _customText(
                   title: 'City/State/Zip',
                   subtitle: data.property.city,
                   image: AppImage.city),
               SizedBox(
-                height: 10.h,
+                height: 6.h,
               ),
               _customText(
                   title: 'Date Due',

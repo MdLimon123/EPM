@@ -19,7 +19,7 @@ import 'package:image_picker/image_picker.dart';
 class ApiServices {
   static var client = http.Client();
 
-  // handle login api n
+  // handle login api
   static Future<dynamic> handleLogin(
       {required String email, required String password}) async {
     try {
@@ -176,7 +176,7 @@ class ApiServices {
     }
   }
 
-  // Estimation
+  // Wo instruction
 
   static dynamic getEstimation(int id)async{
 
@@ -355,8 +355,8 @@ class ApiServices {
     }
   }
 
-  /// send message to user
-  ///
+  /// estimation post
+
 
   static uploadWork({required int id,
     required String description,
@@ -398,6 +398,9 @@ class ApiServices {
     }
 
   }
+
+  // message send
+
   static Future<bool> postMessageToUser(
       {required int workOrderId,
       required String memberId,

@@ -1,5 +1,4 @@
 
-
 import 'package:epm/services/api_services.dart';
 import 'package:epm/views/Add_Work_List/Models/add_work_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,9 +27,6 @@ class AddWorkController extends GetxController{
   final TextEditingController comController = TextEditingController();
 
   final TextEditingController totalController = TextEditingController();
-
-
-
 
 
   void updateTotal(){
@@ -91,7 +87,7 @@ class AddWorkController extends GetxController{
           additional_instruction: comController.text);
 
       if(result){
-        print('data upload success $result');
+        debugPrint('data upload success $result');
 
         Get.toNamed(Routes.workAddScreen,
             arguments: orderData);
@@ -99,11 +95,11 @@ class AddWorkController extends GetxController{
         textFiledClear();
 
       }else{
-        print('Data upload Failed');
+        debugPrint('Data upload Failed');
         Fluttertoast.showToast(msg: 'Upload send failed');
       }
     } on Exception catch (e) {
-      print('Data Upload failed. Reason${e.toString()}');
+      debugPrint('Data Upload failed. Reason${e.toString()}');
       Fluttertoast.showToast(msg: 'Data Upload failed');
     }finally{
       isLoading(false);
