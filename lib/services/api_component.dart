@@ -13,4 +13,5 @@ String getChatApi = "${baseUrl}work-order-chat/";
 String postChatMessage = "${baseUrl}work-order-chat-submit";
 String addWorkApi = "${baseUrl}work-order-item-details/";
 String addWorkOrderPost = "${baseUrl}work-order-item-details-store";
-
+String getEstimationApi = "${baseUrl}work-order-estimation/";
+String postEstimationApi = "${baseUrl}work-order-estimation-submit";

@@ -7,10 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
+
 import '../../controller/add_image_controller.dart';
 import '../../controller/photo_controller.dart';
-
 
 class AddImageScreen extends StatefulWidget {
   AddImageScreen({super.key});
@@ -26,10 +25,6 @@ class _AddImageScreenState extends State<AddImageScreen> {
 
   final Map<String, dynamic> data = Get.arguments;
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     _addImageController.id = data["id"];
@@ -37,8 +32,6 @@ class _AddImageScreenState extends State<AddImageScreen> {
 
     int id = _addImageController.id;
     _photoController.getPhoto(id);
-
-
 
     return Scaffold(
       appBar: _appBar(context),
@@ -77,27 +70,29 @@ class _AddImageScreenState extends State<AddImageScreen> {
                     ),
                     SizedBox(width: 70.w),
 
-                          _photoController.isVisible.value.isNotEmpty?
-                          InkWell(
-                            onTap: () async{
-
-                              for(var i=0; i<_photoController.data.value.length; i++){
+                    _photoController.isVisible.value.isNotEmpty
+                        ? InkWell(
+                            onTap: () async {
+                              for (var i = 0;
+                                  i < _photoController.data.value.length;
+                                  i++) {
                                 var image = _photoController.data.value[i].url;
-                                var imageUrl =  "https://${_photoController.photoModel.hostName}/$image";
-                                if(_photoController.data.value[i].isSelected == true){
+                                var imageUrl =
+                                    "https://${_photoController.photoModel.hostName}/$image";
+                                if (_photoController.data.value[i].isSelected ==
+                                    true) {
                                   await imageDownload(imageUrl, context);
                                 }
-
                               }
-
                             },
                             child: Container(
                               height: 28.h,
                               width: 100.w,
                               decoration: BoxDecoration(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(4.r)),
-                                  border: Border.all(color: const Color(0xFF000000))),
+                                      BorderRadius.all(Radius.circular(4.r)),
+                                  border: Border.all(
+                                      color: const Color(0xFF000000))),
                               child: Center(
                                 child: Text(
                                   'Download',
@@ -108,26 +103,28 @@ class _AddImageScreenState extends State<AddImageScreen> {
                                 ),
                               ),
                             ),
-                          ):SizedBox(
+                          )
+                        : SizedBox(
                             height: 28.h,
                             width: 100.w,
                           ),
 
-                    SizedBox(width: 10.h,),
+                    SizedBox(
+                      width: 10.h,
+                    ),
                     InkWell(
-                      onTap: ()async {
+                      onTap: () async {
                         for (var url in _photoController.data) {
                           var image = url.url;
                           var imageUrl =
                               "https://${_photoController.photoModel.hostName}/$image";
 
-                         await imageDownload(imageUrl, context);
+                          await imageDownload(imageUrl, context);
                         }
                       },
                       child: Container(
                         height: 28.h,
                         width: 100.w,
-
                         decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(4.r)),
@@ -197,8 +194,9 @@ class _AddImageScreenState extends State<AddImageScreen> {
                                             _photoController.isSelected(
                                                 index,
                                                 _photoController.data
-                                                    . value[index].isSelected!,_photoController.data
-                                                . value[index].url!);
+                                                    .value[index].isSelected!,
+                                                _photoController
+                                                    .data.value[index].url!);
                                           }
                                         }),
                                     IconButton(
@@ -324,6 +322,99 @@ class _AddImageScreenState extends State<AddImageScreen> {
                 ),
               ],
             )),
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColor.deepOrange,
+        onPressed: (){
+          showModalBottomSheet(
+              context: context,
+              isScrollControlled: false,
+              isDismissible: true,
+              backgroundColor: const Color(0xFFFFFFFF),
+              shape: OutlineInputBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.r),
+                      topRight: Radius.circular(15.r))),
+              builder: (context) {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 17.w),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            _addImageController.pickImageGallery();
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                'Gallery',
+                                style: CustomTextStyle.h3(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColor.deepOrange),
+                              ),
+                              SizedBox(width: 100.w,),
+                              Icon(Icons.upload,
+                              color: AppColor.deepOrange,
+                              size: 30.sp,)
+                            ],
+                          )),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          _addImageController.uploadImage();
+                        },
+                        child: Container(
+                          height: 50.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: AppColor.deepOrange,
+                              borderRadius: BorderRadius.circular(8.r)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Upload',
+                                style: CustomTextStyle.h3(
+                                    color: AppColor.textColorWhite),
+                              ),
+                              SizedBox(
+                                width: _addImageController.isLoading.value
+                                    ? 15.w
+                                    : 0,
+                              ),
+                              Obx(() {
+                                if (_addImageController.isLoading.value) {
+                                  return SizedBox(
+                                    height: 15.sp,
+                                    width: 15.sp,
+                                    child: const CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 3,
+                                    ),
+                                  );
+                                } else {
+                                  return const SizedBox();
+                                }
+                              })
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                    ],
+                  ),
+                );
+              });
+        },
+        child: const Icon(Icons.add, color: Colors.white,),
+      ),
     );
   }
 
@@ -348,7 +439,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
   //   }
   // }
 
-   imageDownload(String imageUrl, BuildContext context) async {
+  imageDownload(String imageUrl, BuildContext context) async {
     try {
       String path = imageUrl;
       await GallerySaver.saveImage(path, albumName: 'Downloads Photos')
@@ -382,92 +473,97 @@ class _AddImageScreenState extends State<AddImageScreen> {
           )),
       title: Text(
         'Photos',
-     style: CustomTextStyle.h1(color: const Color(0xFFEB6526),
-        fontSize: 20.sp,
-        fontWeight: FontWeight.w600),
+        style: CustomTextStyle.h1(
+            color: const Color(0xFFEB6526),
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600),
       ),
       centerTitle: true,
       actions: [
         IconButton(
             onPressed: () {
-              showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: false,
-                  isDismissible: true,
-                  backgroundColor: const Color(0xFFFFFFFF),
-                  shape: OutlineInputBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15.r),
-                          topRight: Radius.circular(15.r))),
-                  builder: (context) {
-                    return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 17.w),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                _addImageController.pickImageGallery();
-                              },
-                              child: Text(
-                                'Gallery',
-                                style: CustomTextStyle.h3(
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.deepOrange),
-                              )),
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              _addImageController.uploadImage();
-                            },
-                            child: Container(
-                              height: 50.h,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: AppColor.deepOrange,
-                                  borderRadius: BorderRadius.circular(8.r)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Save',
-                                    style: CustomTextStyle.h3(
-                                        color: AppColor.textColorWhite),
-                                  ),
-                                  SizedBox(
-                                    width: _addImageController.isLoading.value
-                                        ? 15.w
-                                        : 0,
-                                  ),
-                                  Obx(() {
-                                    if (_addImageController.isLoading.value) {
-                                      return SizedBox(
-                                        height: 15.sp,
-                                        width: 15.sp,
-                                        child: const CircularProgressIndicator(
-                                          color: Colors.white,
-                                          strokeWidth: 3,
-                                        ),
-                                      );
-                                    } else {
-                                      return const SizedBox();
-                                    }
-                                  })
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                        ],
-                      ),
-                    );
-                  });
+
+
+              // showModalBottomSheet(
+              //     context: context,
+              //     isScrollControlled: false,
+              //     isDismissible: true,
+              //     backgroundColor: const Color(0xFFFFFFFF),
+              //     shape: OutlineInputBorder(
+              //         borderRadius: BorderRadius.only(
+              //             topLeft: Radius.circular(15.r),
+              //             topRight: Radius.circular(15.r))),
+              //     builder: (context) {
+              //       return Container(
+              //         padding: EdgeInsets.symmetric(horizontal: 17.w),
+              //         child: Column(
+              //           mainAxisSize: MainAxisSize.min,
+              //           mainAxisAlignment: MainAxisAlignment.start,
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             TextButton(
+              //                 onPressed: () {
+              //                   _addImageController.pickImageGallery();
+              //                 },
+              //                 child: Text(
+              //                   'Gallery',
+              //                   style: CustomTextStyle.h3(
+              //                       fontWeight: FontWeight.w600,
+              //                       color: AppColor.deepOrange),
+              //                 )),
+              //             SizedBox(
+              //               height: 20.h,
+              //             ),
+              //             InkWell(
+              //               onTap: () {
+              //                 _addImageController.uploadImage();
+              //               },
+              //               child: Container(
+              //                 height: 50.h,
+              //                 width: double.infinity,
+              //                 decoration: BoxDecoration(
+              //                     color: AppColor.deepOrange,
+              //                     borderRadius: BorderRadius.circular(8.r)),
+              //                 child: Row(
+              //                   mainAxisAlignment: MainAxisAlignment.center,
+              //                   children: [
+              //                     Text(
+              //                       'Save',
+              //                       style: CustomTextStyle.h3(
+              //                           color: AppColor.textColorWhite),
+              //                     ),
+              //                     SizedBox(
+              //                       width: _addImageController.isLoading.value
+              //                           ? 15.w
+              //                           : 0,
+              //                     ),
+              //                     Obx(() {
+              //                       if (_addImageController.isLoading.value) {
+              //                         return SizedBox(
+              //                           height: 15.sp,
+              //                           width: 15.sp,
+              //                           child: const CircularProgressIndicator(
+              //                             color: Colors.white,
+              //                             strokeWidth: 3,
+              //                           ),
+              //                         );
+              //                       } else {
+              //                         return const SizedBox();
+              //                       }
+              //                     })
+              //                   ],
+              //                 ),
+              //               ),
+              //             ),
+              //             SizedBox(
+              //               height: 20.h,
+              //             ),
+              //           ],
+              //         ),
+              //       );
+              //     });
+
+
             },
             icon: Icon(
               Icons.adaptive.more,

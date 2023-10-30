@@ -5,6 +5,8 @@ import 'package:epm/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+
 import '../../../widgets/input_decoration.dart';
 import '../../model/work_order_model.dart';
 
@@ -31,9 +33,10 @@ class AddWorkOrderScreen extends StatelessWidget {
         backgroundColor: const Color(0xFFFFFFFF),
         title: Text(
           'Add Work List',
-          style: CustomTextStyle.h1(color: const Color(0xFFEB6526),
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w600),
+          style: CustomTextStyle.h1(
+              color: const Color(0xFFEB6526),
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -70,10 +73,9 @@ class AddWorkOrderScreen extends StatelessWidget {
                 height: 5.h,
               ),
               CustomTextField(
-                controller:_addWorkController. qntController,
+                controller: _addWorkController.qntController,
                 hintText: 'Quantity',
-                onChanged: (_)=> _addWorkController.updateTotal(),
-
+                onChanged: (_) => _addWorkController.updateTotal(),
               ),
               SizedBox(
                 height: 15.h,
@@ -83,27 +85,25 @@ class AddWorkOrderScreen extends StatelessWidget {
                 height: 5.h,
               ),
               CustomTextField(
-                controller:_addWorkController.priceController,
+                controller: _addWorkController.priceController,
                 hintText: 'Price',
-                onChanged: (_)=>_addWorkController.updateTotal(),
+                onChanged: (_) => _addWorkController.updateTotal(),
               ),
               SizedBox(
                 height: 15.h,
               ),
-              _titleText('Additional Instruction'),
+              _titleText('Comment'),
               SizedBox(
                 height: 5.h,
               ),
               TextFormField(
-
                 controller: _addWorkController.comController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     fillColor: AppColor.textColor.withOpacity(.1),
                     filled: true,
-                    hintText: 'Additional Instruction',
-                    hintStyle: CustomTextStyle.h4(
-                        color: const Color(0xFF000000)),
+                    hintText: 'Comment',
+                    hintStyle: CustomTextStyle.h4(fontSize: 12.sp),
                     border: border(false),
                     enabledBorder: border(false),
                     focusedBorder: border(true)),
@@ -116,41 +116,36 @@ class AddWorkOrderScreen extends StatelessWidget {
                 height: 5.h,
               ),
               CustomTextField(
-                controller:_addWorkController.totalController,
+                controller: _addWorkController.totalController,
                 readOnly: true,
-
               ),
               SizedBox(
                 height: 30.h,
               ),
-
               InkWell(
-                onTap: (){
-                  _addWorkController.uploadData(orderData.id);
-
+                onTap: () {
+                  _addWorkController.uploadEstimation(orderData.id);
                 },
                 child: Container(
                   alignment: Alignment.center,
                   width: double.infinity,
                   height: 56.h,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEB6526),
-                    borderRadius: BorderRadius.circular(8.r)
-
-                  ),
+                      color: const Color(0xFFEB6526),
+                      borderRadius: BorderRadius.circular(8.r)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Save',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xFFFFFFFF)
-                      ),),
+                      Text(
+                        'Save',
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFFFFFFFF)),
+                      ),
                       SizedBox(
                         width: _addWorkController.isLoading.value ? 15.w : 0,
                       ),
-
                       Obx(() {
                         if (_addWorkController.isLoading.value) {
                           return SizedBox(
@@ -169,8 +164,6 @@ class AddWorkOrderScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
-
             ],
           ),
         ),
@@ -182,9 +175,10 @@ class AddWorkOrderScreen extends StatelessWidget {
   _titleText(String title) {
     return Text(
       title,
-      style: CustomTextStyle.h3(color: const Color(0xFFAAAAAA),
-      fontSize: 13.sp,
-      fontWeight: FontWeight.w500),
+      style: CustomTextStyle.h3(
+          color: const Color(0xFFAAAAAA),
+          fontSize: 13.sp,
+          fontWeight: FontWeight.w500),
     );
   }
 }
