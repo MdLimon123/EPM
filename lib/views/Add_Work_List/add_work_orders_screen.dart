@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-
 import '../../../widgets/input_decoration.dart';
 import '../../model/work_order_model.dart';
 
@@ -124,7 +123,8 @@ class AddWorkOrderScreen extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  _addWorkController.uploadEstimation(orderData.id);
+                  _addWorkController.uploadEstimation(
+                      orderData.id, orderData.vendorId);
                 },
                 child: Container(
                   alignment: Alignment.center,

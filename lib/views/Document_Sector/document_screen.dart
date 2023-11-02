@@ -1,5 +1,3 @@
-
-
 import 'package:epm/controller/document_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
@@ -22,7 +20,6 @@ class DocumentScreen extends StatelessWidget {
 
   final Map<String, dynamic> data = Get.arguments;
 
-
   @override
   Widget build(BuildContext context) {
     _documentController.id = data['id'];
@@ -31,7 +28,7 @@ class DocumentScreen extends StatelessWidget {
     _documentController.getDocument(id);
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: const Color(0xFFF7F8F9),
+        backgroundColor: const Color(0xFFF7F8F9),
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -42,94 +39,95 @@ class DocumentScreen extends StatelessWidget {
             )),
         title: Text(
           'Work Order Documents',
-          style: CustomTextStyle.h1(color: const Color(0xFFEB6526),
+          style: CustomTextStyle.h1(
+              color: const Color(0xFFEB6526),
               fontSize: 20.sp,
               fontWeight: FontWeight.w600),
         ),
         actions: [
           PopupMenuButton(
               onSelected: (value) {
-                showModalBottomSheet(
-                    isScrollControlled: true,
-                    context: context,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.r),
-                            topRight: Radius.circular(8.r))),
-                    builder: (context) {
-                      return Padding(
-                        padding: MediaQuery.of(context).viewInsets,
-                        child: Padding(
-                          padding: EdgeInsets.all(12.w),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextButton(
-                                  onPressed: () {
-                                    _documentController.selectFile();
-                                  },
-                                  child: Text(
-                                    'Pick Document',
-                                    style: CustomTextStyle.h3(
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColor.deepOrange),
-                                  )),
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  _documentController.uploadDocument();
-                                },
-                                child: Container(
-                                  height: 50.h,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color: AppColor.deepOrange,
-                                      borderRadius: BorderRadius.circular(8.r)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Upload',
-                                        style: CustomTextStyle.h3(
-                                            color: AppColor.textColorWhite),
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            _documentController.isLoading.value
-                                                ? 15.w
-                                                : 0,
-                                      ),
-                                      Obx(() {
-                                        if (_documentController
-                                            .isLoading.value) {
-                                          return SizedBox(
-                                            height: 15.sp,
-                                            width: 15.sp,
-                                            child:
-                                                const CircularProgressIndicator(
-                                              color: Colors.white,
-                                              strokeWidth: 3,
-                                            ),
-                                          );
-                                        } else {
-                                          return const SizedBox();
-                                        }
-                                      })
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
+                // showModalBottomSheet(
+                //     isScrollControlled: true,
+                //     context: context,
+                //     shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.only(
+                //             topLeft: Radius.circular(8.r),
+                //             topRight: Radius.circular(8.r))),
+                //     builder: (context) {
+                //       return Padding(
+                //         padding: MediaQuery.of(context).viewInsets,
+                //         child: Padding(
+                //           padding: EdgeInsets.all(12.w),
+                //           child: Column(
+                //             mainAxisSize: MainAxisSize.min,
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             children: [
+                //               TextButton(
+                //                   onPressed: () {
+                //                     _documentController.selectFile();
+                //                   },
+                //                   child: Text(
+                //                     'Pick Document',
+                //                     style: CustomTextStyle.h3(
+                //                         fontWeight: FontWeight.w600,
+                //                         color: AppColor.deepOrange),
+                //                   )),
+                //               SizedBox(
+                //                 height: 15.h,
+                //               ),
+                //               InkWell(
+                //                 onTap: () {
+                //                   _documentController.uploadDocument();
+                //                 },
+                //                 child: Container(
+                //                   height: 50.h,
+                //                   width: double.infinity,
+                //                   decoration: BoxDecoration(
+                //                       color: AppColor.deepOrange,
+                //                       borderRadius: BorderRadius.circular(8.r)),
+                //                   child: Row(
+                //                     mainAxisAlignment: MainAxisAlignment.center,
+                //                     children: [
+                //                       Text(
+                //                         'Upload',
+                //                         style: CustomTextStyle.h3(
+                //                             color: AppColor.textColorWhite),
+                //                       ),
+                //                       SizedBox(
+                //                         width:
+                //                             _documentController.isLoading.value
+                //                                 ? 15.w
+                //                                 : 0,
+                //                       ),
+                //                       Obx(() {
+                //                         if (_documentController
+                //                             .isLoading.value) {
+                //                           return SizedBox(
+                //                             height: 15.sp,
+                //                             width: 15.sp,
+                //                             child:
+                //                                 const CircularProgressIndicator(
+                //                               color: Colors.white,
+                //                               strokeWidth: 3,
+                //                             ),
+                //                           );
+                //                         } else {
+                //                           return const SizedBox();
+                //                         }
+                //                       })
+                //                     ],
+                //                   ),
+                //                 ),
+                //               ),
+                //               SizedBox(
+                //                 height: 15.h,
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       );
+                //     });
               },
               icon: Icon(
                 Icons.adaptive.more,
@@ -187,24 +185,25 @@ class DocumentScreen extends StatelessWidget {
                                       height: 36.h,
                                       width: 36.h,
                                       decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: const Color(0xFFFFF4F0),
-                                        image: DecorationImage(image: AssetImage(AppImage.pdf1))
+                                          shape: BoxShape.circle,
+                                          color: const Color(0xFFFFF4F0),
+                                          image: DecorationImage(
+                                              image:
+                                                  AssetImage(AppImage.pdf1))),
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        pdfFile.file,
+                                        style: TextStyle(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w400),
                                       ),
                                     ),
-                                    SizedBox(width: 5.w,),
-                                    Expanded(
-                                      child: Text(pdfFile.file,
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w400
-                                      ),),
-                                    ),
-
-
                                     PopupMenuButton(
-                                        onSelected: (value) {
-                                        },
+                                        onSelected: (value) {},
                                         icon: Icon(
                                           Icons.adaptive.more,
                                           color: const Color(0xFF000000),
@@ -213,99 +212,104 @@ class DocumentScreen extends StatelessWidget {
                                           return [
                                             PopupMenuItem(
                                                 onTap: () {
-
                                                   pdfDownload(pdfUrl, context);
-
                                                 },
                                                 value: 'download',
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
                                                     Text(
                                                       'Download',
-                                                      style: CustomTextStyle.h3(color: AppColor.blackColor),
+                                                      style: CustomTextStyle.h3(
+                                                          color: AppColor
+                                                              .blackColor),
                                                     ),
-                                                    const Icon(Icons.download,
-                                                    color: Color(0xFFEB6526),)
+                                                    const Icon(
+                                                      Icons.download,
+                                                      color: Color(0xFFEB6526),
+                                                    )
                                                   ],
                                                 )),
-
                                             PopupMenuItem(
                                                 onTap: () {
-
-                                                      showDialog(
-                                                          barrierDismissible: true,
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return AlertDialog(
-                                                              title: Text(
-                                                                'Delete Document',
-                                                                style: CustomTextStyle.h1(
-                                                                    color:
-                                                                        AppColor.deepOrange,
-                                                                    fontWeight:
-                                                                        FontWeight.w600),
-                                                              ),
-                                                              content: Text(
-                                                                'Are you sure you want to delete Document!',
-                                                                style: CustomTextStyle.h3(
-                                                                    fontWeight:
-                                                                        FontWeight.w400),
-                                                              ),
-                                                              actions: [
-                                                                TextButton(
-                                                                    onPressed: () {
-                                                                      Get.back();
-                                                                    },
-                                                                    child: Text(
-                                                                      'Cancel',
-                                                                      style:
-                                                                          CustomTextStyle.h3(
-                                                                              fontWeight:
-                                                                                  FontWeight
-                                                                                      .w400),
-                                                                    )),
-                                                                TextButton(
-                                                                    onPressed: () {
+                                                  showDialog(
+                                                      barrierDismissible: true,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                            'Delete Document',
+                                                            style: CustomTextStyle.h1(
+                                                                color: AppColor
+                                                                    .deepOrange,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                          content: Text(
+                                                            'Are you sure you want to delete Document!',
+                                                            style: CustomTextStyle.h3(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
+                                                          ),
+                                                          actions: [
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  Get.back();
+                                                                },
+                                                                child: Text(
+                                                                  'Cancel',
+                                                                  style: CustomTextStyle.h3(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400),
+                                                                )),
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  _documentController.deleteDocument(
                                                                       _documentController
-                                                                          .deleteDocument(
-                                                                              _documentController
-                                                                                  .data[index]
-                                                                                  .id,
-                                                                              index);
-                                                                      Get.back();
-                                                                    },
-                                                                    child: Text(
-                                                                      'Ok',
-                                                                      style:
-                                                                          CustomTextStyle.h3(
-                                                                              fontWeight:
-                                                                                  FontWeight
-                                                                                      .w400),
-                                                                    )),
-                                                              ],
-                                                            );
-                                                          });
-
+                                                                          .data[
+                                                                              index]
+                                                                          .id,
+                                                                      index);
+                                                                  Get.back();
+                                                                },
+                                                                child: Text(
+                                                                  'Ok',
+                                                                  style: CustomTextStyle.h3(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400),
+                                                                )),
+                                                          ],
+                                                        );
+                                                      });
                                                 },
                                                 value: 'delete',
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
                                                     Text(
                                                       'Delete',
-                                                      style: CustomTextStyle.h3(color: AppColor.blackColor),
+                                                      style: CustomTextStyle.h3(
+                                                          color: AppColor
+                                                              .blackColor),
                                                     ),
-                                                    const Icon(Icons.delete,
-                                                    color: Color(0xFFEB6526),)
+                                                    const Icon(
+                                                      Icons.delete,
+                                                      color: Color(0xFFEB6526),
+                                                    )
                                                   ],
                                                 )),
                                           ];
                                         })
-
                                   ],
                                 ),
-
                               ],
                             ),
                           );
@@ -315,50 +319,134 @@ class DocumentScreen extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColor.deepOrange,
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              isScrollControlled: false,
+              isDismissible: true,
+              backgroundColor: const Color(0xFFFFFFFF),
+              shape: OutlineInputBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.r),
+                      topRight: Radius.circular(15.r))),
+              builder: (context) {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 17.w),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            _documentController.selectFile();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.upload,
+                                color: AppColor.deepOrange,
+                                size: 30.sp,
+                              )
+                            ],
+                          )),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          _documentController.uploadDocument();
+                        },
+                        child: Container(
+                          height: 50.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: AppColor.deepOrange,
+                              borderRadius: BorderRadius.circular(8.r)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Upload',
+                                style: CustomTextStyle.h3(
+                                    color: AppColor.textColorWhite),
+                              ),
+                              SizedBox(
+                                width: _documentController.isLoading.value
+                                    ? 15.w
+                                    : 0,
+                              ),
+                              Obx(() {
+                                if (_documentController.isLoading.value) {
+                                  return SizedBox(
+                                    height: 15.sp,
+                                    width: 15.sp,
+                                    child: const CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 3,
+                                    ),
+                                  );
+                                } else {
+                                  return const SizedBox();
+                                }
+                              })
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                    ],
+                  ),
+                );
+              });
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 
-
-  Future<void> pdfDownload(String url, BuildContext context)async{
-
+  Future<void> pdfDownload(String url, BuildContext context) async {
     final Uri uri = Uri.parse(url);
-    if(!await launchUrl(uri)){
-
+    if (!await launchUrl(uri)) {
       var status = await Permission.storage.status;
-      if(status.isDenied){
+      if (status.isDenied) {
         print('Access Denied');
         showAlertDialog(context);
-      }else{
+      } else {
         print('Exception occurred!');
       }
 
       throw Exception('Could not launch $uri');
-
     }
-
   }
 
-  showAlertDialog(context){
+  showAlertDialog(context) {
     return showCupertinoDialog(
         context: context,
         barrierDismissible: false,
-        builder: (BuildContext context){
-          return   CupertinoAlertDialog(
-
-            title:const Text('Permission Denied'),
-            content:const Text('Allow access to download pdf for your storage'),
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: const Text('Permission Denied'),
+            content:
+                const Text('Allow access to download pdf for your storage'),
             actions: [
               CupertinoDialogAction(
-                onPressed: ()=> Navigator.of(context).pop(),
-                  child: const Text('Cancel')
-              ),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancel')),
               CupertinoDialogAction(
-                isDefaultAction: true,
-                  onPressed: ()=> openAppSettings(),
+                  isDefaultAction: true,
+                  onPressed: () => openAppSettings(),
                   child: const Text('Settings'))
             ],
           );
         });
   }
-
 }
