@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:epm/model/photo_model.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Add_Image_Sector/image_details_screen.dart';
@@ -348,14 +347,10 @@ class _AddImageScreenState extends State<AddImageScreen> {
                             _addImageController.pickImageGallery();
                           },
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                'Gallery',
-                                style: CustomTextStyle.h3(
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.deepOrange),
-                              ),
-                              SizedBox(width: 100.w,),
+
+
                               Icon(Icons.upload,
                               color: AppColor.deepOrange,
                               size: 30.sp,)
