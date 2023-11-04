@@ -14,14 +14,14 @@ import '../../../widgets/input_decoration.dart';
 
 
 
-class AddWorkOrderScreen extends StatefulWidget {
-  AddWorkOrderScreen({super.key});
+class UpdateWorkScreen extends StatefulWidget {
+  UpdateWorkScreen({super.key});
 
   @override
-  State<AddWorkOrderScreen> createState() => _AddWorkOrderScreenState();
+  State<UpdateWorkScreen> createState() => _UpdateWorkScreenState();
 }
 
-class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
+class _UpdateWorkScreenState extends State<UpdateWorkScreen> {
 
 
   final Data orderData = Get.arguments;
@@ -45,7 +45,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
             )),
         backgroundColor: const Color(0xFFFFFFFF),
         title: Text(
-          'Add Work List',
+          'Update Work List',
           style: CustomTextStyle.h1(
               color: const Color(0xFFEB6526),
               fontSize: 20.sp,
@@ -75,7 +75,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 height: 5.h,
               ),
               CustomTextField(
-                controller: _addWorkController.itemController,
+                controller: _addWorkController.upItemController,
                 hintText: 'Item name',
               ),
               SizedBox(
@@ -86,7 +86,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 height: 5.h,
               ),
               CustomTextField(
-                controller: _addWorkController.qntController,
+                controller: _addWorkController.upQntController,
                 hintText: 'Quantity',
                 onChanged: (_) => _addWorkController.updateTotal(),
               ),
@@ -98,7 +98,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 height: 5.h,
               ),
               CustomTextField(
-                controller: _addWorkController.priceController,
+                controller: _addWorkController.upPriceController,
                 hintText: 'Price',
                 onChanged: (_) => _addWorkController.updateTotal(),
               ),
@@ -110,7 +110,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 height: 5.h,
               ),
               TextFormField(
-                controller: _addWorkController.comController,
+                controller: _addWorkController.upComController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     fillColor: AppColor.textColor.withOpacity(.1),
@@ -129,7 +129,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 height: 5.h,
               ),
               CustomTextField(
-                controller: _addWorkController.totalController,
+                controller: _addWorkController.upTotalController,
                 readOnly: true,
               ),
               SizedBox(
@@ -137,8 +137,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
               ),
               InkWell(
                 onTap: () {
-                  _addWorkController.uploadEstimation(
-                      orderData.id, orderData.vendorId);
+
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -151,7 +150,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Save',
+                        'Update',
                         style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w600,

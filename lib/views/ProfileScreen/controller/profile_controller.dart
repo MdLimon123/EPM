@@ -8,7 +8,7 @@ class ProfileController extends GetxController {
 
   late ProfileModel profileModel;
 
-  RxList<Data> profileData = <Data>[].obs;
+  RxList<Datas> profileData = <Datas>[].obs;
 
   getProfileData() async {
     isLoading(true);

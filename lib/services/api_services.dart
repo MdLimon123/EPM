@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+
 import 'package:epm/local_storage/my_preference.dart';
 import 'package:epm/model/document_model.dart';
 import 'package:epm/model/log_in_model.dart';
@@ -211,6 +212,7 @@ class ApiServices {
           await client.get(Uri.parse("$getEstimationApi$id"), headers: headers);
 
       if (response.statusCode == 200) {
+
         return workEstimationModelFromJson(response.body);
       } else {
         return response.statusCode;
@@ -401,8 +403,10 @@ class ApiServices {
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
+        print(response);
         return true;
       } else {
+        print(response);
         return false;
       }
     } on Exception catch (e) {

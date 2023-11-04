@@ -14,7 +14,7 @@ import '../../utils/app_color.dart';
 final _addWorkController = Get.put(AddWorkController());
 
 class WorkAddScreen extends StatefulWidget {
-  WorkAddScreen({super.key});
+  const WorkAddScreen({super.key});
 
   @override
   State<WorkAddScreen> createState() => _WorkAddScreenState();
@@ -102,70 +102,81 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                     child: Theme(
                                         data: ThemeData().copyWith(
                                             dividerColor: Colors.transparent),
-                                        child: ListTileTheme(
-                                            contentPadding: EdgeInsets.zero,
-                                            minVerticalPadding: 0,
-                                            dense: true,
-                                            child: ExpansionTile(
-                                              tilePadding: EdgeInsets.zero,
-                                              title: Text(
-                                                result.comment,
-                                                style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color(
-                                                        0xFFEB6526)),
-                                              ),
-                                              children: [
-                                                buildRowItem(
-                                                    title: 'Item Description',
-                                                    subTitle: result.item),
-                                                SizedBox(
-                                                  height: 10.h,
+                                        child: InkWell(
+                                          onTap:(){
+
+                                            _addWorkController.upItemController.text = result.item;
+                                            _addWorkController.upPriceController.text = result.contractorPrice;
+                                            _addWorkController.upQntController.text = result.qty;
+                                            _addWorkController.upComController.text = result.comment;
+                                            _addWorkController.upTotalController.text = result.contractorTotal;
+                                            Get.toNamed(Routes.updateWorkOrder, arguments: data);
+                              },
+                                          child: ListTileTheme(
+                                              contentPadding: EdgeInsets.zero,
+                                              minVerticalPadding: 0,
+                                              dense: true,
+                                              child: ExpansionTile(
+                                                tilePadding: EdgeInsets.zero,
+                                                title: Text(
+                                                  result.comment,
+                                                  style: TextStyle(
+                                                      fontSize: 14.sp,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(
+                                                          0xFFEB6526)),
                                                 ),
-                                                const Divider(
-                                                  height: 1,
-                                                  color: Color(0xFFDBDBDB),
-                                                ),
-                                                SizedBox(
-                                                  height: 10.h,
-                                                ),
-                                                buildRowItem(
-                                                    title: 'Price',
-                                                    subTitle:
-                                                        result.contractorPrice),
-                                                SizedBox(
-                                                  height: 10.h,
-                                                ),
-                                                const Divider(
-                                                  height: 1,
-                                                  color: Color(0xFFDBDBDB),
-                                                ),
-                                                SizedBox(
-                                                  height: 10.h,
-                                                ),
-                                                buildRowItem(
-                                                    title: 'Qty',
-                                                    subTitle: result.qty),
-                                                SizedBox(
-                                                  height: 10.h,
-                                                ),
-                                                const Divider(
-                                                  height: 1,
-                                                  color: Color(0xFFDBDBDB),
-                                                ),
-                                                SizedBox(
-                                                  height: 10.h,
-                                                ),
-                                                buildRowItem(
-                                                    title: 'Total Price',
-                                                    subTitle:
-                                                        result.contractorTotal),
-                                                SizedBox(
-                                                  height: 20.h,
-                                                )
-                                              ],
-                                            ))),
+                                                children: [
+                                                  buildRowItem(
+                                                      title: 'Item Description',
+                                                      subTitle: result.item),
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
+                                                  const Divider(
+                                                    height: 1,
+                                                    color: Color(0xFFDBDBDB),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
+                                                  buildRowItem(
+                                                      title: 'Price',
+                                                      subTitle:
+                                                          result.contractorPrice),
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
+                                                  const Divider(
+                                                    height: 1,
+                                                    color: Color(0xFFDBDBDB),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
+                                                  buildRowItem(
+                                                      title: 'Qty',
+                                                      subTitle: result.qty),
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
+                                                  const Divider(
+                                                    height: 1,
+                                                    color: Color(0xFFDBDBDB),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
+                                                  buildRowItem(
+                                                      title: 'Total Price',
+                                                      subTitle:
+                                                          result.contractorTotal),
+                                                  SizedBox(
+                                                    height: 20.h,
+                                                  )
+                                                ],
+                                              )),
+                                        )),
                                   )
                                 ],
                               );

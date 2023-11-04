@@ -28,6 +28,17 @@ class AddWorkController extends GetxController {
 
   final TextEditingController totalController = TextEditingController();
 
+// update data text field
+  final TextEditingController upItemController = TextEditingController();
+
+  final TextEditingController upQntController = TextEditingController();
+
+  final TextEditingController upPriceController = TextEditingController();
+
+  final TextEditingController upComController = TextEditingController();
+
+  final TextEditingController upTotalController = TextEditingController();
+
   @override
   void onInit() {
     //fetchData(orderData.id.toString());
@@ -111,9 +122,9 @@ class AddWorkController extends GetxController {
 
         Get.toNamed(Routes.workAddScreen, arguments: orderData);
 
-        textFiledClear();
+       // textFiledClear();
       } else {
-        print('Data upload Failed');
+        print('Data upload Failed $result');
         Fluttertoast.showToast(msg: 'Upload send failed');
       }
     } on Exception catch (e) {

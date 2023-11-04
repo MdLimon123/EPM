@@ -1,4 +1,5 @@
 import 'package:epm/views/Add_Image_Sector/add_image_screen.dart';
+import 'package:epm/views/Add_Work_List/update_work_screen.dart';
 
 
 import 'package:epm/views/Auth_Sector/login_screen.dart';
@@ -27,6 +28,7 @@ class Routes {
   static String chatScreen = "/chatScreen";
   static String workAddScreen = "/workAddScreen";
   static String addWorkOrder = "/addWorkOrder";
+  static String updateWorkOrder = "/updateWorkOrder";
 }
 
 List<GetPage> getPage = [
@@ -34,12 +36,13 @@ List<GetPage> getPage = [
   GetPage(name: Routes.workOrderScreen, page: () => WorksOrdersScreen()),
   GetPage(
       name: Routes.workOrderDetailsScreen,
-      page: () => WorkOrderDetailsScreen()),
+      page: () => const WorkOrderDetailsScreen()),
   GetPage(name: Routes.addImageScreen, page: () => AddImageScreen()),
   GetPage(name: Routes.addWorkOrderScreen, page: () => AddWorkOrderScreen()),
   GetPage(name: Routes.documentScreen, page: () => DocumentScreen()),
-  GetPage(name: Routes.mainDashboardScreen, page: () => MainDashboardScreen()),
+  GetPage(name: Routes.mainDashboardScreen, page: () => const MainDashboardScreen()),
   GetPage(name: Routes.chatScreen, page: () => ChatScreen()),
   GetPage(name: Routes.workAddScreen, page: ()=> WorkAddScreen()),
-  GetPage(name: Routes.addWorkOrder, page: ()=> AddWorkOrderScreen())
+  GetPage(name: Routes.addWorkOrder, page: ()=> AddWorkOrderScreen()),
+  GetPage(name: Routes.updateWorkOrder, page:()=> UpdateWorkScreen())
 ];

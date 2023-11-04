@@ -34,11 +34,11 @@ class WorksOrderController extends GetxController {
     'more then 15 days'
   ];
 
-  sortAfterDay(int day, bool isExperd) {
+  sortAfterDay(int day, bool isExpired) {
     searchController.clear();
     DateTime dayAgo = DateTime.now().subtract(Duration(days: day));
     List<Data> result = data.value.where((element) {
-      return isExperd
+      return isExpired
           ? element.createdAt.isAfter(dayAgo)
           : element.createdAt.isBefore(dayAgo);
     }).toList();
@@ -69,9 +69,13 @@ class WorksOrderController extends GetxController {
         debugPrint('Data Error $result');
       }else{
         addWorkModel = result;
-        workData.value = addWorkModel.chats;
+        if(addWorkModel.chats !=null){
+          workData.value = addWorkModel.chats!;
 
-        debugPrint(addWorkModel.toString());
+          debugPrint(addWorkModel.toString());
+
+        }
+
       }
     } on Exception catch (e) {
       debugPrint("Fetch error : $e");

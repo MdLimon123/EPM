@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:epm/controller/add_image_controller.dart';
 import 'package:epm/controller/common_controller.dart';
 import 'package:epm/local_storage/my_preference.dart';
-import 'package:epm/utils/app_image.dart';
+import 'package:epm/model/work_order_model.dart';
+
 import 'package:epm/views/ChatScreen/Controller/chat_controller.dart';
-import 'package:epm/views/ChatScreen/Models/chat_message.dart';
+
 import 'package:epm/views/ChatScreen/Models/user_chat_model.dart';
 import 'package:epm/views/ChatScreen/component/message_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import '../../model/work_order_model.dart';
+
 import '../../utils/app_color.dart';
 
 class ChatScreen extends StatefulWidget {

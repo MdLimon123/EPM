@@ -11,24 +11,24 @@ String addWorkModelToJson(AddWorkModel data) => json.encode(data.toJson());
 class AddWorkModel {
   bool status;
   String message;
-  List<Chat> chats;
+  List<Chat>? chats;
 
   AddWorkModel({
     required this.status,
     required this.message,
-    required this.chats,
+     this.chats,
   });
 
   factory AddWorkModel.fromJson(Map<String, dynamic> json) => AddWorkModel(
     status: json["status"],
     message: json["message"],
-    chats: List<Chat>.from(json["chats"].map((x) => Chat.fromJson(x))),
+    chats:(json['chats'] != null)? List<Chat>.from(json["chats"].map((x) => Chat.fromJson(x))):null,
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "chats": List<dynamic>.from(chats.map((x) => x.toJson())),
+    "chats":chats != null ? List<dynamic>.from(chats!.map((x) => x.toJson())):null,
   };
 }
 
