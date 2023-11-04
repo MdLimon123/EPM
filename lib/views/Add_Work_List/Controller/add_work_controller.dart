@@ -1,4 +1,3 @@
-
 import 'package:epm/services/api_services.dart';
 
 import 'package:epm/views/Add_Work_List/Models/wor_estimation_model.dart';
@@ -35,11 +34,9 @@ class AddWorkController extends GetxController {
     super.onInit();
   }
 
-
   void updateTotal() {
     int quantity = int.tryParse(qntController.text) ?? 0;
     double price = double.tryParse(priceController.text) ?? 0;
-
 
     double totalPrice = quantity * price;
 
@@ -96,7 +93,7 @@ class AddWorkController extends GetxController {
   //
   // }
 
-  uploadEstimation(int id) async {
+  uploadEstimation(int id, String vendorId) async {
     isLoading(true);
     try {
       var result = await ApiServices.uploadEstimation(
@@ -105,7 +102,8 @@ class AddWorkController extends GetxController {
           qty: qntController.text,
           contractor_price: priceController.text,
           contractor_total: totalController.text,
-          comment: comController.text);
+          comment: comController.text,
+          vendor_id: vendorId);
 
       if (result) {
         print('data upload success $result');
@@ -137,23 +135,17 @@ class AddWorkController extends GetxController {
           price: priceController.text,
           additional_instruction: comController.text);
 
-
       if (result) {
         print('data upload success $result');
-
 
         Get.toNamed(Routes.workAddScreen, arguments: orderData);
 
         textFiledClear();
-
-
-      }else{
+      } else {
         debugPrint('Data upload Failed');
-
       }
 
-        Fluttertoast.showToast(msg: 'Upload send failed');
-
+      Fluttertoast.showToast(msg: 'Upload send failed');
     } on Exception catch (e) {
       debugPrint('Data Upload failed. Reason${e.toString()}');
       Fluttertoast.showToast(msg: 'Data Upload failed');

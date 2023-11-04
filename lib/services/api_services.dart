@@ -176,11 +176,6 @@ class ApiServices {
     }
   }
 
-
-
-
-
-
   // details
 
   static dynamic getEstimation(int id) async {
@@ -376,9 +371,7 @@ class ApiServices {
     }
   }
 
-
   /// estimation post
-
 
   static uploadEstimation(
       {required int work_order_id,
@@ -386,9 +379,9 @@ class ApiServices {
       required String qty,
       required String contractor_price,
       required String contractor_total,
-      required String comment}) async {
+      required String comment,
+      required String vendor_id}) async {
     var accessToken = await MyPreference.getToken();
-
 
     try {
       var headers = {'Authorization': 'Bearer $accessToken'};
@@ -401,7 +394,8 @@ class ApiServices {
         'qty[]': qty,
         'contractor_price[]': contractor_price,
         'contractor_total[]': contractor_total,
-        'comment[]': comment
+        'comment[]': comment,
+        'vendor_id': vendor_id
       });
 
       request.headers.addAll(headers);
@@ -459,10 +453,7 @@ class ApiServices {
     }
   }
 
-
   // message send
-
-
 
   static Future<bool> postMessageToUser(
       {required int workOrderId,

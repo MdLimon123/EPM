@@ -1,5 +1,6 @@
 import 'package:epm/Routes/routes.dart';
 import 'package:epm/local_storage/my_preference.dart';
+import 'package:epm/network_cheker/internet_check_dependence.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,8 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
   WidgetsFlutterBinding.ensureInitialized();
   await getToken();
+
+  InternetCheckDependencyInjection.init();
   runApp(
     const MyApp(), // Wrap your app
   );

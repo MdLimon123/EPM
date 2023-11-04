@@ -321,10 +321,9 @@ class _AddImageScreenState extends State<AddImageScreen> {
                 ),
               ],
             )),
-
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.deepOrange,
-        onPressed: (){
+        onPressed: () {
           showModalBottomSheet(
               context: context,
               isScrollControlled: false,
@@ -354,6 +353,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
                               Icon(Icons.upload,
                               color: AppColor.deepOrange,
                               size: 30.sp,)
+
                             ],
                           )),
                       SizedBox(
@@ -408,7 +408,10 @@ class _AddImageScreenState extends State<AddImageScreen> {
                 );
               });
         },
-        child: const Icon(Icons.add, color: Colors.white,),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -477,8 +480,6 @@ class _AddImageScreenState extends State<AddImageScreen> {
       actions: [
         IconButton(
             onPressed: () {
-
-
               // showModalBottomSheet(
               //     context: context,
               //     isScrollControlled: false,
@@ -557,8 +558,6 @@ class _AddImageScreenState extends State<AddImageScreen> {
               //         ),
               //       );
               //     });
-
-
             },
             icon: Icon(
               Icons.adaptive.more,
