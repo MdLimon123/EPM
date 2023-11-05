@@ -18,7 +18,7 @@ class AddWorkController extends GetxController {
 
   RxList<Estimation> estimationList = <Estimation>[].obs;
 
- // final Data orderData = Get.arguments;
+  final Data orderData = Get.arguments;
 
   final TextEditingController itemController = TextEditingController();
 
@@ -186,7 +186,7 @@ class AddWorkController extends GetxController {
         print('data upload success $result');
         Fluttertoast.showToast(msg: 'Estimation upload success');
 
-       // Get.toNamed(Routes.workAddScreen, arguments: orderData);
+        Get.toNamed(Routes.workAddScreen, arguments: orderData);
 
        // textFiledClear();
       } else {

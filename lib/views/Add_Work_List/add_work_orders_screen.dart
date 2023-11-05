@@ -140,7 +140,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 onTap: () {
                   _addWorkController.uploadEstimation(
                       orderData.id, orderData.vendorId);
-                  Get.toNamed(Routes.workAddScreen, arguments: orderData);
+
                 },
                 child: Container(
                   alignment: Alignment.center,
