@@ -34,7 +34,6 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: const Color(0xFFF7F8F9),
         appBar: AppBar(
@@ -90,7 +89,6 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                             itemBuilder: (context, index) {
                               var result =
                                   _addWorkController.estimationList[index];
-
                               return Column(
                                 children: [
                                   Row(
@@ -127,7 +125,10 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                                           .text =
                                                       result.contractorTotal;
 
-                                                  Get.to(UpdateWorkScreen(index: index,));
+                                                  Get.to(UpdateWorkScreen(
+                                                    index: index,
+                                                    data: result,
+                                                  ));
                                                 },
                                                 child: ListTileTheme(
                                                     contentPadding:
@@ -253,7 +254,11 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                                               TextButton(
                                                                   onPressed:
                                                                       () {
-                                                                    _addWorkController.deleteEstimation(index);
+                                                                    _addWorkController.deleteEstimation(
+                                                                        _addWorkController
+                                                                            .estimationList[index]
+                                                                            .id,
+                                                                        index);
                                                                     Get.back();
                                                                   },
                                                                   child: Text(

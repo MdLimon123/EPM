@@ -1,4 +1,3 @@
-
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Add_Work_List/Controller/add_work_controller.dart';
@@ -11,9 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../widgets/input_decoration.dart';
-import '../../Routes/routes.dart';
-
-
 
 class AddWorkOrderScreen extends StatefulWidget {
   AddWorkOrderScreen({super.key});
@@ -23,13 +19,9 @@ class AddWorkOrderScreen extends StatefulWidget {
 }
 
 class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
-
-
   final Data orderData = Get.arguments;
 
   final _addWorkController = Get.put(AddWorkController());
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +132,6 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 onTap: () {
                   _addWorkController.uploadEstimation(
                       orderData.id, orderData.vendorId);
-
                 },
                 child: Container(
                   alignment: Alignment.center,

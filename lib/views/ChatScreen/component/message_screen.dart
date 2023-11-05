@@ -5,21 +5,15 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import 'package:jiffy/jiffy.dart';
 
-
-
 class MessageScreen extends StatelessWidget {
   MessageScreen({super.key, required this.message, required this.isSender});
   Chat message;
   bool isSender;
-
-
-
   @override
   Widget build(BuildContext context) {
     return Row(
-
-         mainAxisAlignment: isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
-
+      mainAxisAlignment:
+          isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
@@ -58,20 +52,22 @@ class MessageScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    Jiffy.parse(message.createdAt.toString()).Hm,
-                    textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12.sp,
-                color: const Color(0xFF969A9E),
-                fontWeight: FontWeight.w400)
-                  ),
+                  Text(Jiffy.parse(message.createdAt.toString()).Hm,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          color: const Color(0xFF969A9E),
+                          fontWeight: FontWeight.w400)),
                   SizedBox(
                     width: 20.w,
                   ),
-                  Text(Jiffy.parse(message.createdAt.toString()).yMMMd,
-                  style: TextStyle(fontSize: 12.sp,
-                  color: const Color(0xFF969A9E),
-                  fontWeight: FontWeight.w400),),
+                  Text(
+                    Jiffy.parse(message.createdAt.toString()).yMMMd,
+                    style: TextStyle(
+                        fontSize: 12.sp,
+                        color: const Color(0xFF969A9E),
+                        fontWeight: FontWeight.w400),
+                  ),
                 ],
               ),
             ),

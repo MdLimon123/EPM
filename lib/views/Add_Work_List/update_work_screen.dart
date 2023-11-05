@@ -1,11 +1,8 @@
-
-import 'package:epm/Routes/routes.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Add_Work_List/Controller/add_work_controller.dart';
 
-import 'package:epm/model/work_order_model.dart';
-import 'package:epm/views/Add_Work_List/add_work_orders_screen.dart';
+import 'package:epm/views/Add_Work_List/Models/wor_estimation_model.dart';
 
 import 'package:epm/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -14,20 +11,15 @@ import 'package:get/get.dart';
 
 import '../../../widgets/input_decoration.dart';
 
-
-
 class UpdateWorkScreen extends StatelessWidget {
-  UpdateWorkScreen({super.key, required this.index});
+  UpdateWorkScreen({super.key, required this.data, required this.index});
 
   final _addWorkController = Get.put(AddWorkController());
-
-
-  var index;
-
+  int index;
+  Estimation data;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -133,11 +125,7 @@ class UpdateWorkScreen extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-
-                  _addWorkController.updateEstimation(index);
-
-                  Get.to(AddWorkOrderScreen());
-
+                  _addWorkController.updateEstimation(data.id, index);
                 },
                 child: Container(
                   alignment: Alignment.center,

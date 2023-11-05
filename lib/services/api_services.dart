@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:epm/local_storage/my_preference.dart';
 import 'package:epm/model/document_model.dart';
 import 'package:epm/model/log_in_model.dart';
@@ -212,7 +211,6 @@ class ApiServices {
           await client.get(Uri.parse("$getEstimationApi$id"), headers: headers);
 
       if (response.statusCode == 200) {
-
         return workEstimationModelFromJson(response.body);
       } else {
         return response.statusCode;
@@ -249,32 +247,28 @@ class ApiServices {
 
   // delete estimation
 
-  static dynamic deleteEstimation(int id)async{
+  static dynamic deleteEstimation(int id) async {
     var accessToken = await MyPreference.getToken();
 
     try {
-      var headers = {
-        'Authorization': 'Bearer $accessToken'
-      };
+      var headers = {'Authorization': 'Bearer $accessToken'};
 
       var response = await client.get(Uri.parse("$deleteEstimationApi$id"),
-      headers: headers);
+          headers: headers);
 
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         return jsonEncode(response.body);
-      }else{
-        print("error===========");
+      } else {
+        print("error ===========");
         return response.statusCode;
       }
     } on Exception catch (e) {
-      if(kDebugMode){
+      if (kDebugMode) {
         print('Estimation Delete Error : $e');
       }
       return 1;
     }
   }
-
-
 
   // delete document
   static dynamic deleteDocument(int id) async {
@@ -403,18 +397,20 @@ class ApiServices {
   }
 
   // update Estimation
-  static updateEstimation({ required int id,
-    required String item,
-  required String qty,
-  required String contractor_price,
-  required String contractor_total,
-  required String comment})async{
+  static updateEstimation(
+      {required int id,
+      required String item,
+      required String qty,
+      required String contractor_price,
+      required String contractor_total,
+      required String comment}) async {
     var accessToken = await MyPreference.getToken();
 
     try {
       var headers = {'Authorization': 'Bearer $accessToken'};
 
-      var request = http.MultipartRequest('POST',Uri.parse("$updateEstimationApi$id"));
+      var request =
+          http.MultipartRequest('POST', Uri.parse("$updateEstimationApi$id"));
 
       request.fields.addAll({
         'item': item,
@@ -427,17 +423,16 @@ class ApiServices {
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
 
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         print(response);
         return true;
-      }else{
+      } else {
         return false;
       }
     } on Exception catch (e) {
       debugPrint("Data Upload error $e");
       return false;
     }
-
   }
 
   /// estimation post
