@@ -44,5 +44,5 @@ List<GetPage> getPage = [
   GetPage(name: Routes.chatScreen, page: () => ChatScreen()),
   GetPage(name: Routes.workAddScreen, page: ()=> WorkAddScreen()),
   GetPage(name: Routes.addWorkOrder, page: ()=> AddWorkOrderScreen()),
-   GetPage(name: Routes.updateWorkOrder, page:()=> UpdateWorkScreen())
+  // GetPage(name: Routes.updateWorkOrder, page:()=> UpdateWorkScreen())
 ];

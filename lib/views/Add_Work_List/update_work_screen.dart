@@ -17,17 +17,17 @@ import '../../../widgets/input_decoration.dart';
 
 
 class UpdateWorkScreen extends StatelessWidget {
-  UpdateWorkScreen({super.key});
+  UpdateWorkScreen({super.key, required this.index});
 
   final _addWorkController = Get.put(AddWorkController());
 
-  final Map data = Get.arguments;
+
+  var index;
 
 
   @override
   Widget build(BuildContext context) {
-    var index = data['id'];
-    var dataId = data['id'];
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

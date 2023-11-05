@@ -126,12 +126,8 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                                           .upTotalController
                                                           .text =
                                                       result.contractorTotal;
-                                                  Get.toNamed(
-                                                      Routes.updateWorkOrder,
-                                                      arguments:{
-                                                        'id': "${result.id}"
-                                                      });
-                                                  // Get.to(UpdateWorkScreen(index: index));
+
+                                                  Get.to(UpdateWorkScreen(index: index,));
                                                 },
                                                 child: ListTileTheme(
                                                     contentPadding:
