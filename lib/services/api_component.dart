@@ -15,3 +15,6 @@ String addWorkApi = "${baseUrl}work-order-item-details/";
 String addWorkOrderPost = "${baseUrl}work-order-item-details-store";
 String getEstimationApi = "${baseUrl}work-order-estimation/";
 String postEstimationApi = "${baseUrl}work-order-estimation-submit";
+String deleteEstimationApi = "${baseUrl}work-order-estimation-delete/";
+String updateEstimationApi = "${baseUrl}work-order-estimation-edit/";
+

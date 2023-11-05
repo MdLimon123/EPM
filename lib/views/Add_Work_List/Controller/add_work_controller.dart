@@ -1,7 +1,9 @@
 import 'package:epm/services/api_services.dart';
 
 import 'package:epm/views/Add_Work_List/Models/wor_estimation_model.dart';
+import 'package:epm/views/Add_Work_List/work_add_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -16,7 +18,7 @@ class AddWorkController extends GetxController {
 
   RxList<Estimation> estimationList = <Estimation>[].obs;
 
-  final Data orderData = Get.arguments;
+ // final Data orderData = Get.arguments;
 
   final TextEditingController itemController = TextEditingController();
 
@@ -41,7 +43,7 @@ class AddWorkController extends GetxController {
 
   @override
   void onInit() {
-    //fetchData(orderData.id.toString());
+
     super.onInit();
   }
 
@@ -53,6 +55,17 @@ class AddWorkController extends GetxController {
 
     totalController.text = totalPrice.toStringAsFixed(2);
   }
+
+  void updateTotalPrice() {
+    int quantity = int.tryParse(upQntController.text) ?? 0;
+    double price = double.tryParse(upPriceController.text) ?? 0;
+
+    double totalPrice = quantity * price;
+
+    upTotalController.text = totalPrice.toStringAsFixed(2);
+  }
+
+
 
   textFiledClear() {
     itemController.clear();
@@ -77,6 +90,59 @@ class AddWorkController extends GetxController {
     } on Exception catch (e) {
       debugPrint("Fetch error : $e");
     } finally {
+      isLoading(false);
+    }
+  }
+
+
+  Future<void> deleteEstimation( int index)async{
+
+    try {
+      var result = await ApiServices.deleteEstimation(index);
+
+      if(result.runtimeType == int){
+        if (kDebugMode) {
+          print('Delete Failed : $result');
+          Get.snackbar('Delete Estimation', 'Failed',
+              backgroundColor: Colors.white);
+        }else{
+         // estimationList.removeAt(index);
+          Get.snackbar('Delete Estimation', 'Success',
+              backgroundColor: Colors.white);
+        }
+      }
+    } on Exception catch (e) {
+      if(kDebugMode){
+        print("Not Delete Estimation ${e.toString()}");
+      }
+    }
+  }
+
+
+  updateEstimation(int id)async{
+    isLoading(true);
+    try {
+      var result = await ApiServices.updateEstimation(
+          id: id,
+          item: upItemController.text,
+          qty: upQntController.text,
+          contractor_price: upPriceController.text,
+          contractor_total: upTotalController.text,
+          comment: upComController.text);
+
+      if(result){
+        print('Update Data success $result');
+        Fluttertoast.showToast(msg: 'Estimation Update success');
+
+        //Get.toNamed(Routes.workAddScreen, arguments: orderData);
+      }else{
+        print('Data update Failed $result');
+        Fluttertoast.showToast(msg: 'Update send failed');
+      }
+    } on Exception catch (e) {
+      print('Data Update failed. Reason${e.toString()}');
+      Fluttertoast.showToast(msg: 'Data Update failed');
+    }finally{
       isLoading(false);
     }
   }
@@ -120,7 +186,7 @@ class AddWorkController extends GetxController {
         print('data upload success $result');
         Fluttertoast.showToast(msg: 'Estimation upload success');
 
-        Get.toNamed(Routes.workAddScreen, arguments: orderData);
+       // Get.toNamed(Routes.workAddScreen, arguments: orderData);
 
        // textFiledClear();
       } else {
@@ -149,7 +215,7 @@ class AddWorkController extends GetxController {
       if (result) {
         print('data upload success $result');
 
-        Get.toNamed(Routes.workAddScreen, arguments: orderData);
+        //Get.toNamed(Routes.workAddScreen, arguments: orderData);
 
         textFiledClear();
       } else {

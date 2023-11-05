@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../widgets/input_decoration.dart';
+import '../../Routes/routes.dart';
 
 
 
@@ -139,6 +140,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
                 onTap: () {
                   _addWorkController.uploadEstimation(
                       orderData.id, orderData.vendorId);
+                  Get.toNamed(Routes.workAddScreen, arguments: orderData);
                 },
                 child: Container(
                   alignment: Alignment.center,

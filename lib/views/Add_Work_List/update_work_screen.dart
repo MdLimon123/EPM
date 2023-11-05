@@ -1,9 +1,11 @@
 
+import 'package:epm/Routes/routes.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Add_Work_List/Controller/add_work_controller.dart';
 
 import 'package:epm/model/work_order_model.dart';
+import 'package:epm/views/Add_Work_List/add_work_orders_screen.dart';
 
 import 'package:epm/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -14,24 +16,18 @@ import '../../../widgets/input_decoration.dart';
 
 
 
-class UpdateWorkScreen extends StatefulWidget {
+class UpdateWorkScreen extends StatelessWidget {
   UpdateWorkScreen({super.key});
-
-  @override
-  State<UpdateWorkScreen> createState() => _UpdateWorkScreenState();
-}
-
-class _UpdateWorkScreenState extends State<UpdateWorkScreen> {
-
-
-  final Data orderData = Get.arguments;
 
   final _addWorkController = Get.put(AddWorkController());
 
+  final Map data = Get.arguments;
 
 
   @override
   Widget build(BuildContext context) {
+    var index = data['id'];
+    var dataId = data['id'];
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -88,7 +84,7 @@ class _UpdateWorkScreenState extends State<UpdateWorkScreen> {
               CustomTextField(
                 controller: _addWorkController.upQntController,
                 hintText: 'Quantity',
-                onChanged: (_) => _addWorkController.updateTotal(),
+                onChanged: (_) => _addWorkController.updateTotalPrice(),
               ),
               SizedBox(
                 height: 15.h,
@@ -100,7 +96,7 @@ class _UpdateWorkScreenState extends State<UpdateWorkScreen> {
               CustomTextField(
                 controller: _addWorkController.upPriceController,
                 hintText: 'Price',
-                onChanged: (_) => _addWorkController.updateTotal(),
+                onChanged: (_) => _addWorkController.updateTotalPrice(),
               ),
               SizedBox(
                 height: 15.h,
@@ -137,6 +133,10 @@ class _UpdateWorkScreenState extends State<UpdateWorkScreen> {
               ),
               InkWell(
                 onTap: () {
+
+                  _addWorkController.updateEstimation(index);
+
+                  Get.to(AddWorkOrderScreen());
 
                 },
                 child: Container(

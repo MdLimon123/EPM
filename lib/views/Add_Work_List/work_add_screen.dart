@@ -1,6 +1,6 @@
-
 import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Add_Work_List/Controller/add_work_controller.dart';
+import 'package:epm/views/Add_Work_List/update_work_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,6 +34,7 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: const Color(0xFFF7F8F9),
         appBar: AppBar(
@@ -92,91 +93,206 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
 
                               return Column(
                                 children: [
-                                  Container(
-                                    margin: EdgeInsets.only(top: 10.h),
-                                    padding: EdgeInsets.only(left: 5.w),
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xFFFFFFFF),
-                                        borderRadius:
-                                            BorderRadius.circular(12.r)),
-                                    child: Theme(
-                                        data: ThemeData().copyWith(
-                                            dividerColor: Colors.transparent),
-                                        child: InkWell(
-                                          onTap:(){
-
-                                            _addWorkController.upItemController.text = result.item;
-                                            _addWorkController.upPriceController.text = result.contractorPrice;
-                                            _addWorkController.upQntController.text = result.qty;
-                                            _addWorkController.upComController.text = result.comment;
-                                            _addWorkController.upTotalController.text = result.contractorTotal;
-                                            Get.toNamed(Routes.updateWorkOrder, arguments: data);
-                              },
-                                          child: ListTileTheme(
-                                              contentPadding: EdgeInsets.zero,
-                                              minVerticalPadding: 0,
-                                              dense: true,
-                                              child: ExpansionTile(
-                                                tilePadding: EdgeInsets.zero,
-                                                title: Text(
-                                                  result.comment,
-                                                  style: TextStyle(
-                                                      fontSize: 14.sp,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: const Color(
-                                                          0xFFEB6526)),
-                                                ),
-                                                children: [
-                                                  buildRowItem(
-                                                      title: 'Item Description',
-                                                      subTitle: result.item),
-                                                  SizedBox(
-                                                    height: 10.h,
-                                                  ),
-                                                  const Divider(
-                                                    height: 1,
-                                                    color: Color(0xFFDBDBDB),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10.h,
-                                                  ),
-                                                  buildRowItem(
-                                                      title: 'Price',
-                                                      subTitle:
-                                                          result.contractorPrice),
-                                                  SizedBox(
-                                                    height: 10.h,
-                                                  ),
-                                                  const Divider(
-                                                    height: 1,
-                                                    color: Color(0xFFDBDBDB),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10.h,
-                                                  ),
-                                                  buildRowItem(
-                                                      title: 'Qty',
-                                                      subTitle: result.qty),
-                                                  SizedBox(
-                                                    height: 10.h,
-                                                  ),
-                                                  const Divider(
-                                                    height: 1,
-                                                    color: Color(0xFFDBDBDB),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10.h,
-                                                  ),
-                                                  buildRowItem(
-                                                      title: 'Total Price',
-                                                      subTitle:
-                                                          result.contractorTotal),
-                                                  SizedBox(
-                                                    height: 20.h,
-                                                  )
-                                                ],
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          margin: EdgeInsets.only(top: 10.h),
+                                          padding: EdgeInsets.only(left: 5.w),
+                                          decoration: BoxDecoration(
+                                              color: const Color(0xFFFFFFFF),
+                                              borderRadius:
+                                                  BorderRadius.circular(12.r)),
+                                          child: Theme(
+                                              data: ThemeData().copyWith(
+                                                  dividerColor:
+                                                      Colors.transparent),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  _addWorkController
+                                                      .upItemController
+                                                      .text = result.item;
+                                                  _addWorkController
+                                                          .upPriceController
+                                                          .text =
+                                                      result.contractorPrice;
+                                                  _addWorkController
+                                                      .upQntController
+                                                      .text = result.qty;
+                                                  _addWorkController
+                                                      .upComController
+                                                      .text = result.comment;
+                                                  _addWorkController
+                                                          .upTotalController
+                                                          .text =
+                                                      result.contractorTotal;
+                                                  Get.toNamed(
+                                                      Routes.updateWorkOrder,
+                                                      arguments:{
+                                                        'id': "${result.id}"
+                                                      });
+                                                  // Get.to(UpdateWorkScreen(index: index));
+                                                },
+                                                child: ListTileTheme(
+                                                    contentPadding:
+                                                        EdgeInsets.zero,
+                                                    minVerticalPadding: 0,
+                                                    dense: true,
+                                                    child: ExpansionTile(
+                                                      tilePadding:
+                                                          EdgeInsets.zero,
+                                                      title: Text(
+                                                        result.comment,
+                                                        style: TextStyle(
+                                                            fontSize: 14.sp,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: const Color(
+                                                                0xFFEB6526)),
+                                                      ),
+                                                      children: [
+                                                        buildRowItem(
+                                                            title:
+                                                                'Item Description',
+                                                            subTitle:
+                                                                result.item),
+                                                        SizedBox(
+                                                          height: 10.h,
+                                                        ),
+                                                        const Divider(
+                                                          height: 1,
+                                                          color:
+                                                              Color(0xFFDBDBDB),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10.h,
+                                                        ),
+                                                        buildRowItem(
+                                                            title: 'Price',
+                                                            subTitle: result
+                                                                .contractorPrice),
+                                                        SizedBox(
+                                                          height: 10.h,
+                                                        ),
+                                                        const Divider(
+                                                          height: 1,
+                                                          color:
+                                                              Color(0xFFDBDBDB),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10.h,
+                                                        ),
+                                                        buildRowItem(
+                                                            title: 'Qty',
+                                                            subTitle:
+                                                                result.qty),
+                                                        SizedBox(
+                                                          height: 10.h,
+                                                        ),
+                                                        const Divider(
+                                                          height: 1,
+                                                          color:
+                                                              Color(0xFFDBDBDB),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10.h,
+                                                        ),
+                                                        buildRowItem(
+                                                            title:
+                                                                'Total Price',
+                                                            subTitle: result
+                                                                .contractorTotal),
+                                                        SizedBox(
+                                                          height: 20.h,
+                                                        )
+                                                      ],
+                                                    )),
                                               )),
-                                        )),
+                                        ),
+                                      ),
+                                      PopupMenuButton(
+                                          onSelected: (value) {},
+                                          icon: Icon(
+                                            Icons.adaptive.more,
+                                            color: const Color(0xFF000000),
+                                          ),
+                                          itemBuilder: (BuildContext context) {
+                                            return [
+                                              PopupMenuItem(
+                                                  onTap: () {
+                                                    showDialog(
+                                                        barrierDismissible:
+                                                            true,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                              'Delete Estimation',
+                                                              style: CustomTextStyle.h1(
+                                                                  color: AppColor
+                                                                      .deepOrange,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                            ),
+                                                            content: Text(
+                                                              'Are you sure you want to delete Estimation!',
+                                                              style: CustomTextStyle.h3(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400),
+                                                            ),
+                                                            actions: [
+                                                              TextButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Get.back();
+                                                                  },
+                                                                  child: Text(
+                                                                    'Cancel',
+                                                                    style: CustomTextStyle.h3(
+                                                                        fontWeight:
+                                                                            FontWeight.w400),
+                                                                  )),
+                                                              TextButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    _addWorkController.deleteEstimation(index);
+                                                                    Get.back();
+                                                                  },
+                                                                  child: Text(
+                                                                    'Ok',
+                                                                    style: CustomTextStyle.h3(
+                                                                        fontWeight:
+                                                                            FontWeight.w400),
+                                                                  )),
+                                                            ],
+                                                          );
+                                                        });
+                                                  },
+                                                  value: 'delete',
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        'Delete',
+                                                        style:
+                                                            CustomTextStyle.h3(
+                                                                color: AppColor
+                                                                    .blackColor),
+                                                      ),
+                                                      const Icon(
+                                                        Icons.delete,
+                                                        color:
+                                                            Color(0xFFEB6526),
+                                                      )
+                                                    ],
+                                                  )),
+                                            ];
+                                          })
+                                    ],
                                   )
                                 ],
                               );

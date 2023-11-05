@@ -71,7 +71,7 @@ class DocumentController extends GetxController {
       var result = await ApiServices.deleteDocument(id);
       if (result.runtimeType == int) {
         if (kDebugMode) {
-          print('Delete Faild : $result');
+          print('Delete Failed : $result');
         }
       } else {
         //getDocument(id);
