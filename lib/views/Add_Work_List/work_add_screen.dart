@@ -138,6 +138,7 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                                     child: ExpansionTile(
                                                       tilePadding:
                                                           EdgeInsets.zero,
+
                                                       title: Text(
                                                         result.comment,
                                                         style: TextStyle(
@@ -255,9 +256,7 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                                                   onPressed:
                                                                       () {
                                                                     _addWorkController.deleteEstimation(
-                                                                        _addWorkController
-                                                                            .estimationList[index]
-                                                                            .id,
+
                                                                         index);
                                                                     Get.back();
                                                                   },

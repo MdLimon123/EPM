@@ -58,6 +58,18 @@ class AddWorkController extends GetxController {
     upTotalController.text = totalPrice.toStringAsFixed(2);
   }
 
+
+  textClear(){
+    itemController.clear();
+    qntController.clear();
+    priceController.clear();
+    comController.clear();
+    totalController.clear();
+  }
+
+
+
+
   fetchData(String id) async {
     isLoading(true);
     try {
@@ -77,9 +89,10 @@ class AddWorkController extends GetxController {
     }
   }
 
-  Future<void> deleteEstimation(int id, int index) async {
+  Future<void> deleteEstimation(int index) async {
+    isLoading(true);
     try {
-      var result = await ApiServices.deleteEstimation(id);
+      var result = await ApiServices.deleteEstimation(estimationList[index].id);
 
       if (result.runtimeType == int) {
         if (kDebugMode) {
@@ -87,18 +100,25 @@ class AddWorkController extends GetxController {
           Get.snackbar('Delete Estimation', 'Failed',
               backgroundColor: Colors.white);
         } else {
-          print(index);
-          estimationList.removeAt(index);
-          fetchData(id.toString());
-          estimationList.refresh();
-          Get.snackbar('Delete Estimation', 'Success',
-              backgroundColor: Colors.white);
+          if(index >= 0 && index < estimationList.length){
+            print("Delete >>>>>>>>");
+            estimationList.removeAt(index);
+            fetchData(orderData.id.toString());
+            Fluttertoast.showToast(msg: 'Data Deleted success',
+                gravity: ToastGravity.BOTTOM,
+                textColor: Colors.white,
+                toastLength: Toast.LENGTH_LONG,
+                backgroundColor: Colors.black);
+          }
+
         }
       }
     } on Exception catch (e) {
       if (kDebugMode) {
         print("Not Delete Estimation ${e.toString()}");
       }
+    }finally{
+      isLoading(false);
     }
   }
 
@@ -151,6 +171,7 @@ class AddWorkController extends GetxController {
         Fluttertoast.showToast(msg: 'Estimation upload success');
 
         Get.toNamed(Routes.workAddScreen, arguments: orderData);
+        textClear();
       } else {
         print('Data upload Failed $result');
         Fluttertoast.showToast(msg: 'Upload send failed');

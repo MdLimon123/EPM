@@ -28,6 +28,8 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+
+        backgroundColor: const Color(0xFFFFFFFF),
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -36,7 +38,6 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
               Icons.arrow_back,
               color: Color(0xFF000000),
             )),
-        backgroundColor: const Color(0xFFFFFFFF),
         title: Text(
           'Add Work List',
           style: CustomTextStyle.h1(

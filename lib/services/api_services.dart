@@ -251,12 +251,15 @@ class ApiServices {
     var accessToken = await MyPreference.getToken();
 
     try {
-      var headers = {'Authorization': 'Bearer $accessToken'};
+      var headers = {'Authorization': 'Bearer $accessToken',
+        'Content-Type': 'application/json',
+      };
 
       var response = await client.get(Uri.parse("$deleteEstimationApi$id"),
           headers: headers);
 
       if (response.statusCode == 200) {
+        print('success delete');
         return jsonEncode(response.body);
       } else {
         print("error ===========");
