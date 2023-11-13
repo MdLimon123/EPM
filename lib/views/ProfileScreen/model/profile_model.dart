@@ -35,7 +35,7 @@ class ProfileModel {
 
 class Datas {
   int? id;
-  String? uidno;
+  int? uidno;
   String? name;
   String? email;
   String? password;
@@ -56,7 +56,7 @@ class Datas {
 
   factory Datas.fromJson(Map<String, dynamic> json) => Datas(
         id: json["id"],
-        uidno: json["uidno"],
+        uidno: json["uidno"] ?? "",
         name: json["name"],
         email: json["email"],
         password: json["password"],

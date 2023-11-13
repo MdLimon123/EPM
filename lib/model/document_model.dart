@@ -37,8 +37,8 @@ class Datum {
     int id;
     String file;
     dynamic url;
-    String workOrderId;
-    String vendorId;
+    int workOrderId;
+    int vendorId;
     DateTime createdAt;
     DateTime updatedAt;
 

@@ -270,7 +270,7 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
                     ),
                     _customText(
                         title: 'PPW#',
-                        subtitle: data.workTypeId,
+                        subtitle: data.workTypeId.toString(),
                         image: AppImage.city),
                     SizedBox(
                       height: 10.h,
@@ -334,7 +334,7 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
                 height: 6.h,
               ),
               _customText(
-                  title: 'PPW#', subtitle: data.workTypeId, image: AppImage.city),
+                  title: 'PPW#', subtitle: data.workTypeId.toString(), image: AppImage.city),
               SizedBox(
                 height: 6.h,
               ),

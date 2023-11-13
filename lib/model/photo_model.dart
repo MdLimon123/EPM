@@ -37,8 +37,8 @@ class Datum {
     String photo;
     String? url;
     bool isSelected;
-    String workOrderId;
-    String vendorId;
+    int workOrderId;
+    int vendorId;
     DateTime createdAt;
     DateTime updatedAt;
 

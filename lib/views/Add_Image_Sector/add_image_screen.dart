@@ -435,7 +435,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
   //   } on Exception catch (e) {
   //     debugPrint('Error while saving image : $e');
   //   }
-  // }
+  // } 
 
   imageDownload(String imageUrl, BuildContext context) async {
     try {

@@ -132,7 +132,7 @@ class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
               InkWell(
                 onTap: () {
                   _addWorkController.uploadEstimation(
-                      orderData.id, orderData.vendorId);
+                      orderData.contractorId, orderData.vendorId);
                 },
                 child: Container(
                   alignment: Alignment.center,

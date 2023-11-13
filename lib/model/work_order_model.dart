@@ -34,15 +34,15 @@ class WorkOrderModel {
 
 class Data {
     int id;
-    String propertyId;
+    int propertyId;
     String workOrder;
-    String workTypeId;
-    String contractorId;
+    int workTypeId;
+    int contractorId;
     dynamic contractorReceiveDate;
     DateTime contractorDueDate;
     dynamic contractorCompleteDate;
-    String vendorId;
-    String status;
+    int vendorId;
+    int status;
     DateTime createdAt;
     DateTime updatedAt;
     WorkType workType;
@@ -115,8 +115,8 @@ class Data {
 class Document {
     int id;
     String file;
-    String workOrderId;
-    String vendorId;
+    int workOrderId;
+    int vendorId;
     DateTime createdAt;
     DateTime updatedAt;
 
@@ -152,8 +152,8 @@ class Photo {
     int id;
     String photo;
     String? url;
-    String workOrderId;
-    String vendorId;
+    int workOrderId;
+    int vendorId;
     DateTime createdAt;
     DateTime updatedAt;
 
@@ -195,7 +195,7 @@ class Property {
     String state;
     String zip;
     String address;
-    String vendorId;
+    int vendorId;
     DateTime createdAt;
     DateTime updatedAt;
 
@@ -239,7 +239,7 @@ class Property {
 class WorkType {
     int id;
     String name;
-    String vendorId;
+    int vendorId;
     DateTime createdAt;
     DateTime updatedAt;
 

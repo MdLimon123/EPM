@@ -70,10 +70,10 @@ class AddWorkController extends GetxController {
 
 
 
-  fetchData(String id) async {
+  fetchData(int id) async {
     isLoading(true);
     try {
-      var result = await ApiServices.getWorkEstimation(int.parse(id));
+      var result = await ApiServices.getWorkEstimation(id);
 
       if (result.runtimeType == int) {
         debugPrint('Data error $result');
@@ -103,7 +103,7 @@ class AddWorkController extends GetxController {
           if(index >= 0 && index < estimationList.length){
             print("Delete >>>>>>>>");
             estimationList.removeAt(index);
-            fetchData(orderData.id.toString());
+
             Fluttertoast.showToast(msg: 'Data Deleted success',
                 gravity: ToastGravity.BOTTOM,
                 textColor: Colors.white,
@@ -135,9 +135,9 @@ class AddWorkController extends GetxController {
 
       if (result) {
         estimationList.value[index].item = upItemController.text;
-        estimationList.value[index].qty = upQntController.text;
-        estimationList.value[index].contractorPrice = upPriceController.text;
-        estimationList.value[index].contractorTotal = upTotalController.text;
+        estimationList.value[index].qty = int.parse(upQntController.text);
+        estimationList.value[index].contractorPrice = int.parse(upPriceController.text);
+        estimationList.value[index].contractorTotal = int.parse(upTotalController.text);
         estimationList.refresh();
         print('Update Data success $result');
         Fluttertoast.showToast(msg: 'Estimation Update success');
@@ -154,7 +154,7 @@ class AddWorkController extends GetxController {
     }
   }
 
-  uploadEstimation(int id, String vendorId) async {
+  uploadEstimation(int id, int vendorId) async {
     isLoading(true);
     try {
       var result = await ApiServices.uploadEstimation(
@@ -164,7 +164,7 @@ class AddWorkController extends GetxController {
           contractor_price: priceController.text,
           contractor_total: totalController.text,
           comment: comController.text,
-          vendor_id: vendorId);
+          vendor_id: vendorId.toString());
 
       if (result) {
         print('data upload success $result');

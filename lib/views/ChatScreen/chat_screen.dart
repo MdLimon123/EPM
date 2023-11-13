@@ -166,9 +166,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     Fluttertoast.showToast(msg: 'Please input some message');
                   } else {
                     _chatController.sendMessage(
-                        vendorId: orderData.vendorId,
+                        vendorId: orderData.vendorId.toString(),
                         message: _chatController.messageController.text,
-                        memberId: orderData.contractorId,
+                        memberId: orderData.contractorId.toString(),
                         workId: orderData.id);
                   }
                 },

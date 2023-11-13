@@ -26,7 +26,7 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
   @override
   void initState() {
     SchedulerBinding.instance.scheduleFrameCallback((timeStamp) {
-      _addWorkController.fetchData(data.id.toString());
+      _addWorkController.fetchData(data.contractorId);
     });
 
     super.initState();
@@ -113,17 +113,17 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                                   _addWorkController
                                                           .upPriceController
                                                           .text =
-                                                      result.contractorPrice;
+                                                      result.contractorPrice.toString();
                                                   _addWorkController
                                                       .upQntController
-                                                      .text = result.qty;
+                                                      .text = result.qty.toString();
                                                   _addWorkController
                                                       .upComController
                                                       .text = result.comment;
                                                   _addWorkController
                                                           .upTotalController
                                                           .text =
-                                                      result.contractorTotal;
+                                                      result.contractorTotal.toString();
 
                                                   Get.to(UpdateWorkScreen(
                                                     index: index,
@@ -168,7 +168,7 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                                         buildRowItem(
                                                             title: 'Price',
                                                             subTitle: result
-                                                                .contractorPrice),
+                                                                .contractorPrice.toString()),
                                                         SizedBox(
                                                           height: 10.h,
                                                         ),
@@ -183,7 +183,7 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                                         buildRowItem(
                                                             title: 'Qty',
                                                             subTitle:
-                                                                result.qty),
+                                                                result.qty.toString()),
                                                         SizedBox(
                                                           height: 10.h,
                                                         ),
@@ -199,7 +199,7 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                                             title:
                                                                 'Total Price',
                                                             subTitle: result
-                                                                .contractorTotal),
+                                                                .contractorTotal.toString()),
                                                         SizedBox(
                                                           height: 20.h,
                                                         )

@@ -2,7 +2,6 @@
 //
 //     final userChatModel = userChatModelFromJson(jsonString);
 
-
 import 'dart:convert';
 
 UserChatModel userChatModelFromJson(String str) => UserChatModel.fromJson(json.decode(str));
@@ -35,9 +34,9 @@ class UserChatModel {
 
 class Chat {
   int id;
-  String workOrderId;
-  String memberId;
-  String vendorId;
+  int workOrderId;
+  int memberId;
+  int vendorId;
   String message;
   DateTime createdAt;
   DateTime updatedAt;
@@ -80,21 +79,23 @@ class Chat {
 class Member {
   int id;
   String name;
+  String photo;
 
   Member({
     required this.id,
     required this.name,
+    required this.photo,
   });
 
   factory Member.fromJson(Map<String, dynamic> json) => Member(
     id: json["id"],
-    name: json["name"] ,
+    name: json["name"],
+    photo: json["photo"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
+    "photo": photo,
   };
 }
-
-

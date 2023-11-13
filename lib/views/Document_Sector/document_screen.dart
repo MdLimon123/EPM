@@ -1,15 +1,12 @@
 import 'package:epm/controller/document_controller.dart';
 import 'package:epm/utils/app_color.dart';
 import 'package:epm/utils/app_image.dart';
-
 import 'package:epm/utils/text_style.dart';
 import 'package:epm/views/Document_Sector/pdf_viewer.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
