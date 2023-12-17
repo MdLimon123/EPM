@@ -1,4 +1,4 @@
-package com.essentialinfotech.epm
+package com.propert_perspection
 
 import io.flutter.embedding.android.FlutterActivity
 

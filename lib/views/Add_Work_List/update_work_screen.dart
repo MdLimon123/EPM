@@ -172,7 +172,7 @@ class UpdateWorkScreen extends StatelessWidget {
     );
   }
 
-  // void printOrSaveAsDocument(BuildContext context) async {
+
   _titleText(String title) {
     return Text(
       title,

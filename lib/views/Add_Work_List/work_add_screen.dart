@@ -208,90 +208,90 @@ class _WorkAddScreenState extends State<WorkAddScreen> {
                                               )),
                                         ),
                                       ),
-                                      PopupMenuButton(
-                                          onSelected: (value) {},
-                                          icon: Icon(
-                                            Icons.adaptive.more,
-                                            color: const Color(0xFF000000),
-                                          ),
-                                          itemBuilder: (BuildContext context) {
-                                            return [
-                                              PopupMenuItem(
-                                                  onTap: () {
-                                                    showDialog(
-                                                        barrierDismissible:
-                                                            true,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return AlertDialog(
-                                                            title: Text(
-                                                              'Delete Estimation',
-                                                              style: CustomTextStyle.h1(
-                                                                  color: AppColor
-                                                                      .deepOrange,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            ),
-                                                            content: Text(
-                                                              'Are you sure you want to delete Estimation!',
-                                                              style: CustomTextStyle.h3(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400),
-                                                            ),
-                                                            actions: [
-                                                              TextButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    Get.back();
-                                                                  },
-                                                                  child: Text(
-                                                                    'Cancel',
-                                                                    style: CustomTextStyle.h3(
-                                                                        fontWeight:
-                                                                            FontWeight.w400),
-                                                                  )),
-                                                              TextButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    _addWorkController.deleteEstimation(
-
-                                                                        index);
-                                                                    Get.back();
-                                                                  },
-                                                                  child: Text(
-                                                                    'Ok',
-                                                                    style: CustomTextStyle.h3(
-                                                                        fontWeight:
-                                                                            FontWeight.w400),
-                                                                  )),
-                                                            ],
-                                                          );
-                                                        });
-                                                  },
-                                                  value: 'delete',
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        'Delete',
-                                                        style:
-                                                            CustomTextStyle.h3(
-                                                                color: AppColor
-                                                                    .blackColor),
-                                                      ),
-                                                      const Icon(
-                                                        Icons.delete,
-                                                        color:
-                                                            Color(0xFFEB6526),
-                                                      )
-                                                    ],
-                                                  )),
-                                            ];
-                                          })
+                                      // PopupMenuButton(
+                                      //     onSelected: (value) {},
+                                      //     icon: Icon(
+                                      //       Icons.adaptive.more,
+                                      //       color: const Color(0xFF000000),
+                                      //     ),
+                                      //     itemBuilder: (BuildContext context) {
+                                      //       return [
+                                      //         PopupMenuItem(
+                                      //             onTap: () {
+                                      //               showDialog(
+                                      //                   barrierDismissible:
+                                      //                       true,
+                                      //                   context: context,
+                                      //                   builder: (context) {
+                                      //                     return AlertDialog(
+                                      //                       title: Text(
+                                      //                         'Delete Estimation',
+                                      //                         style: CustomTextStyle.h1(
+                                      //                             color: AppColor
+                                      //                                 .deepOrange,
+                                      //                             fontWeight:
+                                      //                                 FontWeight
+                                      //                                     .w600),
+                                      //                       ),
+                                      //                       content: Text(
+                                      //                         'Are you sure you want to delete Estimation!',
+                                      //                         style: CustomTextStyle.h3(
+                                      //                             fontWeight:
+                                      //                                 FontWeight
+                                      //                                     .w400),
+                                      //                       ),
+                                      //                       actions: [
+                                      //                         TextButton(
+                                      //                             onPressed:
+                                      //                                 () {
+                                      //                               Get.back();
+                                      //                             },
+                                      //                             child: Text(
+                                      //                               'Cancel',
+                                      //                               style: CustomTextStyle.h3(
+                                      //                                   fontWeight:
+                                      //                                       FontWeight.w400),
+                                      //                             )),
+                                      //                         TextButton(
+                                      //                             onPressed:
+                                      //                                 () {
+                                      //                               _addWorkController.deleteEstimation(
+                                      //
+                                      //                                   index);
+                                      //                               Get.back();
+                                      //                             },
+                                      //                             child: Text(
+                                      //                               'Ok',
+                                      //                               style: CustomTextStyle.h3(
+                                      //                                   fontWeight:
+                                      //                                       FontWeight.w400),
+                                      //                             )),
+                                      //                       ],
+                                      //                     );
+                                      //                   });
+                                      //             },
+                                      //             value: 'delete',
+                                      //             child: Row(
+                                      //               mainAxisAlignment:
+                                      //                   MainAxisAlignment
+                                      //                       .spaceBetween,
+                                      //               children: [
+                                      //                 Text(
+                                      //                   'Delete',
+                                      //                   style:
+                                      //                       CustomTextStyle.h3(
+                                      //                           color: AppColor
+                                      //                               .blackColor),
+                                      //                 ),
+                                      //                 const Icon(
+                                      //                   Icons.delete,
+                                      //                   color:
+                                      //                       Color(0xFFEB6526),
+                                      //                 )
+                                      //               ],
+                                      //             )),
+                                      //       ];
+                                      //     })
                                     ],
                                   )
                                 ],

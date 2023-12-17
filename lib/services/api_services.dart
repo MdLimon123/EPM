@@ -25,7 +25,7 @@ class ApiServices {
       {required String email, required String password}) async {
     try {
       http.Response response = await client.post(
-        Uri.parse(loginApi),
+        Uri.parse('https://epm.essential-infotech.com/api/login'),
         body: {'email': email, 'password': password},
       );
       if (response.statusCode == 200) {
@@ -81,7 +81,7 @@ class ApiServices {
       var request = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'https://epm.eitrobotics.com/api/work-order-photos-store'));
+              'https://epm.essential-infotech.com/api/work-order-photos-store'));
       request.fields.addAll({
         'work_order_name': workOrderName,
         'work_order_id': workOrderId.toString()
@@ -100,7 +100,7 @@ class ApiServices {
         debugPrint("success ${await response.stream.bytesToString()}");
         return true;
       } else {
-        debugPrint("faild ${await response.stream.bytesToString()}");
+        debugPrint("failed ${await response.stream.bytesToString()}");
         return false;
       }
     } on Exception catch (e) {
@@ -380,7 +380,7 @@ class ApiServices {
 
     var headers = {
       'Authorization': 'Bearer $accessToken',
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Content-Type': 'application/json',
       'Cookie': 'XSRF-TOKEN=eyJpdiI6Ilo3Y0pPd3VSbDM2ZHRrQlFoczdRM3c9PSIsInZhbHVlIjoiRHRidEtEOUxRK0h2N0xQYmpHZ095bmFwTlNqQ0FsYXh3ckc4WDlqdTVnZTNvZlBRL2dxOUFac0VzWGZxRjIxN2NMTThPdnFHT2h6SU1iaUQ1SldNR0xNaGdOWi9BRG1DdnRBaGVTV2RvY0JHRk1kd01mZXMwcG81Q096WDAyOFgiLCJtYWMiOiIxMDM4ODlkODYyODk0YzEwNGE5YmIwNDA4Y2MwMDc0MTFjMjJmMWMyNmE0ZWJkN2U4ZTg5MjZhNWYwNTA3NzIyIiwidGFnIjoiIn0%3D; epm_session=eyJpdiI6InE0V3FHS0ZFN2VYM3UvZGFpa1VQMGc9PSIsInZhbHVlIjoiaW03NzREUlRNVlEyUnNDSC84cVVpYUpNRTlCTFY3OWNpemJ3bGFDKzVnOWVrbHF3Rzh2eG1mWTRKcEZwenVOTU4vSDVuTW5PdDdsYytHZTBPTkF0aGlPM2xTcUNhODFMa01FUFFYdUVNRzZwZXdUMG9uYk0zUmJrOEhZY3FiYkciLCJtYWMiOiI1MGNmNzk5YzU2ODcxOWM5NjZhZmM1YmYyNjAwMTNlZjdiODI2ZTEzMTYwYmNiMjlhYTc2YzdjZjM5MmRlNWVjIiwidGFnIjoiIn0%3D'
     };
 

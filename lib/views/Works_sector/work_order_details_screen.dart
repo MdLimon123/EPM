@@ -503,15 +503,7 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
           color: Color(0xFF000000),
         ),
       ),
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.menu,
-            color: Color(0xFF000000),
-          ),
-        )
-      ],
+
     );
   }
 

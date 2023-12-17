@@ -42,20 +42,20 @@ class AddWorkController extends GetxController {
 
   void updateTotal() {
     int quantity = int.tryParse(qntController.text) ?? 0;
-    double price = double.tryParse(priceController.text) ?? 0;
+    int price = int.tryParse(priceController.text) ?? 0;
 
-    double totalPrice = quantity * price;
+    int totalPrice = quantity * price;
 
-    totalController.text = totalPrice.toStringAsFixed(2);
+    totalController.text = totalPrice.toString();
   }
 
   void updateTotalPrice() {
     int quantity = int.tryParse(upQntController.text) ?? 0;
-    double price = double.tryParse(upPriceController.text) ?? 0;
+    int price = int.tryParse(upPriceController.text) ?? 0;
 
-    double totalPrice = quantity * price;
+    int totalPrice = quantity * price;
 
-    upTotalController.text = totalPrice.toStringAsFixed(2);
+    upTotalController.text = totalPrice.toString();
   }
 
 

@@ -119,6 +119,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 return MessageScreen(
                                   message: result,
                                   isSender: userId == result.member.id,
+                                 // isSender: userId == result.vendorId,
                                 );
                               });
                         } else if (!snapshot.hasData) {
