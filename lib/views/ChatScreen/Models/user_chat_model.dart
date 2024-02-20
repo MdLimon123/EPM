@@ -79,7 +79,7 @@ class Chat {
 class Member {
   int id;
   String name;
-  String photo;
+  dynamic photo;
 
   Member({
     required this.id,

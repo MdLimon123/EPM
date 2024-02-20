@@ -1,4 +1,4 @@
-package com.propert_perspection
+package com.e_promanagement
 
 import io.flutter.embedding.android.FlutterActivity
 

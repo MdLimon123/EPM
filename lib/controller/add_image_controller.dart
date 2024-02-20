@@ -1,6 +1,6 @@
+
 import 'package:epm/controller/photo_controller.dart';
 import 'package:epm/services/api_services.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,8 +34,11 @@ class AddImageController extends GetxController {
     try {
       isLoading(true);
 
+
+
       var result = await ApiServices.uploadPhoto(
-          imagePath: imagePth, workOrderName: workOrder, workOrderId: id);
+          imagePath: imagePth,
+          workOrderName: workOrder, workOrderId: id);
       if (!result) {
 
         if (kDebugMode) {
@@ -57,6 +60,8 @@ class AddImageController extends GetxController {
       isLoading(false);
     }
   }
+
+
 
   Future<void> pickImageCamera() async {
     final picker = ImagePicker();

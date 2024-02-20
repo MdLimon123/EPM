@@ -13,10 +13,10 @@ class WorksOrderController extends GetxController {
 
   late WorkOrderModel workOrderModel;
 
-  RxList<Data> data = <Data>[].obs;
-  RxList<Data> afterDayList = <Data>[].obs;
+  RxList<Datum> data = <Datum>[].obs;
+  RxList<Datum> afterDayList = <Datum>[].obs;
 
-  RxList<Data> searchData = <Data>[].obs;
+  RxList<Datum> searchData = <Datum>[].obs;
 
 
   late AddWorkModel addWorkModel;
@@ -37,7 +37,7 @@ class WorksOrderController extends GetxController {
   sortAfterDay(int day, bool isExpired) {
     searchController.clear();
     DateTime dayAgo = DateTime.now().subtract(Duration(days: day));
-    List<Data> result = data.value.where((element) {
+    List<Datum> result = data.value.where((element) {
       return isExpired
           ? element.createdAt.isAfter(dayAgo)
           : element.createdAt.isBefore(dayAgo);
@@ -124,7 +124,7 @@ class WorksOrderController extends GetxController {
   }
 
   void searchWork(String workOrder) {
-    List<Data> result = <Data>[].obs;
+    List<Datum> result = <Datum>[].obs;
     if (workOrder.isEmpty) {
       result = afterDayList;
       afterDayList.refresh();

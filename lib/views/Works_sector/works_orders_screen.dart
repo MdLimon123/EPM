@@ -338,7 +338,7 @@ class WorksOrdersScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "${item.property.address}, ${item.property.state}",
+                                          "${item.address}",
                                           style: CustomTextStyle.h2(
                                               fontWeight: FontWeight.w600,
                                               color: const Color(0xFF969A9E),
@@ -350,14 +350,14 @@ class WorksOrdersScreen extends StatelessWidget {
                                               Icons.location_on,
                                               color: Color(0xFF969A9E),
                                             ),
-                                            Text(
-                                              "${item.property.city}, ${item.property.zip}",
-                                              style: CustomTextStyle.h2(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16.sp,
-                                                  color:
-                                                      const Color(0xFF969A9E)),
-                                            ),
+                                            // Text(
+                                            //   "${item.property.city}, ${item.property.zip}",
+                                            //   style: CustomTextStyle.h2(
+                                            //       fontWeight: FontWeight.w600,
+                                            //       fontSize: 16.sp,
+                                            //       color:
+                                            //           const Color(0xFF969A9E)),
+                                            // ),
                                           ],
                                         ),
                                         SizedBox(

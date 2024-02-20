@@ -28,7 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final _addImageController = Get.put(AddImageController());
 
-  final Data orderData = Get.arguments;
+  final Datum orderData = Get.arguments;
 
   @override
   void initState() {

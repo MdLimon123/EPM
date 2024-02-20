@@ -19,7 +19,7 @@ class AddWorkOrderScreen extends StatefulWidget {
 }
 
 class _AddWorkOrderScreenState extends State<AddWorkOrderScreen> {
-  final Data orderData = Get.arguments;
+  final Datum orderData = Get.arguments;
 
   final _addWorkController = Get.put(AddWorkController());
 

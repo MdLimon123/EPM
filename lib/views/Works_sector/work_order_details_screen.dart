@@ -21,7 +21,7 @@ class WorkOrderDetailsScreen extends StatefulWidget {
 }
 
 class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
-  final Data data = Get.arguments['data'];
+  final Datum data = Get.arguments['data'];
 
   @override
   void initState() {
@@ -284,22 +284,22 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
                     ),
                     _customText(
                         title: 'Address',
-                        subtitle: data.property.address,
+                        subtitle: data.address,
                         image: AppImage.address),
                     SizedBox(
                       height: 10.h,
                     ),
-                    _customText(
-                        title: 'City/State/Zip',
-                        subtitle: data.property.city,
-                        image: AppImage.city),
+                    // _customText(
+                    //     title: 'City/State/Zip',
+                    //     subtitle: data.property.city,
+                    //     image: AppImage.city),
                     SizedBox(
                       height: 10.h,
                     ),
                     _customText(
                         title: 'Date Due',
                         subtitle:
-                            Jiffy.parse(data.property.createdAt.toString())
+                            Jiffy.parse(data.createdAt.toString())
                                 .yMMMd,
                         image: AppImage.date),
                     SizedBox(
@@ -325,9 +325,6 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
                     ),
 
 
-
-
-
               _customText(
                   title: 'WO#', subtitle: data.workOrder, image: AppImage.work),
               SizedBox(
@@ -347,21 +344,21 @@ class _WorkOrderDetailsScreenState extends State<WorkOrderDetailsScreen> {
               ),
               _customText(
                   title: 'Address',
-                  subtitle: data.property.address,
+                  subtitle: data.address,
                   image: AppImage.address),
               SizedBox(
                 height: 6.h,
               ),
-              _customText(
-                  title: 'City/State/Zip',
-                  subtitle: data.property.city,
-                  image: AppImage.city),
+              // _customText(
+              //     title: 'City/State/Zip',
+              //     subtitle: data.property.city,
+              //     image: AppImage.city),
               SizedBox(
                 height: 6.h,
               ),
               _customText(
                   title: 'Date Due',
-                  subtitle: Jiffy.parse(data.property.createdAt.toString()).yMMMd,
+                  subtitle: Jiffy.parse(data.createdAt.toString()).yMMMd,
                   image: AppImage.date),
               SizedBox(
                 height: 15.h,

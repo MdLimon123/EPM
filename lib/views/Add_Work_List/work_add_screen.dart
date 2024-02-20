@@ -21,7 +21,7 @@ class WorkAddScreen extends StatefulWidget {
 }
 
 class _WorkAddScreenState extends State<WorkAddScreen> {
-  final Data data = Get.arguments;
+  final Datum data = Get.arguments;
 
   @override
   void initState() {

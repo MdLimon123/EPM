@@ -13,20 +13,22 @@ import 'package:epm/views/Add_Work_List/Models/wor_estimation_model.dart';
 import 'package:epm/views/ChatScreen/Models/user_chat_model.dart';
 import 'package:epm/views/ProfileScreen/model/profile_model.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:image/image.dart' as img;
+import 'package:path_provider/path_provider.dart';
 
 class ApiServices {
   static var client = http.Client();
 
   // handle login api
   static Future<dynamic> handleLogin(
-      {required String email, required String password}) async {
+      {required String username, required String password}) async {
     try {
       http.Response response = await client.post(
-        Uri.parse('https://epm.essential-infotech.com/api/login'),
-        body: {'email': email, 'password': password},
+        Uri.parse('http://e-promanagement.com/api/login'),
+        body: {'username': username, 'password': password},
       );
       if (response.statusCode == 200) {
         return logInModelFromJson(response.body);
@@ -74,23 +76,42 @@ class ApiServices {
       required int workOrderId}) async {
     debugPrint(" Image Length : ${imagePath.length}");
     var accessToken = await MyPreference.getToken();
+
     try {
       var headers = {
         'Authorization': 'Bearer $accessToken',
+        'Cookie': 'XSRF-TOKEN=eyJpdiI6IjBNRHU1N0xBWEEzMXBNK3E0aEJJMHc9PSIsInZhbHVlIjoiWGdxVnJpdWVSTEdsUC9aSlBIL2h2RDcwY3Y4UXJKNHV0Qm9vSnV4Nm1OYmJTVmk5bzM4R1dYM3c0Z2ovbXhWbmJobjF0UzRLQ1hUa1dHL1dTYTdyWGJ0QllqVlVCYWV5TU5CenBuMVU0QlBEOTA3dHNXd05aVVB0eTJRVzBLZWIiLCJtYWMiOiI4MzI2MThjOWY5YjlhMmViYTc3NDYxYzFiNzNjNTVhZTdmMjEzOWY1ZTRlNjFmZTEwMjM4Yjk0YTQwNTU2OTk4IiwidGFnIjoiIn0%3D; epm_session=eyJpdiI6ImVmWTBMOEJkTlBMQkRzdFA2U1dIOEE9PSIsInZhbHVlIjoiam9NRkxwUEVnSUpDcEdpR1IzSHh1dXpnek55RXBRdXVkOUlVRk1OeEpYM0lkMG1QWnRnekMrdXlYZFhvRUFxQ25SSlNIcmZ5OGhGN0srL3hpeEh5dGhyaXdrNzdsVFFYVHpvdFVaMWp0QnloM3Jlek5nTVgvOGJZN3JWNGRCTngiLCJtYWMiOiJlMmZjNzhjYzBjNzRhYTU1MjVmNmFlZGVmNWQ4OWI1ZTdjMDNkMDNlMTI2MDMzNDI4NjQ4OTM3NDgzOTgwMWMwIiwidGFnIjoiIn0%3D'
       };
       var request = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'https://epm.essential-infotech.com/api/work-order-photos-store'));
+              postWorkPhoto));
       request.fields.addAll({
         'work_order_name': workOrderName,
         'work_order_id': workOrderId.toString()
       });
-      imagePath.forEach((element) async {
-        print(element.path);
-        request.files
-            .add(await http.MultipartFile.fromPath('photo[]', element.path));
-      });
+      // imagePath.forEach((element) async {
+      //   print(element.path);
+      //   request.files
+      //       .add(await http.MultipartFile.fromPath('photo[]', element.path));
+      // });
+      for(var imagePaths in imagePath){
+        var file = File(imagePaths.path);
+        if(!file.existsSync()){
+          debugPrint('Image file dose not exist :${imagePaths.path}');
+          continue;
+        }
+
+        var image = img.decodeImage(file.readAsBytesSync())!;
+        var compressedImage = img.copyResize(image, width: 800);
+
+        var tempDir = await getTemporaryDirectory();
+        var tempFilePath = '${tempDir.path}/${basename(imagePaths.path)}';
+        File(tempFilePath).writeAsBytesSync(img.encodeJpg(compressedImage, quality: 85));
+
+
+        request.files.add(await http.MultipartFile.fromPath('photo[]', tempFilePath));
+      }
 
       request.headers.addAll(headers);
 

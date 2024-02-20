@@ -20,7 +20,7 @@ class LoginController extends GetxController {
 
   var isVisibility = false.obs;
 
-  final emailController = TextEditingController();
+  final userNameController = TextEditingController();
   final passwordController = TextEditingController();
 
   late SharedPreferences preferences;
@@ -28,17 +28,17 @@ class LoginController extends GetxController {
   @override
   void dispose() {
     super.dispose();
-    emailController.dispose();
+    userNameController.dispose();
     passwordController.dispose();
   }
 
   // handle login method
-  userLogin({required String email, required String password}) async {
+  userLogin({required String userName, required String password}) async {
     isLoading(true);
 
     try {
       var result =
-          await ApiServices.handleLogin(email: email, password: password);
+          await ApiServices.handleLogin(username: userName, password: password);
       if (result.runtimeType == int) {
         Fluttertoast.showToast(msg: "Invalid Credentials");
         debugPrint("Opps sign in Error $result");
@@ -50,7 +50,7 @@ class LoginController extends GetxController {
         await getProfileData();
         Get.offAllNamed(Routes.mainDashboardScreen);
 
-        emailController.clear();
+        userNameController.clear();
         passwordController.clear();
 
         debugPrint("Sign in Successfully");

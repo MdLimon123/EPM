@@ -11,7 +11,7 @@ String workOrderModelToJson(WorkOrderModel data) => json.encode(data.toJson());
 class WorkOrderModel {
     bool status;
     String message;
-    List<Data> data;
+    List<Datum> data;
 
     WorkOrderModel({
         required this.status,
@@ -22,7 +22,7 @@ class WorkOrderModel {
     factory WorkOrderModel.fromJson(Map<String, dynamic> json) => WorkOrderModel(
         status: json["status"],
         message: json["message"],
-        data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -32,36 +32,44 @@ class WorkOrderModel {
     };
 }
 
-class Data {
+class Datum {
     int id;
-    int propertyId;
+    dynamic propertyId;
     String workOrder;
+    String address;
     int workTypeId;
+    int categoryId;
     int contractorId;
     dynamic contractorReceiveDate;
     DateTime contractorDueDate;
+    String specialInstruction;
     dynamic contractorCompleteDate;
     int vendorId;
     int status;
+    dynamic readyForOffice;
     DateTime createdAt;
     DateTime updatedAt;
     WorkType workType;
-    Property property;
+    dynamic property;
     List<Photo> photos;
-    List<Document> documents;
+    List<dynamic> documents;
     List<dynamic> messages;
 
-    Data({
+    Datum({
         required this.id,
         required this.propertyId,
         required this.workOrder,
+        required this.address,
         required this.workTypeId,
+        required this.categoryId,
         required this.contractorId,
-        this.contractorReceiveDate,
+        required this.contractorReceiveDate,
         required this.contractorDueDate,
-        this.contractorCompleteDate,
+        required this.specialInstruction,
+        required this.contractorCompleteDate,
         required this.vendorId,
         required this.status,
+        required this.readyForOffice,
         required this.createdAt,
         required this.updatedAt,
         required this.workType,
@@ -71,23 +79,27 @@ class Data {
         required this.messages,
     });
 
-    factory Data.fromJson(Map<String, dynamic> json) => Data(
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         propertyId: json["property_id"],
         workOrder: json["work_order"],
+        address: json["address"],
         workTypeId: json["work_type_id"],
+        categoryId: json["category_id"],
         contractorId: json["contractor_id"],
         contractorReceiveDate: json["contractor_receive_date"],
         contractorDueDate: DateTime.parse(json["contractor_due_date"]),
+        specialInstruction: json["special_instruction"],
         contractorCompleteDate: json["contractor_complete_date"],
         vendorId: json["vendor_id"],
         status: json["status"],
+        readyForOffice: json["ready_for_office"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         workType: WorkType.fromJson(json["work_type"]),
-        property: Property.fromJson(json["property"]),
+        property: json["property"],
         photos: List<Photo>.from(json["photos"].map((x) => Photo.fromJson(x))),
-        documents: List<Document>.from(json["documents"].map((x) => Document.fromJson(x))),
+        documents: List<dynamic>.from(json["documents"].map((x) => x)),
         messages: List<dynamic>.from(json["messages"].map((x) => x)),
     );
 
@@ -95,63 +107,31 @@ class Data {
         "id": id,
         "property_id": propertyId,
         "work_order": workOrder,
+        "address": address,
         "work_type_id": workTypeId,
+        "category_id": categoryId,
         "contractor_id": contractorId,
         "contractor_receive_date": contractorReceiveDate,
         "contractor_due_date": contractorDueDate.toIso8601String(),
+        "special_instruction": specialInstruction,
         "contractor_complete_date": contractorCompleteDate,
         "vendor_id": vendorId,
         "status": status,
+        "ready_for_office": readyForOffice,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "work_type": workType.toJson(),
-        "property": property.toJson(),
+        "property": property,
         "photos": List<dynamic>.from(photos.map((x) => x.toJson())),
-        "documents": List<dynamic>.from(documents.map((x) => x.toJson())),
+        "documents": List<dynamic>.from(documents.map((x) => x)),
         "messages": List<dynamic>.from(messages.map((x) => x)),
-    };
-}
-
-class Document {
-    int id;
-    String file;
-    int workOrderId;
-    int vendorId;
-    DateTime createdAt;
-    DateTime updatedAt;
-
-    Document({
-        required this.id,
-        required this.file,
-        required this.workOrderId,
-        required this.vendorId,
-        required this.createdAt,
-        required this.updatedAt,
-    });
-
-    factory Document.fromJson(Map<String, dynamic> json) => Document(
-        id: json["id"],
-        file: json["file"],
-        workOrderId: json["work_order_id"],
-        vendorId: json["vendor_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "file": file,
-        "work_order_id": workOrderId,
-        "vendor_id": vendorId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
     };
 }
 
 class Photo {
     int id;
     String photo;
-    String? url;
+    String url;
     int workOrderId;
     int vendorId;
     DateTime createdAt;
@@ -160,7 +140,7 @@ class Photo {
     Photo({
         required this.id,
         required this.photo,
-        this.url,
+        required this.url,
         required this.workOrderId,
         required this.vendorId,
         required this.createdAt,
@@ -182,54 +162,6 @@ class Photo {
         "photo": photo,
         "url": url,
         "work_order_id": workOrderId,
-        "vendor_id": vendorId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-    };
-}
-
-class Property {
-    int id;
-    String name;
-    String city;
-    String state;
-    String zip;
-    String address;
-    int vendorId;
-    DateTime createdAt;
-    DateTime updatedAt;
-
-    Property({
-        required this.id,
-        required this.name,
-        required this.city,
-        required this.state,
-        required this.zip,
-        required this.address,
-        required this.vendorId,
-        required this.createdAt,
-        required this.updatedAt,
-    });
-
-    factory Property.fromJson(Map<String, dynamic> json) => Property(
-        id: json["id"],
-        name: json["name"],
-        city: json["city"],
-        state: json["state"],
-        zip: json["zip"],
-        address: json["address"],
-        vendorId: json["vendor_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "city": city,
-        "state": state,
-        "zip": zip,
-        "address": address,
         "vendor_id": vendorId,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),

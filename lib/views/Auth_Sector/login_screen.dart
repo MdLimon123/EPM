@@ -46,14 +46,12 @@ class LoginScreen extends StatelessWidget {
                   height: 15.h,
                 ),
                 CustomTextField(
-                  controller: _loginController.emailController,
-                  hintText: 'email',
-                  keyboardType: TextInputType.emailAddress,
+                  controller: _loginController.userNameController,
+                  hintText: 'username',
+                  keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Field is Empty";
-                    } else if (value.contains('@') && !value.contains('.')) {
-                      return 'Invalid Your Email';
                     }
                     return null;
                   },
@@ -103,7 +101,7 @@ class LoginScreen extends StatelessWidget {
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
                       _loginController.userLogin(
-                          email: _loginController.emailController.text,
+                          userName: _loginController.userNameController.text,
                           password: _loginController.passwordController.text);
                     }
                   },

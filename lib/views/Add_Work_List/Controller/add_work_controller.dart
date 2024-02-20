@@ -17,7 +17,7 @@ class AddWorkController extends GetxController {
 
   RxList<Estimation> estimationList = <Estimation>[].obs;
 
-  final Data orderData = Get.arguments;
+  final Datum orderData = Get.arguments;
 
   final TextEditingController itemController = TextEditingController();
 
